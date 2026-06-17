@@ -90,21 +90,50 @@
 		});
 	});
 
-	/* email capture — front-end stub. Wire to your backend / PocketBase. */
+	/* ───── email capture ─────────────────────────────────────────────
+	   Set WAITLIST_ENDPOINT to your provider's URL to start storing signups.
+	   It POSTs JSON { email, source } and treats any 2xx as success.
+	   Works with Kit/ConvertKit, Formspree, a serverless function, etc.
+	   Leave it "" and the form still confirms (so the page is never broken). */
+	const WAITLIST_ENDPOINT = '';
+
+	const done = (form, msg, input, btn, text) => {
+		form.classList.add('is-done');
+		if (msg) msg.textContent = text;
+		input.value = ''; input.disabled = true;
+		if (btn) {
+			btn.disabled = true; btn.style.opacity = '0.65';
+			const label = btn.childNodes[0];
+			if (label) label.textContent = 'You’re in ';
+		}
+	};
+
 	document.querySelectorAll('[data-capture]').forEach((form) => {
 		const msg = form.querySelector('.capture__msg');
 		const input = form.querySelector('input[type="email"]');
 		const btn = form.querySelector('button[type="submit"]');
-		form.addEventListener('submit', (e) => {
+		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
 			if (!input.checkValidity()) { input.reportValidity(); return; }
-			form.classList.add('is-done');
-			if (msg) msg.textContent = "You're in the feed. We'll be in touch.";
-			input.value = ''; input.disabled = true;
-			if (btn) {
-				btn.disabled = true; btn.style.opacity = '0.6';
-				const label = btn.childNodes[0];
-				if (label) label.textContent = 'Secured ';
+			const email = input.value.trim();
+			const source = form.getAttribute('aria-label') || 'landing';
+
+			if (!WAITLIST_ENDPOINT) {
+				done(form, msg, input, btn, "You're on the list. We'll text you when we go live.");
+				return;
+			}
+			if (btn) { btn.disabled = true; const l = btn.childNodes[0]; if (l) l.textContent = 'Adding… '; }
+			try {
+				const res = await fetch(WAITLIST_ENDPOINT, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ email, source }),
+				});
+				if (!res.ok) throw new Error('bad status ' + res.status);
+				done(form, msg, input, btn, "You're on the list. We'll text you when we go live.");
+			} catch (err) {
+				if (btn) { btn.disabled = false; const l = btn.childNodes[0]; if (l) l.textContent = 'Get Access '; }
+				if (msg) { msg.textContent = 'Hmm, that didn’t go through — try again?'; form.classList.add('is-done'); }
 			}
 		});
 	});

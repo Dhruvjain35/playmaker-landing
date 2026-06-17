@@ -340,8 +340,8 @@ section { scroll-margin-top: 90px; }
 .quote__num span { font-size: 0.86rem; font-weight: 500; opacity: 0.9; }
 .quote figcaption { margin-top: 22px; font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); }
 .merch { border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--bg-2); display: flex; flex-direction: column; box-shadow: var(--shadow-1); }
-.merch__media { min-height: 220px; position: relative; background: radial-gradient(90% 80% at 70% 20%, oklch(0.6 0.14 256 / 0.55), transparent 60%), linear-gradient(160deg, oklch(0.34 0.05 256), oklch(0.2 0.02 256)); }
-.merch__media::after { content: "ORIGIN HOODIE"; position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-eyebrow); letter-spacing: 0.3em; font-size: 0.75rem; color: oklch(1 0 0 / 0.35); }
+.merch__media { background: oklch(0.09 0.01 256); line-height: 0; }
+.merch__media img { width: 100%; height: auto; display: block; }
 .merch__body { padding: clamp(24px, 3.5vw, 36px); display: flex; flex-direction: column; gap: 12px; }
 .merch__body .eyebrow { margin-bottom: 2px; }
 .merch__body p { color: var(--ink-2); }
@@ -401,6 +401,43 @@ section { scroll-margin-top: 90px; }
 .foot__social { display: flex; gap: 18px; }
 .foot__social a:hover { color: var(--ink); }
 
+/* ───────── brand logo + device identity ───────── */
+.brand__logo { width: 28px; height: 28px; border-radius: 7px; box-shadow: 0 4px 12px -4px oklch(0.55 0.16 290 / 0.7); }
+.device__avatar { width: 22px; height: 22px; border-radius: 6px; }
+.device__title { margin-left: 8px; font-family: var(--font-eyebrow); font-weight: 600; letter-spacing: 0.08em; font-size: 0.78rem; color: var(--ink-2); }
+.device__status { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.64rem; color: oklch(0.78 0.15 150); }
+.device__status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: oklch(0.78 0.15 150); box-shadow: 0 0 0 3px oklch(0.78 0.15 150 / 0.2); }
+
+/* team marks */
+.tlogo--cha { background: linear-gradient(135deg, #1d1160, #00a3b1); }   /* Hornets purple/teal */
+.tlogo--mia { background: linear-gradient(135deg, #98002e, #f9a01b); }   /* Heat red/gold */
+
+/* recap text inside a rich bubble */
+.recap { font-size: 0.9rem; color: var(--ink-2); line-height: 1.5; margin-bottom: 12px; }
+.recap b { color: var(--ink); }
+
+/* ───────── proof: real conversations ───────── */
+.proof { padding: var(--space-9) 0; }
+.proof__intro { color: var(--ink-2); max-width: 40ch; }
+.proof__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
+.phone {
+	display: flex; flex-direction: column;
+	border: 1px solid var(--line-2); border-radius: 30px;
+	background: linear-gradient(180deg, var(--surface), var(--bg-2));
+	padding: 10px 10px 4px; box-shadow: var(--shadow-2);
+}
+.phone img { width: 100%; height: auto; display: block; border-radius: 22px; }
+.phone figcaption { margin-top: 14px; padding: 0 8px 10px; font-size: 0.84rem; color: var(--muted); text-align: center; line-height: 1.45; }
+.proof__cta {
+	display: flex; flex-direction: column; justify-content: center; gap: 16px;
+	background: linear-gradient(160deg, oklch(0.3 0.06 256), var(--bg-2));
+	border: 1px solid var(--line-2); border-radius: var(--r-lg);
+	padding: clamp(26px, 3vw, 40px); box-shadow: var(--shadow-1);
+}
+.proof__cta h3 { line-height: 1.05; }
+.proof__cta p { color: var(--ink-2); }
+.proof__cta .btn { align-self: flex-start; margin-top: 4px; }
+
 /* ───────── responsive ───────── */
 @media (max-width: 1000px) {
 	.faq__grid { grid-template-columns: 1fr; }
@@ -412,6 +449,8 @@ section { scroll-margin-top: 90px; }
 	.foot__brand { grid-column: 1 / -1; }
 	.step { grid-template-columns: 1fr; gap: 12px; }
 	.sect-head--split { align-items: flex-start; }
+	.proof__grid { grid-template-columns: 1fr 1fr; }
+	.proof__cta { grid-column: 1 / -1; }
 }
 @media (max-width: 720px) {
 	.nav__links, .nav__login { display: none; }
@@ -422,6 +461,7 @@ section { scroll-margin-top: 90px; }
 	.nav__mobile a { padding: 10px 0; color: var(--ink-2); font-family: var(--font-eyebrow); letter-spacing: 0.05em; }
 	.nav__mobile .btn { align-self: flex-start; margin-top: 6px; }
 	.hero { padding-top: 120px; }
+	.proof__grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
 	.trust__inner { justify-content: flex-start; }
 	.capture--hero { flex-direction: column; border-radius: var(--r-lg); padding: 10px; }
 	.capture--hero input { padding: 12px 14px; }
