@@ -96,7 +96,7 @@
 	   capture runs client-side, signups land in your Kit audience, and going
 	   live is one Broadcast to everyone. Leave it '' and the form still
 	   confirms visitors so the page is never broken. */
-	const KIT_FORM_ID = '';
+	const KIT_FORM_ID = '9578491';
 	const WAITLIST_ENDPOINT = KIT_FORM_ID
 		? 'https://app.kit.com/forms/' + KIT_FORM_ID + '/subscriptions'
 		: '';
@@ -130,8 +130,8 @@
 			try {
 				const res = await fetch(WAITLIST_ENDPOINT, {
 					method: 'POST',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					body: new URLSearchParams({ email_address: email, source }),
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+					body: new URLSearchParams({ email_address: email }),
 				});
 				if (!res.ok) throw new Error('bad status ' + res.status);
 				done(form, msg, input, btn, "You're on the list. We'll text you when we go live.");
