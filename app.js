@@ -1,6 +1,18 @@
 /* PLAYMAKR — interactions. No framework, no tracking. */
 (() => {
 	'use strict';
+
+	/* Purge any leftover service worker + caches from the old Hostinger site
+	   so returning visitors aren't served the stale app shell. */
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.getRegistrations()
+			.then((regs) => regs.forEach((r) => r.unregister()))
+			.catch(() => {});
+	}
+	if (window.caches && caches.keys) {
+		caches.keys().then((keys) => keys.forEach((k) => caches.delete(k))).catch(() => {});
+	}
+
 	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	const nav = document.getElementById('nav');
 	const burger = document.getElementById('burger');
