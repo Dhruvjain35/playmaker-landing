@@ -95,17 +95,9 @@ section { scroll-margin-top: 90px; }
 .eyebrow {
 	font-family: var(--font-eyebrow); text-transform: uppercase;
 	letter-spacing: 0.2em; font-size: 0.74rem; font-weight: 500; color: var(--muted);
-	display: inline-flex; align-items: center; gap: 10px;
+	display: inline-flex; align-items: center;
 }
-.eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--line-2); }
 .eyebrow--center { justify-content: center; display: flex; }
-.eyebrow--live { color: var(--ink-2); }
-.eyebrow--live::before { display: none; }
-.eyebrow--live .dot {
-	width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
-	box-shadow: 0 0 0 4px var(--accent-dim); animation: pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 .lede {
 	font-size: clamp(1.05rem, 1rem + 0.4vw, 1.22rem); color: var(--ink-2);
@@ -405,8 +397,7 @@ section { scroll-margin-top: 90px; }
 .brand__logo { width: 28px; height: 28px; border-radius: 7px; box-shadow: 0 4px 12px -4px oklch(0.55 0.16 290 / 0.7); }
 .device__avatar { width: 22px; height: 22px; border-radius: 6px; }
 .device__title { margin-left: 8px; font-family: var(--font-eyebrow); font-weight: 600; letter-spacing: 0.08em; font-size: 0.78rem; color: var(--ink-2); }
-.device__status { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.64rem; color: oklch(0.78 0.15 150); }
-.device__status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: oklch(0.78 0.15 150); box-shadow: 0 0 0 3px oklch(0.78 0.15 150 / 0.2); }
+.device__status { margin-left: auto; font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.04em; color: var(--muted); }
 
 /* team marks */
 .tlogo--cha { background: linear-gradient(135deg, #1d1160, #00a3b1); }   /* Hornets purple/teal */

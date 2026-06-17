@@ -1,4 +1,4 @@
-/* PLAYMAKR — interactions. No framework, no tracking. */
+/* PLAYMAKR interactions. No framework, no tracking. */
 (() => {
 	'use strict';
 
@@ -103,7 +103,7 @@
 	});
 
 	/* ───── email capture (Kit / ConvertKit) ──────────────────────────
-	   Paste your Kit form ID below — it's the number in the form's embed URL
+	   Paste your Kit form ID below. It is the number in the form's embed URL
 	   (app.kit.com/forms/123456/subscriptions). That's all that's needed:
 	   capture runs client-side, signups land in your Kit audience, and going
 	   live is one Broadcast to everyone. Leave it '' and the form still
@@ -149,7 +149,7 @@
 				done(form, msg, input, btn, "You're on the list. We'll text you when we go live.");
 			} catch (err) {
 				if (btn) { btn.disabled = false; const l = btn.childNodes[0]; if (l) l.textContent = 'Get Access '; }
-				if (msg) { msg.textContent = 'Hmm, that didn’t go through — try again?'; form.classList.add('is-done'); }
+				if (msg) { msg.textContent = 'Hmm, that didn’t go through. Try again?'; form.classList.add('is-done'); }
 			}
 		});
 	});
