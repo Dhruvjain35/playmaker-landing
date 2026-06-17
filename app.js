@@ -90,12 +90,16 @@
 		});
 	});
 
-	/* ───── email capture ─────────────────────────────────────────────
-	   Set WAITLIST_ENDPOINT to your provider's URL to start storing signups.
-	   It POSTs JSON { email, source } and treats any 2xx as success.
-	   Works with Kit/ConvertKit, Formspree, a serverless function, etc.
-	   Leave it "" and the form still confirms (so the page is never broken). */
-	const WAITLIST_ENDPOINT = '';
+	/* ───── email capture (Kit / ConvertKit) ──────────────────────────
+	   Paste your Kit form ID below — it's the number in the form's embed URL
+	   (app.kit.com/forms/123456/subscriptions). That's all that's needed:
+	   capture runs client-side, signups land in your Kit audience, and going
+	   live is one Broadcast to everyone. Leave it '' and the form still
+	   confirms visitors so the page is never broken. */
+	const KIT_FORM_ID = '';
+	const WAITLIST_ENDPOINT = KIT_FORM_ID
+		? 'https://app.kit.com/forms/' + KIT_FORM_ID + '/subscriptions'
+		: '';
 
 	const done = (form, msg, input, btn, text) => {
 		form.classList.add('is-done');
@@ -126,8 +130,8 @@
 			try {
 				const res = await fetch(WAITLIST_ENDPOINT, {
 					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ email, source }),
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					body: new URLSearchParams({ email_address: email, source }),
 				});
 				if (!res.ok) throw new Error('bad status ' + res.status);
 				done(form, msg, input, btn, "You're on the list. We'll text you when we go live.");
