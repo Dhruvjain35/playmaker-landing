@@ -10,6 +10,9 @@
 	<meta property="og:description" content="Your AI sports agent. Real-time insights, instant highlights, and expert analysis, right in your chat. Just ask." />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://playmakr.pro" />
+	<meta name="theme-color" content="#0f1115" />
+
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%233C83F6'/%3E%3Cpath d='M9 7v10l8-5-8-5Z' fill='%23ffffff'/%3E%3C/svg%3E" />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,35 +21,39 @@
 </head>
 <body>
 	<a class="skip" href="#hero">Skip to content</a>
+	<div class="grain" aria-hidden="true"></div>
 
 	<!-- ───────────────────────── NAV ───────────────────────── -->
 	<header class="nav" id="nav">
 		<div class="nav__inner">
 			<a class="brand" href="#hero" aria-label="PLAYMAKR home">
 				<span class="brand__mark" aria-hidden="true">
-					<svg viewBox="0 0 24 24" fill="none"><path d="M6 4.5v15l13-7.5-13-7.5Z" fill="currentColor"/></svg>
+					<svg viewBox="0 0 24 24" fill="none"><path d="M8 6v12l9-6-9-6Z" fill="currentColor"/></svg>
 				</span>
 				<span class="brand__word">PLAYMAKR</span>
 			</a>
 
 			<nav class="nav__links" aria-label="Primary">
 				<a href="#features">Product</a>
-				<a href="#integrations">Integrations</a>
+				<a href="#how">How it works</a>
 				<a href="#movement">The Movement</a>
+				<a href="#faq">FAQ</a>
 			</nav>
 
 			<div class="nav__cta">
 				<a class="btn btn--ghost nav__login" href="#access">Log in</a>
-				<a class="btn btn--pill" href="#access">Get Access</a>
+				<a class="btn btn--pill" data-magnetic href="#access">Get Access</a>
 				<button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
 					<span></span><span></span>
 				</button>
 			</div>
 		</div>
-		<div class="nav__mobile" id="navMobile" hidden>
+		<div class="nav__progress" id="navProgress" aria-hidden="true"></div>
+		<div class="nav__mobile" id="navMobile">
 			<a href="#features">Product</a>
-			<a href="#integrations">Integrations</a>
+			<a href="#how">How it works</a>
 			<a href="#movement">The Movement</a>
+			<a href="#faq">FAQ</a>
 			<a class="btn btn--pill" href="#access">Get Access</a>
 		</div>
 	</header>
@@ -54,28 +61,30 @@
 	<main>
 		<!-- ───────────────────────── HERO ───────────────────────── -->
 		<section class="hero" id="hero">
-			<!-- IMAGE SLOT: hero background. Drop a dusk-arena / court-lights photo at
-			     assets/images/hero.jpg and uncomment the background-image rule in styles.css (.hero__media). -->
-			<div class="hero__media" role="img" aria-label="Floodlit arena at dusk"></div>
-			<div class="hero__veil"></div>
+			<div class="hero__media" aria-hidden="true"></div>
+			<div class="hero__rays" aria-hidden="true"></div>
+			<div class="hero__veil" aria-hidden="true"></div>
 
 			<div class="hero__content">
-				<p class="eyebrow eyebrow--live"><span class="dot"></span>Now accepting early access</p>
-				<h1 class="display">The game,<br>right in your <em>chat.</em></h1>
-				<p class="lede">Your proactive AI sports agent. Live scores, instant highlights, and
+				<p class="eyebrow eyebrow--live" data-load style="--i:0"><span class="dot"></span>Now accepting early access</p>
+				<h1 class="display">
+					<span class="line" data-load style="--i:1">The game,</span>
+					<span class="line" data-load style="--i:2">right in your <em>chat.</em></span>
+				</h1>
+				<p class="lede" data-load style="--i:3">Your proactive AI sports agent. Live scores, instant highlights, and
 					expert analysis delivered where you already talk. No more apps. No more
 					scrolling. Just&nbsp;ask.</p>
 
-				<form class="capture capture--hero" data-capture aria-label="Request early access">
+				<form class="capture capture--hero" data-load style="--i:4" data-capture aria-label="Request early access">
 					<input type="email" name="email" required placeholder="Enter your email" autocomplete="email" />
-					<button class="btn btn--accent" type="submit">Get Access <span aria-hidden="true">→</span></button>
+					<button class="btn btn--accent" data-magnetic type="submit">Get Access <span aria-hidden="true">→</span></button>
 					<p class="capture__msg" role="status" aria-live="polite"></p>
 				</form>
-				<a class="hero__scroll" href="#features">See how it works <span aria-hidden="true">↓</span></a>
+				<a class="hero__scroll" data-load style="--i:5" href="#features">See how it works <span aria-hidden="true">↓</span></a>
 			</div>
 
-			<!-- Floating product mockup (built in CSS, no image needed) -->
-			<div class="hero__device reveal" data-reveal>
+			<!-- Floating product mockup (built in CSS) -->
+			<div class="hero__device" data-load style="--i:6" data-parallax>
 				<div class="device">
 					<div class="device__bar">
 						<span class="device__dot"></span><span class="device__dot"></span><span class="device__dot"></span>
@@ -112,13 +121,30 @@
 			</div>
 		</section>
 
+		<!-- ───────────────────────── TRUST STRIP ───────────────────────── -->
+		<section class="trust" aria-label="Supported platforms">
+			<div class="wrap trust__inner">
+				<p class="trust__label">Lives in the chats you already use</p>
+				<ul class="trust__logos">
+					<li>iMessage</li>
+					<li>Discord</li>
+					<li>WhatsApp</li>
+					<li>Telegram</li>
+					<li class="trust__more">+ every major league</li>
+				</ul>
+			</div>
+		</section>
+
 		<!-- ───────────────────────── FEATURES ───────────────────────── -->
 		<section class="features" id="features">
 			<div class="wrap">
+				<header class="sect-head" data-reveal>
+					<p class="eyebrow">What it does</p>
+					<h2 class="display display--md">One agent. <em>The whole game.</em></h2>
+				</header>
 				<div class="features__grid">
-					<!-- Card 1 -->
-					<article class="fcard reveal" data-reveal style="--tone:236">
-						<div class="fcard__media" data-img="ask"></div>
+					<article class="fcard" data-reveal style="--tone:236; --d:0">
+						<div class="fcard__media"></div>
 						<div class="fcard__glass">
 							<p class="eyebrow">Instant Answers</p>
 							<div class="mini-thread">
@@ -135,9 +161,8 @@
 						</div>
 					</article>
 
-					<!-- Card 2 -->
-					<article class="fcard reveal" data-reveal style="--tone:198">
-						<div class="fcard__media" data-img="highlights"></div>
+					<article class="fcard" data-reveal style="--tone:198; --d:1">
+						<div class="fcard__media"></div>
 						<div class="fcard__glass">
 							<p class="eyebrow">Highlights <span aria-hidden="true">🎥</span></p>
 							<button class="clip clip--lg" type="button" aria-label="Play highlight">
@@ -152,9 +177,8 @@
 						</div>
 					</article>
 
-					<!-- Card 3 -->
-					<article class="fcard reveal" data-reveal style="--tone:28">
-						<div class="fcard__media" data-img="group"></div>
+					<article class="fcard" data-reveal style="--tone:28; --d:2">
+						<div class="fcard__media"></div>
 						<div class="fcard__glass">
 							<p class="eyebrow">Group Chat Agent</p>
 							<div class="mini-thread">
@@ -172,15 +196,56 @@
 			</div>
 		</section>
 
+		<!-- ───────────────────────── HOW IT WORKS ───────────────────────── -->
+		<section class="how" id="how">
+			<div class="wrap">
+				<header class="sect-head sect-head--split" data-reveal>
+					<div>
+						<p class="eyebrow">How it works</p>
+						<h2 class="display display--md">Live in <em>under a minute.</em></h2>
+					</div>
+					<p class="how__intro">No download. No new app to learn. Connect once and your agent
+						shows up in the conversations you already have open.</p>
+				</header>
+
+				<ol class="steps">
+					<li class="step" data-reveal style="--d:0">
+						<span class="step__num">01</span>
+						<div class="step__body">
+							<h3>Onboard your agent</h3>
+							<p>Pick your teams, players, and how you want it to talk to you — sharp and
+								stat-heavy, or just the vibes.</p>
+						</div>
+					</li>
+					<li class="step" data-reveal style="--d:1">
+						<span class="step__num">02</span>
+						<div class="step__body">
+							<h3>Just ask</h3>
+							<p>Text it like you'd text a friend who never misses a game. Questions, hot
+								takes, "what'd I miss?" — all fair game.</p>
+						</div>
+					</li>
+					<li class="step" data-reveal style="--d:2">
+						<span class="step__num">03</span>
+						<div class="step__body">
+							<h3>Get answers, instantly</h3>
+							<p>Scores, recaps, highlights and analysis land back in your chat in seconds —
+								and it pings you when it matters.</p>
+						</div>
+					</li>
+				</ol>
+			</div>
+		</section>
+
 		<!-- ───────────────────────── ANSWERED (proactive) ───────────────────────── -->
 		<section class="answered">
 			<div class="wrap wrap--narrow">
-				<p class="eyebrow eyebrow--center">Proactive agent</p>
-				<h2 class="display display--md">Sports, <em>answered.</em></h2>
-				<p class="answered__lede">PLAYMAKR doesn't wait to be opened. It watches your teams and
+				<p class="eyebrow eyebrow--center" data-reveal>Proactive agent</p>
+				<h2 class="display display--md" data-reveal>Sports, <em>answered.</em></h2>
+				<p class="answered__lede" data-reveal>PLAYMAKR doesn't wait to be opened. It watches your teams and
 					reaches out the moment something matters — in the chat you already have open.</p>
 
-				<div class="answered__panel reveal" data-reveal>
+				<div class="answered__panel" data-reveal>
 					<div class="device device--wide">
 						<div class="device__bar">
 							<span class="device__dot"></span><span class="device__dot"></span><span class="device__dot"></span>
@@ -204,7 +269,7 @@
 		<!-- ───────────────────────── OLD WAY ───────────────────────── -->
 		<section class="oldway" id="integrations">
 			<div class="wrap oldway__grid">
-				<div class="oldway__copy">
+				<div class="oldway__copy" data-reveal>
 					<h2 class="display display--md">Stop <em>juggling</em> five<br>different apps.</h2>
 					<p class="eyebrow">The old way</p>
 					<ul class="strike">
@@ -212,7 +277,7 @@
 						<li>Hunting for highlight clips</li>
 						<li>Scrolling timelines for recaps</li>
 					</ul>
-					<a class="btn btn--accent" href="#access">See how it works <span aria-hidden="true">→</span></a>
+					<a class="btn btn--accent" data-magnetic href="#access">See how it works <span aria-hidden="true">→</span></a>
 
 					<div class="integrations">
 						<span class="integrations__label">Lives in</span>
@@ -224,12 +289,12 @@
 					</div>
 				</div>
 
-				<div class="oldway__stats reveal" data-reveal>
-					<div class="stat" data-img="stat-a">
+				<div class="oldway__stats" data-reveal>
+					<div class="stat">
 						<p class="stat__num">1<span>chat</span></p>
 						<p class="stat__cap">Replaces the five apps you switch between on game night</p>
 					</div>
-					<div class="stat" data-img="stat-b">
+					<div class="stat">
 						<p class="stat__num">&lt;2<span>sec</span></p>
 						<p class="stat__cap">From your question to a highlight, on average</p>
 					</div>
@@ -240,9 +305,9 @@
 		<!-- ───────────────────────── MOVEMENT ───────────────────────── -->
 		<section class="movement" id="movement">
 			<div class="wrap">
-				<h2 class="display display--md">The <em>movement.</em></h2>
+				<h2 class="display display--md" data-reveal>The <em>movement.</em></h2>
 				<div class="movement__grid">
-					<figure class="quote">
+					<figure class="quote" data-reveal>
 						<blockquote>
 							<span class="quote__mark" aria-hidden="true">“</span>
 							We're giving the game back to the fans — in the medium they use every day.
@@ -254,11 +319,8 @@
 						<figcaption>PLAYMAKR · Founding manifesto</figcaption>
 					</figure>
 
-					<!-- Merch / giveaway -->
-					<aside class="merch">
-						<!-- IMAGE SLOT: drop the Origin Hoodie shot at assets/images/hoodie.jpg
-						     and uncomment .merch__media background-image in styles.css. -->
-						<div class="merch__media" data-img="hoodie" role="img" aria-label="Origin Hoodie"></div>
+					<aside class="merch" data-reveal>
+						<div class="merch__media" role="img" aria-label="Origin Hoodie"></div>
 						<div class="merch__body">
 							<p class="eyebrow">Merch giveaway</p>
 							<h3 class="display display--sm">Wear the <em>Origin.</em></h3>
@@ -275,18 +337,74 @@
 			</div>
 		</section>
 
+		<!-- ───────────────────────── FAQ ───────────────────────── -->
+		<section class="faq" id="faq">
+			<div class="wrap faq__grid">
+				<header class="faq__head" data-reveal>
+					<p class="eyebrow">Questions</p>
+					<h2 class="display display--md">Good to <em>know.</em></h2>
+					<p class="faq__aside">Still curious? <a href="mailto:hello@playmakr.pro">hello@playmakr.pro</a></p>
+				</header>
+
+				<div class="faq__list" data-reveal>
+					<div class="qa">
+						<button class="qa__q" aria-expanded="false">
+							<span>What exactly is PLAYMAKR?</span>
+							<i class="qa__icon" aria-hidden="true"></i>
+						</button>
+						<div class="qa__a"><div><p>A proactive AI sports agent that lives inside your messaging apps.
+							Ask it anything about your teams and get scores, recaps, highlights and
+							analysis back in seconds — no separate app to open.</p></div></div>
+					</div>
+					<div class="qa">
+						<button class="qa__q" aria-expanded="false">
+							<span>Which sports and leagues are covered?</span>
+							<i class="qa__icon" aria-hidden="true"></i>
+						</button>
+						<div class="qa__a"><div><p>We're launching with the major US leagues and expanding fast.
+							Tell your agent who you follow during onboarding and it tailors everything
+							to your teams.</p></div></div>
+					</div>
+					<div class="qa">
+						<button class="qa__q" aria-expanded="false">
+							<span>Where does the agent actually live?</span>
+							<i class="qa__icon" aria-hidden="true"></i>
+						</button>
+						<div class="qa__a"><div><p>Right in the chat apps you already use — iMessage, Discord,
+							WhatsApp and Telegram — including your group chats, so your friends can
+							jump in too.</p></div></div>
+					</div>
+					<div class="qa">
+						<button class="qa__q" aria-expanded="false">
+							<span>How much does it cost?</span>
+							<i class="qa__icon" aria-hidden="true"></i>
+						</button>
+						<div class="qa__a"><div><p>Early access is free while we're in private beta. Pricing for the
+							full launch will be shared with the waitlist first.</p></div></div>
+					</div>
+					<div class="qa">
+						<button class="qa__q" aria-expanded="false">
+							<span>When can I get in?</span>
+							<i class="qa__icon" aria-hidden="true"></i>
+						</button>
+						<div class="qa__a"><div><p>We're letting people in from the waitlist in waves. Drop your email
+							anywhere on this page and we'll notify you the moment your spot opens.</p></div></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- ───────────────────────── FINAL CTA ───────────────────────── -->
 		<section class="final" id="access">
-			<!-- IMAGE SLOT: assets/images/cta.jpg → .final__media -->
-			<div class="final__media" role="img" aria-label="Fans under stadium lights"></div>
-			<div class="final__veil"></div>
-			<div class="final__content">
+			<div class="final__media" aria-hidden="true"></div>
+			<div class="final__veil" aria-hidden="true"></div>
+			<div class="final__content" data-reveal>
 				<h2 class="display">No more scrolling.<br><em>Just ask.</em></h2>
 				<p class="lede">Be first in line when PLAYMAKR opens up. Secure your spot and we'll let
 					you in the moment access is granted.</p>
 				<form class="capture capture--hero" data-capture aria-label="Request early access">
 					<input type="email" name="email" required placeholder="Enter your email" autocomplete="email" />
-					<button class="btn btn--accent" type="submit">Get Access <span aria-hidden="true">→</span></button>
+					<button class="btn btn--accent" data-magnetic type="submit">Get Access <span aria-hidden="true">→</span></button>
 					<p class="capture__msg" role="status" aria-live="polite"></p>
 				</form>
 			</div>
@@ -299,7 +417,7 @@
 			<div class="foot__brand">
 				<a class="brand" href="#hero" aria-label="PLAYMAKR home">
 					<span class="brand__mark" aria-hidden="true">
-						<svg viewBox="0 0 24 24" fill="none"><path d="M6 4.5v15l13-7.5-13-7.5Z" fill="currentColor"/></svg>
+						<svg viewBox="0 0 24 24" fill="none"><path d="M8 6v12l9-6-9-6Z" fill="currentColor"/></svg>
 					</span>
 					<span class="brand__word">PLAYMAKR</span>
 				</a>
@@ -312,26 +430,26 @@
 				<a href="#features">Instant Answers</a>
 				<a href="#features">Highlights</a>
 				<a href="#features">Group Chat Agent</a>
-				<a href="#features">Notifications</a>
-				<a href="#features">Onboarding</a>
+				<a href="#how">How it works</a>
 			</nav>
 			<nav class="foot__col" aria-label="Integrations">
 				<h4>Integrations</h4>
-				<a href="#integrations">Messages</a>
+				<a href="#integrations">iMessage</a>
 				<a href="#integrations">Discord</a>
 				<a href="#integrations">WhatsApp</a>
 				<a href="#integrations">Telegram</a>
-				<a href="#integrations">More soon</a>
 			</nav>
 			<nav class="foot__col" aria-label="Movement">
 				<h4>Movement</h4>
 				<a href="#movement">The Vision</a>
 				<a href="#movement">Origin Merch</a>
-				<a href="#movement">Giveaway</a>
-				<a href="#access">Early Access</a>
+				<a href="#faq">FAQ</a>
 				<a href="mailto:hello@playmakr.pro">Contact</a>
 			</nav>
 		</div>
+
+		<div class="foot__wordmark" aria-hidden="true">PLAYMAKR</div>
+
 		<div class="wrap foot__base">
 			<span>© 2026 PLAYMAKR. The future of sports.</span>
 			<div class="foot__social">
