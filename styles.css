@@ -23,8 +23,9 @@
   --sh-phone:0 2px 6px rgba(16,18,24,.10), 0 50px 90px -36px rgba(16,18,24,.55), 0 16px 40px -20px rgba(16,18,24,.4);
   --maxw:1240px; --gutter:24px; --section-pad:clamp(84px,7vw + 40px,156px);
   --ease:cubic-bezier(.16,1,.3,1);
-  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue","Segoe UI",Arial,sans-serif;
-  --font-display:"Archivo",var(--font);
+  /* bevel.health's exact stack: SF Pro on Apple, Inter web fallback */
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --font-display:var(--font);
 }
 *,*::before,*::after{box-sizing:border-box}*{margin:0}
 html{-webkit-text-size-adjust:100%}
@@ -124,6 +125,8 @@ h4{font-family:var(--font-display);font-weight:600;letter-spacing:-.018em;font-s
 .phone{position:relative;width:clamp(280px,30vw,358px);aspect-ratio:358/770;border-radius:54px;background:#050507;padding:10px;box-shadow:var(--sh-phone),inset 0 0 0 2px rgba(255,255,255,.05);z-index:4}
 .phone::after{content:"";position:absolute;inset:3px;border-radius:51px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.04);pointer-events:none}
 .phone--sm{width:100%;max-width:296px;margin-inline:auto}
+.phone--hero{transform:perspective(1500px) rotateY(-10deg) rotateX(2.5deg) rotate(.5deg);animation:phoneFloat 5.5s ease-in-out infinite;box-shadow:-34px 44px 100px -34px rgba(16,18,24,.55),0 2px 6px rgba(16,18,24,.1),inset 0 0 0 2px rgba(255,255,255,.05)}
+@keyframes phoneFloat{0%,100%{transform:perspective(1500px) rotateY(-10deg) rotateX(2.5deg) rotate(.5deg) translateY(0)}50%{transform:perspective(1500px) rotateY(-10deg) rotateX(2.5deg) rotate(.5deg) translateY(-14px)}}
 .phone__island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:92px;height:28px;border-radius:16px;background:#000;z-index:20}
 .phone__screen{position:relative;height:100%;border-radius:45px;overflow:hidden;background:var(--d-bg)}
 .phone__screen::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 30% at 50% 0%,rgba(46,139,255,.08),transparent 70%);pointer-events:none}
