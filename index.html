@@ -18,8 +18,8 @@
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-	<link rel="stylesheet" href="styles.css?v=5" />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
 	<a class="skip" href="#hero">Skip to content</a>
@@ -69,7 +69,10 @@
 		<!-- ───────────────────────── HERO ───────────────────────── -->
 		<section class="hero" id="hero">
 			<div class="hero__content">
-				<div class="hero__logo" data-load style="--i:0" data-tilt><img src="assets/images/logo.png" alt="PLAYMAKR" /></div>
+				<div class="hero__logo" data-load style="--i:0" data-tilt>
+					<div class="hero__orbit" aria-hidden="true"><i></i><i></i></div>
+					<img src="assets/images/logo.png" alt="PLAYMAKR" />
+				</div>
 				<h1 class="display">
 					<span class="line" data-load style="--i:1">Your AI sports buddy,</span>
 					<span class="line" data-load style="--i:2">right in your <em class="grad">texts.</em></span>
@@ -127,40 +130,38 @@
 
 		<!-- ───────────────────────── LEAGUES STRIP ───────────────────────── -->
 		<section class="trust" aria-label="Leagues covered">
-			<div class="wrap trust__inner">
-				<p class="trust__label">Covers every league you love</p>
-				<ul class="trust__logos">
-					<li>NBA</li>
-					<li>NFL</li>
-					<li>Soccer</li>
-					<li>MLB</li>
-					<li>NHL</li>
-					<li class="trust__more">and every league you follow</li>
-				</ul>
+			<p class="trust__label">Covers every league you love</p>
+			<div class="marquee" aria-hidden="true">
+				<div class="marquee__row">
+					<span>NBA</span><span>NFL</span><span>Soccer</span><span>MLB</span><span>NHL</span><span>UFC</span><span>Tennis</span><span>College</span><span class="dim">and every league you follow</span>
+				</div>
+				<div class="marquee__row">
+					<span>NBA</span><span>NFL</span><span>Soccer</span><span>MLB</span><span>NHL</span><span>UFC</span><span>Tennis</span><span>College</span><span class="dim">and every league you follow</span>
+				</div>
 			</div>
 		</section>
 
 		<!-- ───────────────────────── MANIFESTO ───────────────────────── -->
 		<section class="manifesto">
 			<div class="wrap wrap--narrow">
-				<p data-reveal>Following sports got complicated. <span class="hl">PLAYMAKR makes it a conversation again</span>, putting every score, recap, and fantasy call one text away.</p>
-				<p class="eyebrow eyebrow--center manifesto__tag" data-reveal>What it does</p>
+				<p data-reveal="blur">Following sports got complicated. <span class="hl">PLAYMAKR makes it a conversation again</span>, putting every score, recap, and fantasy call one text away.</p>
+				<hr class="rule" data-reveal />
 			</div>
 		</section>
 
 		<!-- ───────────────────────── FEATURES / 3 USE CASES ───────────────────────── -->
 		<section class="features" id="features">
+			<div class="orb orb--a" style="top:4%; right:6%;" aria-hidden="true"></div>
 			<div class="wrap">
 				<header class="sect-head" data-reveal>
-					<p class="eyebrow">What it does</p>
 					<h2 class="display display--md">One buddy. <em>Three superpowers.</em></h2>
 				</header>
 				<div class="features__grid">
 					<!-- 1. FANTASY -->
 					<article class="fcard" data-reveal style="--tone:255; --d:0">
 						<div class="fcard__media"></div>
+						<div class="fcard__glow" aria-hidden="true"></div>
 						<div class="fcard__glass">
-							<p class="eyebrow">Fantasy co-pilot</p>
 							<div class="mini-thread">
 								<span class="mini-bubble mini-bubble--me">Start Josh Allen or Jalen Hurts?</span>
 								<span class="mini-bubble mini-bubble--agent">Allen. He's home against a bottom-5 pass defense, and Hurts is a game-time call.</span>
@@ -176,8 +177,8 @@
 					<!-- 2. AI RECAPS -->
 					<article class="fcard" data-reveal style="--tone:190; --d:1">
 						<div class="fcard__media"></div>
+						<div class="fcard__glow" aria-hidden="true"></div>
 						<div class="fcard__glass">
-							<p class="eyebrow">Instant recaps</p>
 							<button class="clip clip--lg" type="button" aria-label="Play highlight">
 								<span class="clip__play" aria-hidden="true"></span>
 								<span class="clip__meta">Hornets vs Heat · highlights<small>1:08</small></span>
@@ -193,8 +194,8 @@
 					<!-- 3. SPORTS INFO -->
 					<article class="fcard" data-reveal style="--tone:290; --d:2">
 						<div class="fcard__media"></div>
+						<div class="fcard__glow" aria-hidden="true"></div>
 						<div class="fcard__glass">
-							<p class="eyebrow">Always in the know</p>
 							<div class="mini-thread">
 								<span class="mini-bubble mini-bubble--me">when's the next Arsenal match?</span>
 								<span class="mini-bubble mini-bubble--agent">Sunday, 11:30am ET vs Liverpool. Want me to remind you the morning of?</span>
@@ -215,7 +216,6 @@
 			<div class="wrap">
 				<header class="sect-head sect-head--split" data-reveal>
 					<div>
-						<p class="eyebrow">See it live</p>
 						<h2 class="display display--md">This isn't a chatbot.<br>It's your <em>buddy.</em></h2>
 					</div>
 					<p class="proof__intro">Real texts from real PLAYMAKR conversations. Ask it the way you'd
@@ -223,11 +223,11 @@
 				</header>
 
 				<div class="proof__grid">
-					<figure class="phone" data-reveal style="--d:0">
+					<figure class="phone" data-reveal="scale" style="--d:0">
 						<img src="assets/images/convo-1.jpg" alt="A PLAYMAKR text conversation: a fan asks for the Spurs game and the AI buddy texts back a full recap with Wembanyama's stats and a highlight video." loading="lazy" />
 						<figcaption>"Give me the Spurs game today" becomes a full recap and highlights, instantly.</figcaption>
 					</figure>
-					<figure class="phone" data-reveal style="--d:1">
+					<figure class="phone" data-reveal="scale" style="--d:1">
 						<img src="assets/images/convo-2.jpg" alt="A PLAYMAKR text conversation recapping a Spurs vs Thunder playoff game with player stats and a full-game highlights link." loading="lazy" />
 						<figcaption>Series updates, player lines, and the full-game highlight, all in one text.</figcaption>
 					</figure>
@@ -244,7 +244,7 @@
 		<!-- ───────────────────────── PROACTIVE ───────────────────────── -->
 		<section class="answered">
 			<div class="wrap wrap--narrow">
-				<p class="eyebrow eyebrow--center" data-reveal>It texts first</p>
+				<div class="radar" data-reveal="scale" aria-hidden="true"><i></i><i></i><i></i></div>
 				<h2 class="display display--md" data-reveal>It texts you <em>first.</em></h2>
 				<p class="answered__lede" data-reveal>PLAYMAKR doesn't wait to be opened. It watches your teams and your
 					fantasy roster and texts you the moment something big happens: a tip-off, an
@@ -275,9 +275,8 @@
 		<!-- ───────────────────────── OLD WAY ───────────────────────── -->
 		<section class="oldway" id="integrations">
 			<div class="wrap oldway__grid">
-				<div class="oldway__copy" data-reveal>
+				<div class="oldway__copy" data-reveal="left">
 					<h2 class="display display--md">Stop <em>juggling</em> five<br>different apps.</h2>
-					<p class="eyebrow">The old way</p>
 					<ul class="strike">
 						<li>Refreshing five score apps</li>
 						<li>Hunting around for highlights</li>
@@ -295,7 +294,7 @@
 					</div>
 				</div>
 
-				<div class="oldway__stats" data-reveal>
+				<div class="oldway__stats" data-reveal="right">
 					<div class="stat">
 						<p class="stat__num">1<span>text</span></p>
 						<p class="stat__cap">Replaces every app you open on game night</p>
@@ -310,27 +309,24 @@
 
 		<!-- ───────────────────────── MOVEMENT + MERCH ───────────────────────── -->
 		<section class="movement" id="movement">
+			<div class="orb orb--b" style="bottom:6%; left:2%;" aria-hidden="true"></div>
 			<div class="wrap">
 				<h2 class="display display--md" data-reveal>Join the <em>movement.</em></h2>
 				<div class="movement__grid">
-					<figure class="quote" data-reveal>
+					<figure class="quote" data-reveal="left">
 						<blockquote>
 							<span class="quote__mark" aria-hidden="true">“</span>
-							We're giving the game back to the fans, in the place they already hang out.
-							No more app-hopping. No more missing the moment. Just your buddy, and the game.
+							We're giving the game back to the fans, in the place they already hang out. No more app-hopping. No more missing the moment. Just your buddy, and the game.
 						</blockquote>
-						<div class="quote__stat">
-							<p class="quote__num">5,000<span>+ fans already on the list</span></p>
-						</div>
+						<p class="quote__num">5,000<span>+ fans already on the list</span></p>
 						<figcaption>PLAYMAKR · The founding crew</figcaption>
 					</figure>
 
-					<aside class="merch" data-reveal>
+					<aside class="merch" data-reveal="right">
 						<div class="merch__media">
 							<img src="assets/images/hoodie.jpg" alt="The PLAYMAKR Origin Hoodie, front and back, in navy with the gradient P logo." loading="lazy" />
 						</div>
 						<div class="merch__body">
-							<p class="eyebrow">Merch giveaway</p>
 							<h3 class="display display--sm">Win the <em>Origin Hoodie.</em></h3>
 							<p>Get on the list and you're automatically in the draw for our signature Origin
 								Hoodie and the full PLAYMAKR drop.</p>
@@ -349,7 +345,6 @@
 		<section class="faq" id="faq">
 			<div class="wrap faq__grid">
 				<header class="faq__head" data-reveal>
-					<p class="eyebrow">Questions</p>
 					<h2 class="display display--md">Good to <em>know.</em></h2>
 					<p class="faq__aside">Still curious? <a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></p>
 				</header>
@@ -453,6 +448,6 @@
 		</div>
 	</footer>
 
-	<script src="app.js?v=5"></script>
+	<script src="app.js?v=6"></script>
 </body>
 </html>
