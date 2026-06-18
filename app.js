@@ -53,36 +53,12 @@
 			}));
 		}
 
-		/* premium reveals — rise + slight scale + de-blur on a long expo curve */
+		/* smooth reveals — opacity + translate only (GPU-cheap, no jank) */
 		const reveals = gsap.utils.toArray('[data-reveal]');
-		gsap.set(reveals, { opacity: 0, y: 52, scale: 0.972, filter: 'blur(7px)' });
+		gsap.set(reveals, { opacity: 0, y: 36, willChange: 'transform,opacity' });
 		ScrollTrigger.batch(reveals, {
-			start: 'top 86%',
-			onEnter: els => gsap.to(els, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.15, ease: 'expo.out', stagger: 0.1, overwrite: true }),
-		});
-
-		/* big headings get a clip wipe on top of the rise */
-		gsap.utils.toArray('.h1, .h2').forEach(h => {
-			gsap.fromTo(h, { clipPath: 'inset(0 0 102% 0)' }, {
-				clipPath: 'inset(0 0 -6% 0)', duration: 1.25, ease: 'expo.out',
-				scrollTrigger: { trigger: h, start: 'top 88%' },
-			});
-		});
-
-		/* companion-app phones drift at different speeds (depth parallax) */
-		gsap.utils.toArray('.app__grid .appcol .phone--sm').forEach((ph, i) => {
-			gsap.fromTo(ph, { yPercent: 9 + i * 5 }, {
-				yPercent: -(9 + i * 5), ease: 'none',
-				scrollTrigger: { trigger: '.app', start: 'top bottom', end: 'bottom top', scrub: 0.6 },
-			});
-		});
-
-		/* feature cards lift slightly through the section */
-		gsap.utils.toArray('.features__grid .card').forEach((c, i) => {
-			gsap.fromTo(c, { yPercent: 6 * (i - 1) }, {
-				yPercent: -6 * (i - 1), ease: 'none',
-				scrollTrigger: { trigger: '.features', start: 'top bottom', end: 'bottom top', scrub: 1 },
-			});
+			start: 'top 88%',
+			onEnter: els => gsap.to(els, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08, overwrite: true, clearProps: 'willChange' }),
 		});
 
 		addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 250));
