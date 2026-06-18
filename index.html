@@ -11,18 +11,25 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://playmakr.pro" />
 	<meta property="og:image" content="https://playmakr.pro/assets/images/logo.png" />
-	<meta name="theme-color" content="#0f1115" />
+	<meta name="theme-color" content="#050406" />
 
 	<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-	<link rel="stylesheet" href="styles.css?v=4" />
+	<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="styles.css?v=5" />
 </head>
 <body>
 	<a class="skip" href="#hero">Skip to content</a>
+	<div class="bg" aria-hidden="true">
+		<div class="bg__grid"></div>
+		<div class="bg__blob bg__blob--1"></div>
+		<div class="bg__blob bg__blob--2"></div>
+		<div class="bg__blob bg__blob--3"></div>
+	</div>
+	<canvas id="fx" aria-hidden="true"></canvas>
 	<div class="grain" aria-hidden="true"></div>
 
 	<!-- ───────────────────────── NAV ───────────────────────── -->
@@ -61,30 +68,27 @@
 	<main>
 		<!-- ───────────────────────── HERO ───────────────────────── -->
 		<section class="hero" id="hero">
-			<div class="hero__media" aria-hidden="true"></div>
-			<div class="hero__rays" aria-hidden="true"></div>
-			<div class="hero__veil" aria-hidden="true"></div>
-
 			<div class="hero__content">
+				<div class="hero__logo" data-load style="--i:0" data-tilt><img src="assets/images/logo.png" alt="PLAYMAKR" /></div>
 				<h1 class="display">
-					<span class="line" data-load style="--i:0">Your AI sports buddy,</span>
-					<span class="line" data-load style="--i:1">right in your <em>texts.</em></span>
+					<span class="line" data-load style="--i:1">Your AI sports buddy,</span>
+					<span class="line" data-load style="--i:2">right in your <em class="grad">texts.</em></span>
 				</h1>
-				<p class="lede" data-load style="--i:2">PLAYMAKR is the AI buddy that has watched every game. It runs your fantasy
+				<p class="lede" data-load style="--i:3">PLAYMAKR is the AI buddy that has watched every game. It runs your fantasy
 					team, texts you recaps and highlights the second a game ends, and keeps you on
 					top of the NBA, NFL, MLB, and Soccer. All of it, right in your group
 					chat. Just text it.</p>
 
-				<form class="capture capture--hero" data-load style="--i:3" data-capture aria-label="Request early access">
+				<form class="capture capture--hero" data-load style="--i:4" data-capture aria-label="Request early access">
 					<input type="email" name="email" required placeholder="Enter your email" autocomplete="email" />
 					<button class="btn btn--accent" data-magnetic type="submit">Get Access <span aria-hidden="true">→</span></button>
 					<p class="capture__msg" role="status" aria-live="polite"></p>
 				</form>
-				<a class="hero__scroll" data-load style="--i:4" href="#features">See what it can do <span aria-hidden="true">↓</span></a>
+				<a class="hero__scroll" data-load style="--i:5" href="#features">See what it can do <span aria-hidden="true">↓</span></a>
 			</div>
 
 			<!-- Floating product mockup (built in CSS) -->
-			<div class="hero__device" data-load style="--i:5" data-parallax>
+			<div class="hero__device" data-load style="--i:6" data-parallax>
 				<div class="device">
 					<div class="device__bar">
 						<img class="device__avatar" src="assets/images/logo.png" alt="" width="22" height="22" />
@@ -136,6 +140,14 @@
 			</div>
 		</section>
 
+		<!-- ───────────────────────── MANIFESTO ───────────────────────── -->
+		<section class="manifesto">
+			<div class="wrap wrap--narrow">
+				<p data-reveal>Following sports got complicated. <span class="hl">PLAYMAKR makes it a conversation again</span>, putting every score, recap, and fantasy call one text away.</p>
+				<p class="eyebrow eyebrow--center manifesto__tag" data-reveal>What it does</p>
+			</div>
+		</section>
+
 		<!-- ───────────────────────── FEATURES / 3 USE CASES ───────────────────────── -->
 		<section class="features" id="features">
 			<div class="wrap">
@@ -145,7 +157,7 @@
 				</header>
 				<div class="features__grid">
 					<!-- 1. FANTASY -->
-					<article class="fcard" data-reveal style="--tone:236; --d:0">
+					<article class="fcard" data-reveal style="--tone:255; --d:0">
 						<div class="fcard__media"></div>
 						<div class="fcard__glass">
 							<p class="eyebrow">Fantasy co-pilot</p>
@@ -162,7 +174,7 @@
 					</article>
 
 					<!-- 2. AI RECAPS -->
-					<article class="fcard" data-reveal style="--tone:198; --d:1">
+					<article class="fcard" data-reveal style="--tone:190; --d:1">
 						<div class="fcard__media"></div>
 						<div class="fcard__glass">
 							<p class="eyebrow">Instant recaps</p>
@@ -179,7 +191,7 @@
 					</article>
 
 					<!-- 3. SPORTS INFO -->
-					<article class="fcard" data-reveal style="--tone:28; --d:2">
+					<article class="fcard" data-reveal style="--tone:290; --d:2">
 						<div class="fcard__media"></div>
 						<div class="fcard__glass">
 							<p class="eyebrow">Always in the know</p>
@@ -441,6 +453,6 @@
 		</div>
 	</footer>
 
-	<script src="app.js?v=4"></script>
+	<script src="app.js?v=5"></script>
 </body>
 </html>

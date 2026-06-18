@@ -153,4 +153,64 @@
 			}
 		});
 	});
+
+	/* canvas particle network (gradient nodes + links) */
+	(function fx() {
+		const cv = document.getElementById('fx');
+		if (!cv || reduce) return;
+		const ctx = cv.getContext('2d');
+		const COLORS = ['#b14dff', '#5b7cff', '#2ad4e8'];
+		let w, h, dpr, parts;
+		const resize = () => {
+			dpr = Math.min(2, window.devicePixelRatio || 1);
+			w = cv.width = innerWidth * dpr; h = cv.height = innerHeight * dpr;
+			cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
+			const n = Math.min(64, Math.floor(innerWidth / 24));
+			parts = Array.from({ length: n }, (_, i) => ({
+				x: Math.random() * w, y: Math.random() * h,
+				vx: (Math.random() - 0.5) * 0.22 * dpr, vy: (Math.random() - 0.5) * 0.22 * dpr,
+				c: COLORS[i % 3], r: (Math.random() * 1.5 + 0.6) * dpr,
+			}));
+		};
+		resize();
+		window.addEventListener('resize', resize, { passive: true });
+		const tick = () => {
+			ctx.clearRect(0, 0, w, h);
+			for (const p of parts) {
+				p.x += p.vx; p.y += p.vy;
+				if (p.x < 0 || p.x > w) p.vx *= -1;
+				if (p.y < 0 || p.y > h) p.vy *= -1;
+				ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7);
+				ctx.fillStyle = p.c; ctx.globalAlpha = 0.7; ctx.fill();
+			}
+			const max = 132 * dpr;
+			for (let i = 0; i < parts.length; i++) {
+				for (let j = i + 1; j < parts.length; j++) {
+					const a = parts[i], b = parts[j];
+					const d = Math.hypot(a.x - b.x, a.y - b.y);
+					if (d < max) {
+						ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+						ctx.strokeStyle = a.c; ctx.globalAlpha = (1 - d / max) * 0.12;
+						ctx.lineWidth = dpr * 0.6; ctx.stroke();
+					}
+				}
+			}
+			ctx.globalAlpha = 1;
+			requestAnimationFrame(tick);
+		};
+		tick();
+	})();
+
+	/* hero logo 3D tilt */
+	if (!reduce && window.matchMedia('(pointer:fine)').matches) {
+		document.querySelectorAll('[data-tilt]').forEach((el) => {
+			el.addEventListener('pointermove', (e) => {
+				const r = el.getBoundingClientRect();
+				const px = (e.clientX - r.left) / r.width - 0.5;
+				const py = (e.clientY - r.top) / r.height - 0.5;
+				el.style.transform = `perspective(600px) rotateY(${px * 16}deg) rotateX(${-py * 16}deg)`;
+			});
+			el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+		});
+	}
 })();
