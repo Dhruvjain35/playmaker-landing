@@ -4,210 +4,165 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>PLAYMAKR — The ultimate AI sports agent, texting you in real time.</title>
-	<meta name="description" content="PLAYMAKR is a proactive AI sports agent: a real-time breaking-news desk for your teams that texts you the moment it matters — in iMessage, WhatsApp, Discord, Telegram, and every app you already use." />
+	<meta name="description" content="PLAYMAKR is your proactive AI sports agent. It watches your teams and texts you the second something matters — scores, news, highlights — inside the apps you already use." />
 
 	<meta property="og:title" content="PLAYMAKR — The ultimate AI sports agent" />
-	<meta property="og:description" content="A proactive, real-time sports desk that texts you the second it matters. NBA, NFL, MLB, soccer and more — in every app you already text in." />
+	<meta property="og:description" content="A proactive AI sports agent that texts you the second it matters. NBA, NFL, MLB, soccer and more — in every app you already text in." />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://playmakr.pro" />
-	<meta name="theme-color" content="#0a0a12" />
+	<meta name="theme-color" content="#0f1115" />
 
 	<link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-	<link rel="stylesheet" href="styles.css?v=16" />
+	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="styles.css?v=17" />
 	<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 	<a class="skip" href="#hero">Skip to content</a>
 	<div class="grain" aria-hidden="true"></div>
-	<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
 
 	<!-- ───────────────────────── NAV ───────────────────────── -->
 	<header class="nav" id="nav">
 		<div class="nav__inner">
 			<a class="brand" href="#hero" aria-label="PLAYMAKR home">
-				<span class="brand__mark" aria-hidden="true"><img src="assets/images/logo.png" alt="" width="30" height="30" /></span>
+				<span class="brand__mark" aria-hidden="true"><img src="assets/images/logo.png" alt="" width="28" height="28" /></span>
 				<span class="brand__word">PLAYMAKR</span>
 			</a>
-
 			<nav class="nav__links" aria-label="Primary">
-				<a href="#pillars">Product</a>
+				<a href="#product">Product</a>
 				<a href="#how">How it works</a>
 				<a href="#coverage">Coverage</a>
 				<a href="#faq">FAQ</a>
 			</nav>
-
 			<div class="nav__cta">
-				<a class="btn btn--pill" data-magnetic href="#access">Get early access</a>
+				<a class="btn btn--light" href="#access">Get access</a>
 				<button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
 			</div>
 		</div>
-		<div class="nav__progress" id="navProgress" aria-hidden="true"></div>
 		<div class="nav__mobile" id="navMobile">
-			<a href="#pillars">Product</a>
+			<a href="#product">Product</a>
 			<a href="#how">How it works</a>
 			<a href="#coverage">Coverage</a>
 			<a href="#faq">FAQ</a>
-			<a class="btn btn--pill" href="#access">Get early access</a>
+			<a class="btn btn--light" href="#access">Get access</a>
 		</div>
 	</header>
 
 	<main>
 		<!-- ───────────────────────── HERO ───────────────────────── -->
 		<section class="hero" id="hero">
-			<div class="hero__grid wrap">
-				<div class="hero__copy">
-					<p class="kicker" data-load style="--i:0">Real-time sports intelligence</p>
-					<h1 class="display" data-words>
-						The ultimate AI sports agent, texting you in <span class="grad">real&nbsp;time.</span>
-					</h1>
-					<p class="lede" data-load style="--i:6">Every game, every play, every moment — PLAYMAKR is your own breaking-news
-						desk for sports. It watches your teams and texts you the second something matters,
-						right inside the apps you already use.</p>
+			<div class="hero__bg" aria-hidden="true"></div>
+			<div class="hero__shade" aria-hidden="true"></div>
 
-					<form class="capture" data-load style="--i:7" data-capture aria-label="Request early access">
-						<input type="email" name="email" required placeholder="you@email.com" autocomplete="email" />
-						<button class="btn btn--accent" data-magnetic type="submit">Get early access <span aria-hidden="true">→</span></button>
-						<p class="capture__msg" role="status" aria-live="polite"></p>
-					</form>
-					<p class="hero__note" data-load style="--i:8">Free during private beta · NBA · NFL · MLB · Soccer · and more</p>
-				</div>
-
-				<!-- choreographed live thread -->
-				<div class="hero__stage" data-load style="--i:5">
-					<div class="phone" data-hero-thread>
-						<div class="phone__notch" aria-hidden="true"></div>
-						<div class="phone__bar">
-							<span class="phone__back" aria-hidden="true">‹</span>
-							<span class="phone__id"><span class="phone__avatar" aria-hidden="true"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span>PLAYMAKR</span>
-							<span class="phone__sig" aria-hidden="true"></span>
-						</div>
-						<div class="thread" aria-label="Example conversation">
-							<div class="thread__day"><span>Today 9:41 PM</span></div>
-							<div class="msg msg--out" data-step="1">what'd Kawhi do tonight?</div>
-							<div class="msg msg--in msg--card" data-step="2">
-								<div class="scorebug">
-									<span class="scorebug__state">Final</span>
-									<div class="scorebug__row"><span class="tm"><i class="dot dot--lac"></i>Clippers</span><span class="sc" data-count="119">0</span></div>
-									<div class="scorebug__row is-lose"><span class="tm"><i class="dot dot--den"></i>Nuggets</span><span class="sc" data-count="112">0</span></div>
-								</div>
-								<p class="statline"><b>Kawhi Leonard</b> · 38 PTS · 7 REB · 5 AST</p>
-								<button class="clip" type="button" aria-label="Play highlights">
-									<span class="clip__play" aria-hidden="true"></span>
-									<span class="clip__txt">Kawhi — top plays<small>1:24</small></span>
-									<span class="clip__live" aria-hidden="true">HL</span>
-								</button>
-							</div>
-							<div class="msg msg--out" data-step="3">now the Seahawks score</div>
-							<div class="msg msg--in msg--mini" data-step="4"><b>Seahawks 27 · 49ers 20</b> — Final. NFC West clinched.</div>
-							<div class="typing" data-step="5" aria-hidden="true"><span></span><span></span><span></span></div>
-						</div>
-					</div>
-				</div>
+			<div class="hero__inner wrap">
+				<a class="pill" href="#access" data-load style="--i:0"><span class="pill__dot"></span>Now in private beta</a>
+				<h1 class="display" data-load style="--i:1">
+					The ultimate AI sports agent.<br><em>Texting you in real time.</em>
+				</h1>
+				<p class="lede" data-load style="--i:2">PLAYMAKR is your proactive sports desk. It watches your teams and texts you the
+					second something matters, right inside the apps you already use.</p>
+				<form class="capture" data-load style="--i:3" data-capture aria-label="Request early access">
+					<input type="email" name="email" required placeholder="you@email.com" autocomplete="email" />
+					<button class="btn btn--light" data-magnetic type="submit">Get early access</button>
+					<p class="capture__msg" role="status" aria-live="polite"></p>
+				</form>
 			</div>
 
-			<!-- breaking-news ticker -->
-			<div class="ticker" aria-label="Live headlines">
-				<span class="ticker__tag">Live</span>
-				<div class="ticker__track">
-					<ul class="ticker__row" data-ticker>
-						<li><b>BREAKING</b> Kawhi drops 38 as the Clippers down the Nuggets</li>
-						<li>Seahawks clinch the NFC West with a road win in San Francisco</li>
-						<li>Yankees walk it off in the 9th, take the series</li>
-						<li>Champions League — six goals before the half</li>
-						<li><b>BREAKING</b> Kawhi upgraded to available, set to start</li>
-						<li>14 games tracking live right now</li>
-					</ul>
+			<div class="hero__device wrap" data-load style="--i:4">
+				<div class="phone">
+					<div class="phone__bar">
+						<span class="phone__back" aria-hidden="true">‹</span>
+						<span class="phone__id"><span class="phone__avatar"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span>PLAYMAKR</span>
+						<span class="phone__sig" aria-hidden="true"></span>
+					</div>
+					<div class="thread">
+						<div class="thread__day"><span>Today 9:41 PM</span></div>
+						<div class="msg msg--out">what'd Kawhi do tonight?</div>
+						<div class="msg msg--in msg--card">
+							<div class="scorebug">
+								<span class="scorebug__state">Final</span>
+								<div class="scorebug__row"><span class="tm"><i class="dot dot--lac"></i>Clippers</span><span class="sc">119</span></div>
+								<div class="scorebug__row is-lose"><span class="tm"><i class="dot dot--den"></i>Nuggets</span><span class="sc">112</span></div>
+							</div>
+							<p class="statline"><b>Kawhi Leonard</b> · 38 PTS · 7 REB · 5 AST</p>
+							<button class="clip" type="button" aria-label="Play highlights">
+								<span class="clip__play" aria-hidden="true"></span>
+								<span class="clip__txt">Kawhi — top plays<small>1:24</small></span>
+							</button>
+						</div>
+						<div class="msg msg--out">now the Seahawks score</div>
+						<div class="msg msg--in msg--mini"><b>Seahawks 27 · 49ers 20</b> — Final. NFC West clinched.</div>
+					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- ───────────────────────── PILLARS (scrollytelling) ───────────────────────── -->
-		<section class="pillars" id="pillars">
-			<div class="wrap pillars__head">
-				<p class="kicker">What PLAYMAKR is</p>
-				<h2 class="display display--md">Not an app you check.<br>An agent that <span class="grad">checks for you.</span></h2>
+		<!-- ───────────────────────── LEAGUES STRIP ───────────────────────── -->
+		<section class="strip" aria-label="Coverage">
+			<div class="wrap">
+				<p class="strip__label" data-reveal>Covering every major league</p>
+				<ul class="strip__row" data-reveal>
+					<li>NBA</li><li>NFL</li><li>MLB</li><li>NHL</li><li>Soccer</li><li>NCAA</li><li>UFC</li>
+				</ul>
 			</div>
+		</section>
 
-			<div class="wrap scrolly">
-				<!-- sticky phone -->
-				<div class="scrolly__stage">
-					<div class="phone phone--sticky" data-scenes>
-						<div class="phone__notch" aria-hidden="true"></div>
-						<div class="phone__bar">
-							<span class="phone__back" aria-hidden="true">‹</span>
-							<span class="phone__id"><span class="phone__avatar" aria-hidden="true"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span>PLAYMAKR</span>
-							<span class="phone__sig" aria-hidden="true"></span>
-						</div>
-						<div class="phone__screen">
-							<!-- scene 1: proactive -->
-							<div class="scene is-active" data-scene="0">
-								<div class="thread">
-									<div class="thread__day"><span>It texts you first</span></div>
-									<div class="msg msg--in">Kawhi's warming up — Clippers tip in 20. Want tonight's three keys?</div>
-									<div class="reply-chips"><span>Three keys</span><span>Injury report</span><span>Last matchup</span></div>
-									<div class="msg msg--in msg--mini">Heads up: Murray's a game-time decision for Denver.</div>
-								</div>
-							</div>
-							<!-- scene 2: breaking news desk -->
-							<div class="scene" data-scene="1">
-								<div class="thread">
-									<div class="alert">
-										<span class="alert__chyron">Breaking</span>
-										<p>Kawhi Leonard upgraded to <b>available</b>. He'll start tonight vs. Denver.</p>
-										<span class="alert__time">2s ago · PLAYMAKR Desk</span>
-									</div>
-									<div class="msg msg--in msg--mini">First to know, before it hits the timeline.</div>
-								</div>
-							</div>
-							<!-- scene 3: integrations -->
-							<div class="scene" data-scene="2">
-								<div class="thread thread--apps">
-									<div class="thread__day"><span>Wherever you already text</span></div>
-									<div class="app-line" style="--i:0"><i class="appmark appmark--msg" aria-hidden="true"></i><span class="msg msg--in msg--mini">iMessage — Seahawks just clinched.</span></div>
-									<div class="app-line" style="--i:1"><i class="appmark appmark--wa" aria-hidden="true"></i><span class="msg msg--in msg--mini">WhatsApp — Yankees walk it off.</span></div>
-									<div class="app-line" style="--i:2"><i class="appmark appmark--dc" aria-hidden="true"></i><span class="msg msg--in msg--mini">Discord — Kawhi's at 38 and counting.</span></div>
-									<div class="app-line" style="--i:3"><i class="appmark appmark--tg" aria-hidden="true"></i><span class="msg msg--in msg--mini">Telegram — UCL: six goals before the half.</span></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+		<!-- ───────────────────────── STATEMENT ───────────────────────── -->
+		<section class="statement">
+			<div class="wrap wrap--narrow">
+				<p class="say" data-reveal>Every game. Every play. Every moment —
+					<em>answered before you think to ask.</em></p>
+			</div>
+		</section>
 
-				<!-- scrolling panels -->
-				<div class="scrolly__panels">
-					<article class="panel" data-panel="0">
-						<span class="panel__no">01</span>
-						<p class="kicker">Proactive agent</p>
-						<h3>It reaches out first.</h3>
-						<p>PLAYMAKR doesn't wait to be opened. It watches your teams around the clock and
-							pings you the moment something turns — tip-offs, lead changes, a star heating up,
-							a final you'd want to know about.</p>
-					</article>
-					<article class="panel" data-panel="1">
-						<span class="panel__no">02</span>
-						<p class="kicker">Breaking-news desk</p>
-						<h3>Your own sports wire.</h3>
-						<p>Trades, injuries, lineup changes, walk-offs — PLAYMAKR runs a real-time desk on
-							your teams and texts you the headline the second it breaks, before it ever reaches
-							your feed.</p>
-					</article>
-					<article class="panel" data-panel="2">
-						<span class="panel__no">03</span>
-						<p class="kicker">Integration platform</p>
-						<h3>In every app you text in.</h3>
-						<p>No new app to download. PLAYMAKR plugs into iMessage, WhatsApp, Discord and
-							Telegram — and works in your group chats, so the whole crew stays in it together.</p>
-						<div class="applist">
-							<span class="applist__pill"><i class="appmark appmark--msg"></i>iMessage</span>
-							<span class="applist__pill"><i class="appmark appmark--wa"></i>WhatsApp</span>
-							<span class="applist__pill"><i class="appmark appmark--dc"></i>Discord</span>
-							<span class="applist__pill"><i class="appmark appmark--tg"></i>Telegram</span>
+		<!-- ───────────────────────── PRODUCT / 3 PILLARS ───────────────────────── -->
+		<section class="product" id="product">
+			<div class="wrap">
+				<header class="sect-head" data-reveal>
+					<p class="kicker">What PLAYMAKR is</p>
+					<h2 class="display display--md">Not an app you check.<br><em>An agent that checks for you.</em></h2>
+				</header>
+
+				<div class="cards">
+					<article class="card" data-reveal style="--d:0">
+						<div class="card__art">
+							<div class="mini">
+								<span class="mini__bub mini__bub--in">Kawhi's warming up — Clippers tip in 20.</span>
+								<span class="mini__bub mini__bub--in">Want tonight's three keys?</span>
+							</div>
 						</div>
+						<h3>Proactive agent</h3>
+						<p>It reaches out first. PLAYMAKR watches your teams around the clock and pings you the
+							moment something turns — no app to open, no feed to refresh.</p>
+					</article>
+
+					<article class="card" data-reveal style="--d:1">
+						<div class="card__art">
+							<div class="mini">
+								<span class="mini__alert"><span class="mini__chyron">Breaking</span> Kawhi upgraded to available. He starts tonight.</span>
+							</div>
+						</div>
+						<h3>Breaking-news desk</h3>
+						<p>Your own sports wire. Trades, injuries, lineup changes and walk-offs land in your
+							texts the second they break, before they ever reach your timeline.</p>
+					</article>
+
+					<article class="card" data-reveal style="--d:2">
+						<div class="card__art">
+							<div class="mini mini--apps">
+								<span class="appchip"><i class="appmark appmark--msg"></i>iMessage</span>
+								<span class="appchip"><i class="appmark appmark--wa"></i>WhatsApp</span>
+								<span class="appchip"><i class="appmark appmark--dc"></i>Discord</span>
+								<span class="appchip"><i class="appmark appmark--tg"></i>Telegram</span>
+							</div>
+						</div>
+						<h3>Works everywhere</h3>
+						<p>No new app to download. PLAYMAKR lives in iMessage, WhatsApp, Discord and Telegram —
+							group chats included, so the whole crew stays in it together.</p>
 					</article>
 				</div>
 			</div>
@@ -216,28 +171,14 @@
 		<!-- ───────────────────────── HOW IT WORKS ───────────────────────── -->
 		<section class="how" id="how">
 			<div class="wrap">
-				<header class="sect-head">
-					<p class="kicker" data-reveal>How it works</p>
-					<h2 class="display display--md" data-reveal>Live in under a minute.</h2>
+				<header class="sect-head sect-head--center" data-reveal>
+					<p class="kicker">How it works</p>
+					<h2 class="display display--md">Live in <em>under a minute.</em></h2>
 				</header>
 				<ol class="steps">
-					<li class="step" data-reveal style="--d:0">
-						<span class="step__no">01</span>
-						<h3>Pick your teams</h3>
-						<p>Tell PLAYMAKR who you follow and how you like it — sharp and stat-heavy, or just
-							the moments that matter.</p>
-					</li>
-					<li class="step" data-reveal style="--d:1">
-						<span class="step__no">02</span>
-						<h3>Connect your chat</h3>
-						<p>Link iMessage, WhatsApp, Discord or Telegram in a tap. No download, no new app
-							to learn.</p>
-					</li>
-					<li class="step" data-reveal style="--d:2">
-						<span class="step__no">03</span>
-						<h3>Just live your life</h3>
-						<p>It texts you first when it counts, and answers anything you ask back in seconds.</p>
-					</li>
+					<li class="step" data-reveal style="--d:0"><span class="step__no">01</span><h3>Pick your teams</h3><p>Tell PLAYMAKR who you follow and how you like it — sharp and stat-heavy, or just the moments that matter.</p></li>
+					<li class="step" data-reveal style="--d:1"><span class="step__no">02</span><h3>Connect your chat</h3><p>Link iMessage, WhatsApp, Discord or Telegram in a tap. No download, no new app to learn.</p></li>
+					<li class="step" data-reveal style="--d:2"><span class="step__no">03</span><h3>Just live your life</h3><p>It texts you first when it counts, and answers anything you ask back in seconds.</p></li>
 				</ol>
 			</div>
 		</section>
@@ -245,36 +186,14 @@
 		<!-- ───────────────────────── COVERAGE ───────────────────────── -->
 		<section class="coverage" id="coverage">
 			<div class="wrap">
-				<header class="sect-head sect-head--split">
-					<div>
-						<p class="kicker" data-reveal>Coverage</p>
-						<h2 class="display display--md" data-reveal>Every sport.<br>Every league.</h2>
-					</div>
-					<p class="coverage__intro" data-reveal>From the Clippers to the Seahawks to the Yankees — and every team you
-						care about across the majors, college, and the pitch.</p>
+				<header class="sect-head" data-reveal>
+					<p class="kicker">Built for your teams</p>
+					<h2 class="display display--md">From the Clippers to the<br><em>Seahawks to the Yankees.</em></h2>
 				</header>
-
-				<div class="leagues">
-					<article class="league league--feat" data-reveal style="--d:0">
-						<p class="league__tag">NBA</p>
-						<p class="league__name">Kawhi &amp; the Clippers</p>
-						<p class="league__line">Live scores, statlines and highlight clips the moment the buzzer sounds.</p>
-					</article>
-					<article class="league league--feat" data-reveal style="--d:1">
-						<p class="league__tag">NFL</p>
-						<p class="league__name">Seahawks Sunday</p>
-						<p class="league__line">Drive-by-drive alerts, red-zone pings and final-whistle recaps.</p>
-					</article>
-					<article class="league league--feat" data-reveal style="--d:2">
-						<p class="league__tag">MLB</p>
-						<p class="league__name">Yankees, every night</p>
-						<p class="league__line">Walk-offs, no-hitters and box scores texted the second they happen.</p>
-					</article>
-					<article class="league" data-reveal style="--d:3"><p class="league__tag">NHL</p><p class="league__line">Hockey</p></article>
-					<article class="league" data-reveal style="--d:4"><p class="league__tag">Soccer</p><p class="league__line">EPL · UCL · World Cup</p></article>
-					<article class="league" data-reveal style="--d:5"><p class="league__tag">NCAA</p><p class="league__line">CFB &amp; CBB</p></article>
-					<article class="league" data-reveal style="--d:6"><p class="league__tag">UFC</p><p class="league__line">Fight night</p></article>
-					<article class="league league--more" data-reveal style="--d:7"><p class="league__name">+ more</p><p class="league__line">Tell your agent who you follow.</p></article>
+				<div class="teams">
+					<article class="team" data-reveal style="--d:0"><p class="team__tag">NBA</p><h3>Kawhi &amp; the Clippers</h3><p class="team__line">Live scores, statlines and highlight clips the moment the buzzer sounds.</p></article>
+					<article class="team" data-reveal style="--d:1"><p class="team__tag">NFL</p><h3>Seahawks Sunday</h3><p class="team__line">Drive-by-drive alerts, red-zone pings and final-whistle recaps.</p></article>
+					<article class="team" data-reveal style="--d:2"><p class="team__tag">MLB</p><h3>Yankees, every night</h3><p class="team__line">Walk-offs, no-hitters and box scores texted the second they happen.</p></article>
 				</div>
 			</div>
 		</section>
@@ -284,51 +203,29 @@
 			<div class="wrap faq__grid">
 				<header class="faq__head" data-reveal>
 					<p class="kicker">Questions</p>
-					<h2 class="display display--md">Good to know.</h2>
+					<h2 class="display display--md">Good to <em>know.</em></h2>
 					<p class="faq__aside">Still curious? <a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></p>
 				</header>
-
 				<div class="faq__list" data-reveal>
-					<div class="qa">
-						<button class="qa__q" aria-expanded="false"><span>What exactly is PLAYMAKR?</span><i class="qa__icon" aria-hidden="true"></i></button>
-						<div class="qa__a"><div><p>A proactive AI sports agent that runs a real-time breaking-news desk on your
-							teams and texts you the moment something matters — scores, news, injuries, highlights —
-							right inside the messaging apps you already use.</p></div></div>
-					</div>
-					<div class="qa">
-						<button class="qa__q" aria-expanded="false"><span>Which sports and leagues are covered?</span><i class="qa__icon" aria-hidden="true"></i></button>
-						<div class="qa__a"><div><p>The NBA, NFL, MLB, NHL, college football and basketball, soccer (Premier League,
-							Champions League and the World Cup), UFC, and more. Tell your agent who you follow and it
-							tailors everything to your teams.</p></div></div>
-					</div>
-					<div class="qa">
-						<button class="qa__q" aria-expanded="false"><span>Where does the agent live?</span><i class="qa__icon" aria-hidden="true"></i></button>
-						<div class="qa__a"><div><p>Right in the chats you already use — iMessage, WhatsApp, Discord and Telegram —
-							including your group chats, so your friends can jump in too. No separate app to open.</p></div></div>
-					</div>
-					<div class="qa">
-						<button class="qa__q" aria-expanded="false"><span>How much does it cost?</span><i class="qa__icon" aria-hidden="true"></i></button>
-						<div class="qa__a"><div><p>Early access is free while we're in private beta. Full pricing will go to the
-							waitlist first.</p></div></div>
-					</div>
-					<div class="qa">
-						<button class="qa__q" aria-expanded="false"><span>When can I get in?</span><i class="qa__icon" aria-hidden="true"></i></button>
-						<div class="qa__a"><div><p>We're letting people in from the waitlist in waves. Drop your email anywhere on
-							this page and we'll text you the moment your spot opens.</p></div></div>
-					</div>
+					<div class="qa"><button class="qa__q" aria-expanded="false"><span>What exactly is PLAYMAKR?</span><i class="qa__icon"></i></button><div class="qa__a"><div><p>A proactive AI sports agent that watches your teams and texts you the moment something matters — scores, news, injuries, highlights — right inside the messaging apps you already use.</p></div></div></div>
+					<div class="qa"><button class="qa__q" aria-expanded="false"><span>Which sports and leagues are covered?</span><i class="qa__icon"></i></button><div class="qa__a"><div><p>The NBA, NFL, MLB, NHL, college football and basketball, soccer (Premier League, Champions League and the World Cup), UFC, and more. Tell your agent who you follow and it tailors everything to your teams.</p></div></div></div>
+					<div class="qa"><button class="qa__q" aria-expanded="false"><span>Where does the agent live?</span><i class="qa__icon"></i></button><div class="qa__a"><div><p>Right in the chats you already use — iMessage, WhatsApp, Discord and Telegram — including your group chats, so your friends can jump in too.</p></div></div></div>
+					<div class="qa"><button class="qa__q" aria-expanded="false"><span>How much does it cost?</span><i class="qa__icon"></i></button><div class="qa__a"><div><p>Early access is free while we're in private beta. Full pricing will go to the waitlist first.</p></div></div></div>
+					<div class="qa"><button class="qa__q" aria-expanded="false"><span>When can I get in?</span><i class="qa__icon"></i></button><div class="qa__a"><div><p>We're letting people in from the waitlist in waves. Drop your email anywhere on this page and we'll text you the moment your spot opens.</p></div></div></div>
 				</div>
 			</div>
 		</section>
 
 		<!-- ───────────────────────── FINAL CTA ───────────────────────── -->
 		<section class="final" id="access">
+			<div class="final__bg" aria-hidden="true"></div>
+			<div class="final__shade" aria-hidden="true"></div>
 			<div class="wrap final__inner" data-reveal>
-				<h2 class="display">Stop checking.<br><span class="grad">Start knowing.</span></h2>
-				<p class="lede">Be first in line when PLAYMAKR opens up. Drop your email and we'll text you
-					the moment access is granted.</p>
+				<h2 class="display">Stop checking.<br><em>Start knowing.</em></h2>
+				<p class="lede">Be first in line when PLAYMAKR opens up. Drop your email and we'll text you the moment access is granted.</p>
 				<form class="capture capture--center" data-capture aria-label="Request early access">
 					<input type="email" name="email" required placeholder="you@email.com" autocomplete="email" />
-					<button class="btn btn--accent" data-magnetic type="submit">Get early access <span aria-hidden="true">→</span></button>
+					<button class="btn btn--light" data-magnetic type="submit">Get early access</button>
 					<p class="capture__msg" role="status" aria-live="polite"></p>
 				</form>
 			</div>
@@ -340,40 +237,21 @@
 		<div class="wrap foot__grid">
 			<div class="foot__brand">
 				<a class="brand" href="#hero" aria-label="PLAYMAKR home">
-					<span class="brand__mark" aria-hidden="true"><img src="assets/images/logo.png" alt="" width="30" height="30" /></span>
+					<span class="brand__mark" aria-hidden="true"><img src="assets/images/logo.png" alt="" width="28" height="28" /></span>
 					<span class="brand__word">PLAYMAKR</span>
 				</a>
 				<p class="foot__tag">The ultimate AI sports agent, texting you in real time.</p>
-				<a class="btn btn--pill" href="#access">Get early access</a>
 			</div>
-			<nav class="foot__col" aria-label="Product">
-				<h4>Product</h4>
-				<a href="#pillars">Proactive agent</a>
-				<a href="#pillars">Breaking-news desk</a>
-				<a href="#pillars">Integrations</a>
-				<a href="#how">How it works</a>
-			</nav>
-			<nav class="foot__col" aria-label="Channels">
-				<h4>Channels</h4>
-				<a href="#pillars">iMessage</a>
-				<a href="#pillars">WhatsApp</a>
-				<a href="#pillars">Discord</a>
-				<a href="#pillars">Telegram</a>
-			</nav>
-			<nav class="foot__col" aria-label="Company">
-				<h4>Company</h4>
-				<a href="#coverage">Coverage</a>
-				<a href="#faq">FAQ</a>
-				<a href="mailto:founders@playmakr.pro">Contact</a>
-			</nav>
+			<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="#product">Proactive agent</a><a href="#product">Breaking-news desk</a><a href="#product">Integrations</a><a href="#how">How it works</a></nav>
+			<nav class="foot__col" aria-label="Channels"><h4>Channels</h4><a href="#product">iMessage</a><a href="#product">WhatsApp</a><a href="#product">Discord</a><a href="#product">Telegram</a></nav>
+			<nav class="foot__col" aria-label="Company"><h4>Company</h4><a href="#coverage">Coverage</a><a href="#faq">FAQ</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
 		</div>
-		<div class="foot__wordmark" aria-hidden="true">PLAYMAKR</div>
 		<div class="wrap foot__base">
 			<span>© 2026 PLAYMAKR</span>
 			<div class="foot__social"><a href="#">X</a><a href="#">Instagram</a><a href="#">Discord</a></div>
 		</div>
 	</footer>
 
-	<script src="app.js?v=16"></script>
+	<script src="app.js?v=17"></script>
 </body>
 </html>
