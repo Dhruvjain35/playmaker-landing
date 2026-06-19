@@ -1,100 +1,111 @@
-/* PLAYMAKR — Lenis + GSAP motion (ref: bevel.health). Graceful fallback. */
+/* PLAYMAKR — interactions. No framework, no tracking. */
 (() => {
 	'use strict';
-
-	/* purge any old service worker / caches from prior versions */
-	if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(r => r.forEach(x => x.unregister())).catch(() => {});
-	if (window.caches && caches.keys) caches.keys().then(k => k.forEach(x => caches.delete(x))).catch(() => {});
-
-	const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-	const hasGSAP = !!(window.gsap && window.ScrollTrigger);
-	const root = document.documentElement;
-	if (hasGSAP && !reduce) root.classList.add('anim');
-
-	/* ---- nav ---- */
+	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	const nav = document.getElementById('nav');
 	const burger = document.getElementById('burger');
-	const onScroll = () => nav.classList.toggle('is-stuck', window.scrollY > 40);
+	const progress = document.getElementById('navProgress');
+
+	/* hero load sequence */
+	requestAnimationFrame(() => document.body.classList.add('loaded'));
+
+	/* sticky nav + scroll progress */
+	const onScroll = () => {
+		const y = window.scrollY;
+		nav.classList.toggle('is-stuck', y > 24);
+		if (progress) {
+			const h = document.documentElement.scrollHeight - window.innerHeight;
+			progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+		}
+	};
 	onScroll();
-	addEventListener('scroll', onScroll, { passive: true });
+	window.addEventListener('scroll', onScroll, { passive: true });
+
+	/* mobile menu */
 	burger?.addEventListener('click', () => {
 		const open = nav.classList.toggle('is-open');
 		burger.setAttribute('aria-expanded', String(open));
 	});
-	nav.querySelectorAll('.nav__mobile a').forEach(a => a.addEventListener('click', () => {
-		nav.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false');
-	}));
+	nav.querySelectorAll('.nav__mobile a').forEach((a) =>
+		a.addEventListener('click', () => {
+			nav.classList.remove('is-open');
+			burger.setAttribute('aria-expanded', 'false');
+		})
+	);
 
-	/* ---- magnetic buttons ---- */
-	if (!reduce && matchMedia('(pointer:fine)').matches) {
-		document.querySelectorAll('[data-magnetic]').forEach(el => {
-			el.addEventListener('pointermove', e => {
+	/* scroll reveals */
+	const reveals = document.querySelectorAll('[data-reveal]');
+	if (reduce || !('IntersectionObserver' in window)) {
+		reveals.forEach((el) => el.classList.add('is-in'));
+	} else {
+		const io = new IntersectionObserver(
+			(entries) => entries.forEach((e) => {
+				if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+			}),
+			{ threshold: 0.16, rootMargin: '0px 0px -8% 0px' }
+		);
+		reveals.forEach((el) => io.observe(el));
+	}
+
+	/* magnetic buttons (pointer-fine only) */
+	if (!reduce && window.matchMedia('(pointer:fine)').matches) {
+		document.querySelectorAll('[data-magnetic]').forEach((el) => {
+			el.addEventListener('pointermove', (e) => {
 				const r = el.getBoundingClientRect();
-				el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.2}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`;
+				const x = (e.clientX - r.left - r.width / 2) * 0.25;
+				const y = (e.clientY - r.top - r.height / 2) * 0.35;
+				el.style.transform = `translate(${x}px, ${y}px)`;
 			});
 			el.addEventListener('pointerleave', () => { el.style.transform = ''; });
 		});
 	}
 
-	/* ---- motion (GSAP + Lenis) ---- */
-	if (hasGSAP && !reduce) {
-		const { gsap, ScrollTrigger } = window;
-		gsap.registerPlugin(ScrollTrigger);
-
-		if (window.Lenis) {
-			const lenis = new window.Lenis();
-			lenis.on('scroll', ScrollTrigger.update);
-			gsap.ticker.add(t => lenis.raf(t * 1000));
-			gsap.ticker.lagSmoothing(0);
-			// keep anchor links smooth
-			document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-				const id = a.getAttribute('href');
-				if (id.length > 1 && document.querySelector(id)) { e.preventDefault(); lenis.scrollTo(id, { offset: -70 }); }
-			}));
-		}
-
-		/* smooth reveals — opacity + translate only (GPU-cheap, no jank) */
-		const reveals = gsap.utils.toArray('[data-reveal]');
-		gsap.set(reveals, { opacity: 0, y: 36, willChange: 'transform,opacity' });
-		ScrollTrigger.batch(reveals, {
-			start: 'top 88%',
-			onEnter: els => gsap.to(els, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08, overwrite: true, clearProps: 'willChange' }),
-		});
-
-		addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 250));
-
-		/* hero idle float + scroll parallax */
-		const floats = gsap.utils.toArray('[data-float]');
-		floats.forEach((el, i) => {
-			gsap.to(el, { y: '-=14', duration: 3.6 + i * 0.5, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: i * 0.2 });
-		});
-		const depth = { '0': -50, '1': -110, '2': 60, '3': -90 };
-		floats.forEach(el => {
-			const d = depth[el.getAttribute('data-float')] ?? -40;
-			gsap.to(el, { y: `+=${d}`, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.4 } });
-		});
-
-		/* pastel wash parallax */
-		gsap.to('.wash', { yPercent: -10, scale: 1.08, ease: 'none', scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 } });
+	/* subtle device parallax */
+	const device = document.querySelector('[data-parallax]');
+	if (device && !reduce) {
+		let ticking = false;
+		window.addEventListener('scroll', () => {
+			if (ticking) return;
+			ticking = true;
+			requestAnimationFrame(() => {
+				const r = device.getBoundingClientRect();
+				const offset = (window.innerHeight - r.top) * 0.03;
+				device.style.transform = `translateY(${Math.max(-24, Math.min(24, offset - 12))}px)`;
+				ticking = false;
+			});
+		}, { passive: true });
 	}
 
-	/* ---- email capture (Kit) ---- */
-	const KIT_FORM_ID = '9578491';
-	const ENDPOINT = 'https://app.kit.com/forms/' + KIT_FORM_ID + '/subscriptions';
-	document.querySelectorAll('[data-capture]').forEach(form => {
+	/* FAQ accordion */
+	document.querySelectorAll('.qa').forEach((qa) => {
+		const btn = qa.querySelector('.qa__q');
+		btn.addEventListener('click', () => {
+			const open = qa.getAttribute('aria-open') === 'true';
+			// close siblings for a clean single-open accordion
+			document.querySelectorAll('.qa[aria-open="true"]').forEach((other) => {
+				if (other !== qa) { other.setAttribute('aria-open', 'false'); other.querySelector('.qa__q').setAttribute('aria-expanded', 'false'); }
+			});
+			qa.setAttribute('aria-open', String(!open));
+			btn.setAttribute('aria-expanded', String(!open));
+		});
+	});
+
+	/* email capture — front-end stub. Wire to your backend / PocketBase. */
+	document.querySelectorAll('[data-capture]').forEach((form) => {
 		const msg = form.querySelector('.capture__msg');
 		const input = form.querySelector('input[type="email"]');
 		const btn = form.querySelector('button[type="submit"]');
-		const done = t => { form.classList.add('is-done'); if (msg) msg.textContent = t; input.value = ''; input.disabled = true; if (btn) { btn.disabled = true; btn.style.opacity = '.6'; if (btn.firstChild) btn.firstChild.textContent = 'You’re in'; } };
-		form.addEventListener('submit', async e => {
+		form.addEventListener('submit', (e) => {
 			e.preventDefault();
 			if (!input.checkValidity()) { input.reportValidity(); return; }
-			if (btn) btn.disabled = true;
-			try {
-				const res = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' }, body: new URLSearchParams({ email_address: input.value.trim() }) });
-				if (!res.ok) throw 0;
-				done("You're on the list. We'll text you when we go live.");
-			} catch { if (btn) btn.disabled = false; if (msg) { msg.textContent = 'That did not go through. Try again?'; form.classList.add('is-done'); } }
+			form.classList.add('is-done');
+			if (msg) msg.textContent = "You're in the feed. We'll be in touch.";
+			input.value = ''; input.disabled = true;
+			if (btn) {
+				btn.disabled = true; btn.style.opacity = '0.6';
+				const label = btn.childNodes[0];
+				if (label) label.textContent = 'Secured ';
+			}
 		});
 	});
 })();
