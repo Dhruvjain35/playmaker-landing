@@ -30,20 +30,19 @@
 		revealEls.forEach((el) => io.observe(el));
 	}
 
-	/* subtle hero parallax — photo drifts slower than scroll */
-	const heroBg = document.querySelector('.hero__bg');
-	if (heroBg && !reduce) {
-		let ticking = false;
-		window.addEventListener('scroll', () => {
-			if (ticking) return;
-			ticking = true;
-			requestAnimationFrame(() => {
-				const y = Math.min(window.scrollY, 900);
-				heroBg.style.transform = `scale(1.06) translateY(${y * 0.12}px)`;
-				ticking = false;
-			});
-		}, { passive: true });
-	}
+	/* fan counter count-up */
+	document.querySelectorAll('[data-count]').forEach((el) => {
+		const target = parseInt(el.dataset.count, 10) || 0;
+		if (reduce) { el.textContent = target.toLocaleString(); return; }
+		const start = performance.now(), dur = 1400;
+		const tick = (now) => {
+			const p = Math.min(1, (now - start) / dur);
+			const v = Math.round((1 - Math.pow(1 - p, 3)) * target);
+			el.textContent = v.toLocaleString();
+			if (p < 1) requestAnimationFrame(tick);
+		};
+		requestAnimationFrame(tick);
+	});
 
 	/* FAQ accordion */
 	document.querySelectorAll('.qa').forEach((qa) => {
