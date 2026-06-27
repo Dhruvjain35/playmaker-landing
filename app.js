@@ -34,17 +34,28 @@
 	/* slug, icon, label. Drop a real logo at assets/images/leagues/<slug>.svg|png
 	   and add its slug to LOGO_FILES below — it replaces the emblem automatically. */
 	const LEAGUES = [['nba', 'bball', 'NBA'], ['nfl', 'fball', 'NFL'], ['mlb', 'baseball', 'MLB'], ['nhl', 'hockey', 'NHL'], ['premier-league', 'soccer', 'Premier League'], ['champions-league', 'trophy', 'Champions League'], ['ncaa', 'pennant', 'NCAA'], ['ufc', 'octagon', 'UFC'], ['world-cup', 'globe', 'World Cup']];
-	/* Auto-load a real logo if a file exists at assets/images/leagues/<slug>.svg
-	   (falls back to .png, then to the emblem). Just drop the files in. */
 	const LOGO_DIR = 'assets/images/leagues/';
-	const onErr = "if(this.dataset.t!=='png'){this.dataset.t='png';this.src=this.src.replace(/\\.svg$/,'.png')}else{this.remove()}";
 	document.querySelectorAll('[data-leagues]').forEach((row) => {
 		const item = ([slug, ic, name]) =>
-			`<span class="lg"><span class="lg__mk"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg>` +
-			`<img class="lg__img" src="${LOGO_DIR}${slug}.svg" alt="" onload="this.classList.add('on')" onerror="${onErr}"></span><b>${name}</b></span>`;
+			`<span class="lg" data-slug="${slug}"><span class="lg__mk"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg></span><b>${name}</b></span>`;
 		const set = LEAGUES.map(item).join('');
 		row.innerHTML = set + set; /* duplicate for seamless loop */
 	});
+	/* Real logos: list slugs (or {slug,file}) in assets/images/leagues/manifest.json.
+	   Only listed files are ever requested, so there's no 404 noise for absent logos. */
+	fetch(LOGO_DIR + 'manifest.json').then((r) => (r.ok ? r.json() : [])).then((list) => {
+		(Array.isArray(list) ? list : []).forEach((e) => {
+			const slug = typeof e === 'string' ? e : e && e.slug;
+			if (!slug) return;
+			const file = (e && e.file) ? e.file : slug + '.svg';
+			document.querySelectorAll(`.lg[data-slug="${slug}"] .lg__mk`).forEach((mk) => {
+				const img = document.createElement('img');
+				img.className = 'lg__img'; img.alt = ''; img.src = LOGO_DIR + file;
+				img.onload = () => img.classList.add('on');
+				mk.appendChild(img);
+			});
+		});
+	}).catch(() => {});
 
 	/* nav */
 	if (nav) {
@@ -177,6 +188,51 @@
 			built = true;
 		};
 		buildMobile(); window.addEventListener('resize', buildMobile, { passive: true });
+	}
+
+	/* ── home hero: scroll choreography (phone recedes + tilts, copy parallaxes) ── */
+	const heroStage = document.querySelector('.hero__stage');
+	const heroCopy = document.querySelector('.hero__copy');
+	if (heroStage && !reduce) {
+		let ht = false;
+		const onHero = () => {
+			if (ht) return; ht = true;
+			requestAnimationFrame(() => {
+				if (window.innerWidth > 900) {
+					const p = clamp(window.scrollY / (window.innerHeight * 0.92), 0, 1);
+					heroStage.style.transform = `translate3d(0,${(-p * 64).toFixed(1)}px,0) scale(${(1 - p * 0.07).toFixed(3)}) perspective(1000px) rotateX(${(p * 8).toFixed(1)}deg)`;
+					if (heroCopy) { heroCopy.style.transform = `translate3d(0,${(p * 46).toFixed(1)}px,0)`; heroCopy.style.opacity = (1 - p * 0.85).toFixed(2); }
+				} else if (heroStage.style.transform) {
+					heroStage.style.transform = ''; if (heroCopy) { heroCopy.style.transform = ''; heroCopy.style.opacity = ''; }
+				}
+				ht = false;
+			});
+		};
+		onHero();
+		window.addEventListener('scroll', onHero, { passive: true });
+		window.addEventListener('resize', onHero, { passive: true });
+	}
+
+	/* ── consistent depth parallax on decorative glows (uses independent translate) ── */
+	const parEls = [...document.querySelectorAll('[data-parallax]')];
+	if (parEls.length && !reduce) {
+		let pt = false;
+		const par = () => {
+			if (pt) return; pt = true;
+			requestAnimationFrame(() => {
+				const vh = window.innerHeight;
+				parEls.forEach((el) => {
+					const sp = parseFloat(el.dataset.parallax) || 0.07;
+					const r = el.getBoundingClientRect();
+					const off = r.top + r.height / 2 - vh / 2;
+					el.style.translate = '0 ' + (off * -sp).toFixed(1) + 'px';
+				});
+				pt = false;
+			});
+		};
+		par();
+		window.addEventListener('scroll', par, { passive: true });
+		window.addEventListener('resize', par, { passive: true });
 	}
 
 	/* FAQ */
