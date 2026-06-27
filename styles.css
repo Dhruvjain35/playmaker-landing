@@ -178,14 +178,18 @@ section{scroll-margin-top:64px}
 .marquee{overflow:hidden;padding-block:clamp(38px,5vw,60px);border-block:1px solid var(--line);-webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
 .marquee__row{display:flex;align-items:center;gap:clamp(34px,5vw,72px);width:max-content;animation:scrollx 38s linear infinite}
 .marquee:hover .marquee__row{animation-play-state:paused}
-.lg{display:inline-flex;align-items:center;gap:13px;white-space:nowrap;opacity:.6;transition:opacity .3s}
+.lg{display:inline-flex;align-items:center;gap:14px;white-space:nowrap;opacity:.78;transition:opacity .35s}
 .lg:hover{opacity:1}
-.lg__mk{position:relative;width:clamp(30px,2vw + 14px,40px);height:clamp(30px,2vw + 14px,40px);display:grid;place-items:center;flex:none}
-.lg__mk svg{width:100%;height:100%;fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.lg__img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
+.lg__mk{position:relative;width:clamp(46px,3vw + 22px,58px);height:clamp(46px,3vw + 22px,58px);display:grid;place-items:center;flex:none;border-radius:50%;
+	background:radial-gradient(120% 120% at 50% 22%,rgba(255,255,255,.07),rgba(255,255,255,.015));
+	box-shadow:inset 0 0 0 1px var(--line-2),inset 0 1px 0 rgba(255,255,255,.08),0 8px 22px -14px rgba(0,0,0,.9);transition:box-shadow .35s,transform .4s var(--ease)}
+.lg:hover .lg__mk{transform:translateY(-2px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28),inset 0 1px 0 rgba(255,255,255,.12),0 14px 30px -16px rgba(91,124,255,.5)}
+.lg__mk svg{width:54%;height:54%;fill:none;stroke:var(--ink);stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}
+.lg__img{position:absolute;inset:20%;width:60%;height:60%;object-fit:contain;opacity:0}
 .lg__img.on{opacity:1}
 .lg__mk:has(.lg__img.on) svg{opacity:0}
-.lg b{font-size:clamp(1.15rem,.9rem + 1.1vw,1.7rem);font-weight:600;letter-spacing:-.02em;color:var(--ink-2)}
+.lg__mk:has(.lg__img.on){background:rgba(255,255,255,.04)}
+.lg b{font-size:clamp(1.05rem,.85rem + 1vw,1.5rem);font-weight:600;letter-spacing:-.02em;color:var(--ink-2)}
 @keyframes scrollx{to{transform:translateX(-50%)}}
 .lg-sprite{position:absolute;width:0;height:0;overflow:hidden}
 
