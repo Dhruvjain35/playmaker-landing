@@ -33,14 +33,14 @@
 	/* slug, icon, label. Drop a real logo at assets/images/leagues/<slug>.svg|png
 	   and add its slug to LOGO_FILES below — it replaces the emblem automatically. */
 	const LEAGUES = [['nba', 'bball', 'NBA'], ['nfl', 'fball', 'NFL'], ['mlb', 'baseball', 'MLB'], ['nhl', 'hockey', 'NHL'], ['premier-league', 'soccer', 'Premier League'], ['champions-league', 'trophy', 'Champions League'], ['ncaa', 'pennant', 'NCAA'], ['ufc', 'octagon', 'UFC'], ['world-cup', 'globe', 'World Cup']];
-	const LOGO_FILES = new Set([/* e.g. 'nba','nfl' once the real files are added */]);
+	/* Auto-load a real logo if a file exists at assets/images/leagues/<slug>.svg
+	   (falls back to .png, then to the emblem). Just drop the files in. */
+	const LOGO_DIR = 'assets/images/leagues/';
+	const onErr = "if(this.dataset.t!=='png'){this.dataset.t='png';this.src=this.src.replace(/\\.svg$/,'.png')}else{this.remove()}";
 	document.querySelectorAll('[data-leagues]').forEach((row) => {
-		const item = ([slug, ic, name]) => {
-			const mark = LOGO_FILES.has(slug)
-				? `<span class="lg__mk"><img class="lg__img" src="assets/images/leagues/${slug}.svg" alt="${name}" onload="this.classList.add('on')"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg></span>`
-				: `<span class="lg__mk"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg></span>`;
-			return `<span class="lg">${mark}<b>${name}</b></span>`;
-		};
+		const item = ([slug, ic, name]) =>
+			`<span class="lg"><span class="lg__mk"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg>` +
+			`<img class="lg__img" src="${LOGO_DIR}${slug}.svg" alt="" onload="this.classList.add('on')" onerror="${onErr}"></span><b>${name}</b></span>`;
 		const set = LEAGUES.map(item).join('');
 		row.innerHTML = set + set; /* duplicate for seamless loop */
 	});

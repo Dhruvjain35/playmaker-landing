@@ -242,12 +242,12 @@ section{scroll-margin-top:64px}
 }
 
 /* ───────── steps with draw-line ───────── */
-.steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
+.steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);list-style:none;counter-reset:step}
 .steps::before{content:"";position:absolute;top:0;left:0;height:1px;width:100%;background:var(--line)}
 .steps::after{content:"";position:absolute;top:0;left:0;height:1px;width:0;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));transition:width 1.4s var(--ease)}
 .steps.is-in::after{width:100%}
-.step{padding-top:26px}
-.step__no{font-size:.86rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.step{padding-top:26px;counter-increment:step}
+.step__no{display:block;font-size:.9rem;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
 .step h3{font-size:clamp(1.4rem,1.1rem + 1vw,1.8rem);font-weight:600;letter-spacing:-.015em;margin:16px 0 10px}
 .step p{color:var(--muted);font-size:.98rem}
 
