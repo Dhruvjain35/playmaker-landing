@@ -235,6 +235,48 @@
 		window.addEventListener('resize', par, { passive: true });
 	}
 
+	/* ── live thread: agent types and messages arrive, on a loop ── */
+	document.querySelectorAll('[data-thread]').forEach((thread) => {
+		const msgs = [...thread.querySelectorAll('.b')];
+		if (!msgs.length) return;
+		if (reduce) { msgs.forEach((m) => m.classList.add('msg-in')); return; }
+		const typing = document.createElement('div');
+		typing.className = 'typing'; typing.setAttribute('aria-hidden', 'true');
+		typing.innerHTML = '<span></span><span></span><span></span>';
+		const hideTyping = () => { if (typing.parentNode) typing.parentNode.removeChild(typing); };
+		msgs.forEach((m) => { m.style.display = 'none'; });
+		let i = 0;
+		const reveal = (m) => {
+			m.style.display = '';
+			m.classList.add('msg-in');
+			i++;
+			setTimeout(step, m.classList.contains('b--out') ? 680 : 900);
+		};
+		const step = () => {
+			if (i >= msgs.length) { setTimeout(reset, 3000); return; }
+			const m = msgs[i];
+			if (m.classList.contains('b--out')) {
+				setTimeout(() => reveal(m), 140);
+			} else {
+				thread.appendChild(typing);            /* agent is typing… */
+				setTimeout(() => { hideTyping(); reveal(m); }, m.classList.contains('b--card') ? 1250 : 1050);
+			}
+		};
+		const reset = () => {
+			hideTyping();
+			msgs.forEach((m) => { m.style.display = 'none'; m.classList.remove('msg-in'); });
+			i = 0; setTimeout(step, 500);
+		};
+		/* play only while in view */
+		if ('IntersectionObserver' in window) {
+			let started = false;
+			const o = new IntersectionObserver((en) => en.forEach((e) => {
+				if (e.isIntersecting && !started) { started = true; setTimeout(step, 500); }
+			}), { threshold: 0.3 });
+			o.observe(thread);
+		} else { setTimeout(step, 500); }
+	});
+
 	/* FAQ */
 	document.querySelectorAll('.qa').forEach((qa) => {
 		const btn = qa.querySelector('.qa__q');
