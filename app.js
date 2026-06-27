@@ -7,6 +7,36 @@
 	const nav = document.getElementById('nav');
 	const burger = document.getElementById('burger');
 
+	/* ── premium iOS chrome injected into every phone screen ── */
+	const STATUS = '<div class="ios-status"><span class="ios-time">9:41</span><span class="ios-ind"><i class="ios-sig"></i><i class="ios-wifi"></i><i class="ios-bat"></i></span></div>';
+	const INPUT = '<div class="ios-input"><span class="ios-field">Message</span><span class="ios-send"></span></div>';
+	const chrome = (screen) => {
+		if (screen.dataset.chromed) return;
+		screen.dataset.chromed = '1';
+		screen.insertAdjacentHTML('afterbegin', STATUS);
+		screen.insertAdjacentHTML('beforeend', INPUT);
+	};
+	document.querySelectorAll('.device__screen').forEach(chrome);
+
+	/* ── league emblem strip (original monochrome marks) ── */
+	const ICONS = {
+		bball: '<circle cx="12" cy="12" r="9.2"/><path d="M12 2.8v18.4M2.8 12h18.4M5.6 5.6c3.4 3.4 3.4 9.4 0 12.8M18.4 5.6c-3.4 3.4-3.4 9.4 0 12.8"/>',
+		fball: '<ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-32 12 12)"/><path d="M8.8 15.2l6.4-6.4"/><path d="M10.4 12.4l1.4 1.4M11.9 10.9l1.4 1.4M13.4 9.4l1.4 1.4"/>',
+		baseball: '<circle cx="12" cy="12" r="9.2"/><path d="M6.2 5.4c2.6 3.1 2.6 10.1 0 13.2M17.8 5.4c-2.6 3.1-2.6 10.1 0 13.2"/>',
+		hockey: '<path d="M5 5l9.5 11M5 5v3M5 5h3M19 5L9.5 16M19 5v3M19 5h-3"/><rect x="9.6" y="17.8" width="4.8" height="2.4" rx="1.2"/>',
+		soccer: '<circle cx="12" cy="12" r="9.2"/><path d="M12 7.2l3.4 2.5-1.3 4h-4.2l-1.3-4z"/><path d="M12 7.2V3.4M15.4 9.7l3.3-1.4M14.1 13.7l2 3M9.9 13.7l-2 3M8.6 9.7L5.3 8.3"/>',
+		trophy: '<path d="M8 4.5h8v3.2a4 4 0 0 1-8 0V4.5z"/><path d="M8 5.6H5.4a2.6 2.6 0 0 0 2.6 2.6M16 5.6h2.6a2.6 2.6 0 0 1-2.6 2.6"/><path d="M12 11.6v3.2M9.2 19.5h5.6M10 19.5l.6-3.1h2.8l.6 3.1"/>',
+		pennant: '<path d="M6.5 3.5v17"/><path d="M6.5 4.6l13 3.4-13 4.2z"/>',
+		octagon: '<path d="M8.2 4.5h7.6l4.2 4.2v6.6l-4.2 4.2H8.2L4 15.3V8.7z"/><path d="M12 8.5v7M9 12h6"/>',
+		globe: '<circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c3.2 3.4 3.2 15 0 18.4M12 2.8c-3.2 3.4-3.2 15 0 18.4M4.6 6.4c4.4 2.4 10.4 2.4 14.8 0M4.6 17.6c4.4-2.4 10.4-2.4 14.8 0"/>'
+	};
+	const LEAGUES = [['bball', 'NBA'], ['fball', 'NFL'], ['baseball', 'MLB'], ['hockey', 'NHL'], ['soccer', 'Premier League'], ['trophy', 'Champions League'], ['pennant', 'NCAA'], ['octagon', 'UFC'], ['globe', 'World Cup']];
+	document.querySelectorAll('[data-leagues]').forEach((row) => {
+		const item = ([ic, name]) => `<span class="lg"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg><b>${name}</b></span>`;
+		const set = LEAGUES.map(item).join('');
+		row.innerHTML = set + set; /* duplicate for seamless loop */
+	});
+
 	/* nav */
 	if (nav) {
 		const onNav = () => nav.classList.toggle('is-stuck', window.scrollY > 12);
@@ -121,6 +151,7 @@
 				const w = document.createElement('div'); w.className = 'cap__device story__device-m';
 				w.innerHTML = '<div class="device device--lg"><div class="device__island"></div><div class="device__screen">' + scenes[i].innerHTML + '</div></div>';
 				cap.appendChild(w);
+				w.querySelectorAll('.device__screen').forEach(chrome);
 			});
 			built = true;
 		};
