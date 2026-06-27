@@ -299,6 +299,33 @@
 		el.addEventListener('pointerleave', () => { el.style.transform = ''; });
 	});
 
+	/* ── video lightbox (real YouTube highlight) ── */
+	const videoEls = document.querySelectorAll('[data-video]');
+	if (videoEls.length) {
+		let lb = null;
+		const close = () => {
+			if (!lb) return;
+			lb.classList.remove('open');
+			lb.querySelector('.lightbox__video').innerHTML = '';
+			document.body.style.overflow = '';
+		};
+		const open = (id) => {
+			if (!lb) {
+				lb = document.createElement('div');
+				lb.className = 'lightbox';
+				lb.innerHTML = '<button class="lightbox__close" aria-label="Close video">×</button><div class="lightbox__frame"><div class="lightbox__video"></div></div>';
+				document.body.appendChild(lb);
+				lb.addEventListener('click', (e) => { if (e.target === lb || e.target.closest('.lightbox__close')) close(); });
+			}
+			lb.querySelector('.lightbox__video').innerHTML =
+				'<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" title="Highlights" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+			lb.classList.add('open');
+			document.body.style.overflow = 'hidden';
+		};
+		document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+		videoEls.forEach((el) => el.addEventListener('click', (e) => { e.preventDefault(); open(el.dataset.video); }));
+	}
+
 	/* capture → Kit 9578491 */
 	const KIT = 'https://app.kit.com/forms/9578491/subscriptions';
 	document.querySelectorAll('[data-capture]').forEach((form) => {
