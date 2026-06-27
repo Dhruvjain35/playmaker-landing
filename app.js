@@ -30,9 +30,17 @@
 		octagon: '<path d="M8.2 4.5h7.6l4.2 4.2v6.6l-4.2 4.2H8.2L4 15.3V8.7z"/><path d="M12 8.5v7M9 12h6"/>',
 		globe: '<circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c3.2 3.4 3.2 15 0 18.4M12 2.8c-3.2 3.4-3.2 15 0 18.4M4.6 6.4c4.4 2.4 10.4 2.4 14.8 0M4.6 17.6c4.4-2.4 10.4-2.4 14.8 0"/>'
 	};
-	const LEAGUES = [['bball', 'NBA'], ['fball', 'NFL'], ['baseball', 'MLB'], ['hockey', 'NHL'], ['soccer', 'Premier League'], ['trophy', 'Champions League'], ['pennant', 'NCAA'], ['octagon', 'UFC'], ['globe', 'World Cup']];
+	/* slug, icon, label. Drop a real logo at assets/images/leagues/<slug>.svg|png
+	   and add its slug to LOGO_FILES below — it replaces the emblem automatically. */
+	const LEAGUES = [['nba', 'bball', 'NBA'], ['nfl', 'fball', 'NFL'], ['mlb', 'baseball', 'MLB'], ['nhl', 'hockey', 'NHL'], ['premier-league', 'soccer', 'Premier League'], ['champions-league', 'trophy', 'Champions League'], ['ncaa', 'pennant', 'NCAA'], ['ufc', 'octagon', 'UFC'], ['world-cup', 'globe', 'World Cup']];
+	const LOGO_FILES = new Set([/* e.g. 'nba','nfl' once the real files are added */]);
 	document.querySelectorAll('[data-leagues]').forEach((row) => {
-		const item = ([ic, name]) => `<span class="lg"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg><b>${name}</b></span>`;
+		const item = ([slug, ic, name]) => {
+			const mark = LOGO_FILES.has(slug)
+				? `<span class="lg__mk"><img class="lg__img" src="assets/images/leagues/${slug}.svg" alt="${name}" onload="this.classList.add('on')"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg></span>`
+				: `<span class="lg__mk"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg></span>`;
+			return `<span class="lg">${mark}<b>${name}</b></span>`;
+		};
 		const set = LEAGUES.map(item).join('');
 		row.innerHTML = set + set; /* duplicate for seamless loop */
 	});
@@ -134,11 +142,23 @@
 			scenes.forEach((s, n) => s.classList.toggle('is-on', n === i));
 			dots.forEach((d, n) => d.classList.toggle('is-on', n === i));
 		};
+		const storyDev = story.querySelector('.story__device .device');
+		let ticking = false;
 		const onStory = () => {
-			if (isMobile()) return;
-			const total = story.offsetHeight - window.innerHeight;
-			const p = clamp(-story.getBoundingClientRect().top / total, 0, 1);
-			set(p < 0.34 ? 0 : p < 0.68 ? 1 : 2);
+			if (ticking || isMobile()) return;
+			ticking = true;
+			requestAnimationFrame(() => {
+				const total = story.offsetHeight - window.innerHeight;
+				const p = clamp(-story.getBoundingClientRect().top / total, 0, 1);
+				set(p < 0.34 ? 0 : p < 0.68 ? 1 : 2);
+				/* starts turned away, rotates to face you as you scroll in */
+				if (storyDev && !reduce) {
+					const ry = (-26 + p * 28).toFixed(2);   /* -26deg → +2deg */
+					const rx = (7 - p * 6).toFixed(2);       /* 7deg → 1deg */
+					storyDev.style.transform = `rotateY(${ry}deg) rotateX(${rx}deg)`;
+				}
+				ticking = false;
+			});
 		};
 		set(0);
 		window.addEventListener('scroll', onStory, { passive: true });
