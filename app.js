@@ -19,16 +19,17 @@
 	document.querySelectorAll('.device__screen').forEach(chrome);
 
 	/* ── league emblem strip (original monochrome marks) ── */
+	const K = '#0a0a0c'; /* knock-out detail = page black */
 	const ICONS = {
-		bball: '<circle cx="12" cy="12" r="9.2"/><path d="M12 2.8v18.4M2.8 12h18.4M5.6 5.6c3.4 3.4 3.4 9.4 0 12.8M18.4 5.6c-3.4 3.4-3.4 9.4 0 12.8"/>',
-		fball: '<ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-32 12 12)"/><path d="M8.8 15.2l6.4-6.4"/><path d="M10.4 12.4l1.4 1.4M11.9 10.9l1.4 1.4M13.4 9.4l1.4 1.4"/>',
-		baseball: '<circle cx="12" cy="12" r="9.2"/><path d="M6.2 5.4c2.6 3.1 2.6 10.1 0 13.2M17.8 5.4c-2.6 3.1-2.6 10.1 0 13.2"/>',
-		hockey: '<path d="M5 5l9.5 11M5 5v3M5 5h3M19 5L9.5 16M19 5v3M19 5h-3"/><rect x="9.6" y="17.8" width="4.8" height="2.4" rx="1.2"/>',
-		soccer: '<circle cx="12" cy="12" r="9.2"/><path d="M12 7.2l3.4 2.5-1.3 4h-4.2l-1.3-4z"/><path d="M12 7.2V3.4M15.4 9.7l3.3-1.4M14.1 13.7l2 3M9.9 13.7l-2 3M8.6 9.7L5.3 8.3"/>',
-		trophy: '<path d="M8 4.5h8v3.2a4 4 0 0 1-8 0V4.5z"/><path d="M8 5.6H5.4a2.6 2.6 0 0 0 2.6 2.6M16 5.6h2.6a2.6 2.6 0 0 1-2.6 2.6"/><path d="M12 11.6v3.2M9.2 19.5h5.6M10 19.5l.6-3.1h2.8l.6 3.1"/>',
-		pennant: '<path d="M6.5 3.5v17"/><path d="M6.5 4.6l13 3.4-13 4.2z"/>',
-		octagon: '<path d="M8.2 4.5h7.6l4.2 4.2v6.6l-4.2 4.2H8.2L4 15.3V8.7z"/><path d="M12 8.5v7M9 12h6"/>',
-		globe: '<circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c3.2 3.4 3.2 15 0 18.4M12 2.8c-3.2 3.4-3.2 15 0 18.4M4.6 6.4c4.4 2.4 10.4 2.4 14.8 0M4.6 17.6c4.4-2.4 10.4-2.4 14.8 0"/>'
+		bball: `<circle cx="12" cy="12" r="10" fill="#f5f5f7"/><g fill="none" stroke="${K}" stroke-width="1.4" stroke-linecap="round"><path d="M12 2v20M2 12h20M5.2 5.2c4 3.9 4 9.7 0 13.6M18.8 5.2c-4 3.9-4 9.7 0 13.6"/></g>`,
+		fball: `<g transform="rotate(-34 12 12)"><path fill="#f5f5f7" d="M12 5.4c4.1 0 7.4 2.96 7.4 6.6s-3.3 6.6-7.4 6.6-7.4-2.96-7.4-6.6S7.9 5.4 12 5.4z"/><g fill="none" stroke="${K}" stroke-width="1.3" stroke-linecap="round"><path d="M8.6 12h6.8M10.6 10.7v2.6M12 10.3v3.4M13.4 10.7v2.6"/></g></g>`,
+		baseball: `<circle cx="12" cy="12" r="10" fill="#f5f5f7"/><g fill="none" stroke="${K}" stroke-width="1.3" stroke-linecap="round"><path d="M6.6 4.2c2.7 3.2 2.7 9.6 0 13.6M17.4 4.2c-2.7 3.2-2.7 9.6 0 13.6"/></g>`,
+		hockey: `<ellipse cx="12" cy="10.5" rx="8.6" ry="3.2" fill="#f5f5f7"/><path fill="#bfbfc6" d="M3.4 10.5v3.4c0 1.77 3.85 3.2 8.6 3.2s8.6-1.43 8.6-3.2v-3.4c0 1.77-3.85 3.2-8.6 3.2s-8.6-1.43-8.6-3.2z"/>`,
+		soccer: `<circle cx="12" cy="12" r="10" fill="#f5f5f7"/><path fill="${K}" d="M12 8.1l3.05 2.2-1.16 3.6h-3.78L9 10.3z"/><g fill="none" stroke="${K}" stroke-width="1.2" stroke-linecap="round"><path d="M12 8V4M15 10.3l3.3-1.3M13.9 13.9l1.9 3M10.1 13.9l-1.9 3M9 10.3L5.7 9"/></g>`,
+		trophy: `<path fill="#f5f5f7" d="M8 4h8v3.2a4 4 0 0 1-8 0V4z"/><path fill="none" stroke="#f5f5f7" stroke-width="1.6" d="M8 5.2H5.4A2.6 2.6 0 0 0 8 7.8M16 5.2h2.6A2.6 2.6 0 0 1 16 7.8"/><rect x="10.9" y="11" width="2.2" height="3.4" fill="#f5f5f7"/><path fill="#f5f5f7" d="M8.4 19l.7-3.4h5.8l.7 3.4z"/>`,
+		pennant: `<rect x="5.4" y="3.4" width="1.7" height="17.2" rx=".85" fill="#f5f5f7"/><path fill="#f5f5f7" d="M7.1 4.5l12.5 3.3-12.5 4z"/>`,
+		octagon: `<path fill="#f5f5f7" fill-rule="evenodd" d="M7.9 3.4h8.2l4.5 4.5v8.2l-4.5 4.5H7.9l-4.5-4.5V7.9zM8.7 5.4 5.4 8.7v6.6l3.3 3.3h6.6l3.3-3.3V8.7l-3.3-3.3z"/>`,
+		globe: `<circle cx="12" cy="12" r="10" fill="#f5f5f7"/><g fill="none" stroke="${K}" stroke-width="1.2"><path d="M2 12h20M12 2c3.5 3.7 3.5 16.3 0 20M12 2c-3.5 3.7-3.5 16.3 0 20M4.6 6c4.7 2.6 11.1 2.6 14.8 0M4.6 18c4.7-2.6 11.1-2.6 14.8 0"/></g>`
 	};
 	/* slug, icon, label. Drop a real logo at assets/images/leagues/<slug>.svg|png
 	   and add its slug to LOGO_FILES below — it replaces the emblem automatically. */
