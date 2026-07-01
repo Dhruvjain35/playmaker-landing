@@ -69,35 +69,78 @@
 			a.addEventListener('click', () => { nav.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); }));
 	}
 
-	/* reveals + one-shot in-view triggers (counter, steps) */
+	/* reveals + steps draw-line */
 	const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
-		entries.forEach((e) => {
-			if (!e.isIntersecting) return;
-			e.target.classList.add('is-in');
-			if (e.target.classList.contains('counter')) runOdo(e.target);
-			io.unobserve(e.target);
-		});
+		entries.forEach((e) => { if (!e.isIntersecting) return; e.target.classList.add('is-in'); io.unobserve(e.target); });
 	}, { threshold: 0.2, rootMargin: '0px 0px -7% 0px' }) : null;
-
-	const watch = document.querySelectorAll('[data-reveal], .steps, .counter');
-	if (reduce || !io) { watch.forEach((el) => { el.classList.add('is-in'); if (el.classList.contains('counter')) runOdo(el); }); }
+	const watch = document.querySelectorAll('[data-reveal], .steps');
+	if (reduce || !io) watch.forEach((el) => el.classList.add('is-in'));
 	else watch.forEach((el) => io.observe(el));
 
-	/* ── odometer build + run ── */
-	document.querySelectorAll('.odo__d').forEach((d) => {
-		const target = +d.dataset.d, cycles = 5;
-		const col = document.createElement('div'); col.className = 'odo__col';
-		for (let c = 0; c < cycles; c++) for (let i = 0; i < 10; i++) { const s = document.createElement('span'); s.textContent = i; col.appendChild(s); }
-		d.appendChild(col);
-		d._col = col; d._offset = (cycles - 1) * 10 + target;
-	});
-	function runOdo(counter) {
-		const reels = [...counter.querySelectorAll('.odo__d')];
-		const n = reels.length;
-		reels.forEach((d, i) => {
-			if (reduce) { d._col.style.transform = `translateY(-${d._offset}em)`; return; }
-			d._col.style.transitionDelay = ((n - 1 - i) * 0.09) + 's';
-			requestAnimationFrame(() => requestAnimationFrame(() => { d._col.style.transform = `translateY(-${d._offset}em)`; }));
+	/* ── live waitlist counter: real & persistent (counterapi.dev), emails + numbers logged to Kit ── */
+	const wlCounter = document.querySelector('.counter[data-goal]');
+	if (wlCounter) {
+		const API = 'https://api.counterapi.dev/v1/playmakr-pro/waitlist';
+		const KITF = 'https://app.kit.com/forms/9578491/subscriptions';
+		const GOAL = +wlCounter.dataset.goal || 10000;
+		const BASE = +wlCounter.dataset.base || 0;   /* set data-base to your real existing signups */
+		const odo = wlCounter.querySelector('[data-odo]');
+		const barFill = wlCounter.querySelector('.bar__fill');
+		const setBar = (n) => { if (barFill) barFill.style.width = Math.max(1.5, Math.min(100, (n / GOAL) * 100)) + '%'; };
+		const render = (n, animate) => {
+			const str = Math.max(0, Math.round(n)).toLocaleString('en-US');
+			odo.innerHTML = ''; let di = 0;
+			[...str].forEach((ch) => {
+				if (ch === ',') { const s = document.createElement('span'); s.className = 'odo__sep'; s.textContent = ','; odo.appendChild(s); return; }
+				const d = document.createElement('span'); d.className = 'odo__d';
+				const col = document.createElement('div'); col.className = 'odo__col'; const cycles = 4;
+				for (let c = 0; c < cycles; c++) for (let i = 0; i < 10; i++) { const sp = document.createElement('span'); sp.textContent = i; col.appendChild(sp); }
+				d.appendChild(col); odo.appendChild(d);
+				const offset = (cycles - 1) * 10 + (+ch); di++;
+				if (animate && !reduce) { col.style.transitionDelay = (di * 0.05) + 's'; requestAnimationFrame(() => requestAnimationFrame(() => { col.style.transform = `translateY(-${offset}em)`; })); }
+				else { col.style.transition = 'none'; col.style.transform = `translateY(-${offset}em)`; }
+			});
+		};
+		let current = BASE, fetched = false, seen = false;
+		const paint = () => { if (fetched && seen) render(current, true), setBar(current); };
+		fetch(API + '/').then((r) => r.json()).then((j) => { current = BASE + ((j && j.count) || 0); }).catch(() => {}).finally(() => { fetched = true; paint(); });
+		if ('IntersectionObserver' in window) { const o = new IntersectionObserver((en, ob) => en.forEach((e) => { if (e.isIntersecting) { seen = true; paint(); ob.disconnect(); } }), { threshold: 0.35 }); o.observe(wlCounter); }
+		else { seen = true; paint(); }
+
+		/* role picker — the verified badge is only for athletes & creators */
+		let role = 'fan';
+		const sec = wlCounter.closest('.wl') || document;
+		sec.querySelectorAll('.role').forEach((btn) => btn.addEventListener('click', () => {
+			role = btn.dataset.role;
+			sec.querySelectorAll('.role').forEach((b) => { const on = b === btn; b.classList.toggle('is-on', on); b.setAttribute('aria-checked', String(on)); });
+			sec.classList && sec.classList.toggle('is-vip', role !== 'fan');
+		}));
+
+		/* submit — increment the real counter, log email + number + role to Kit */
+		const form = sec.querySelector('[data-waitlist]');
+		form && form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const input = form.querySelector('input[type="email"]');
+			const btn = form.querySelector('button[type="submit"]');
+			const cap = form.querySelector('.capture');
+			const msg = form.querySelector('.capture__msg');
+			if (!input.checkValidity()) { input.reportValidity(); return; }
+			const email = input.value.trim();
+			if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+			let n = current + 1;
+			try { const r = await fetch(API + '/up'); const j = await r.json(); if (j && j.count) n = BASE + j.count; } catch (_) {}
+			current = n;
+			const fd = new FormData();
+			fd.append('email_address', email);
+			fd.append('fields[waitlist_number]', n);
+			fd.append('fields[role]', role);
+			fetch(KITF, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
+			render(n, true); setBar(n);
+			if (cap) cap.classList.add('is-done');
+			const badge = role !== 'fan' ? ' Your verified badge is pending review.' : '';
+			if (msg) msg.textContent = `You're #${n.toLocaleString('en-US')} on the waitlist.${badge}`;
+			input.value = ''; input.disabled = true;
+			if (btn) btn.textContent = 'Secured';
 		});
 	}
 
