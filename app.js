@@ -80,7 +80,7 @@
 	/* ── live waitlist counter: real & persistent (counterapi.dev), emails + numbers logged to Kit ── */
 	const wlCounter = document.querySelector('.counter[data-goal]');
 	if (wlCounter) {
-		const API = 'https://api.counterapi.dev/v1/playmakr-pro/waitlist';
+		const API = 'https://api.counterapi.dev/v1/playmakr-pro-launch/waitlist';
 		const KITF = 'https://app.kit.com/forms/9578491/subscriptions';
 		const GOAL = +wlCounter.dataset.goal || 10000;
 		const BASE = +wlCounter.dataset.base || 0;   /* set data-base to your real existing signups */

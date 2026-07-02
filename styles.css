@@ -133,6 +133,7 @@ section{scroll-margin-top:64px}
 .sb__pts{font-weight:600;font-size:.98rem;font-variant-numeric:tabular-nums}
 .tm{width:8px;height:8px;border-radius:50%}
 .tm--lac{background:#c8102e}.tm--den{background:#0e2240;box-shadow:0 0 0 1.5px #fec524 inset}
+.tm--min{background:#0c2340;box-shadow:0 0 0 1.5px #78be20 inset}
 .tm--sea{background:#002244;box-shadow:0 0 0 1.5px #69be28 inset}.tm--sf{background:#aa0000}
 .tm--nyy{background:#132448}.tm--bos{background:#bd3039}
 .tm--liv{background:#c8102e}.tm--rma{background:#febe10;box-shadow:0 0 0 1.5px #00529f inset}
