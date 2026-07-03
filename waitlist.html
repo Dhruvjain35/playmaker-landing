@@ -4,11 +4,11 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>PLAYMAKR · Join the waitlist</title>
-	<meta name="description" content="Join the PLAYMAKR waitlist. Real-time count, real signups. We'll text you the moment access opens. The verified badge is reserved for athletes and creators." />
+	<meta name="description" content="Join the PLAYMAKR waitlist. Drop your number and we'll text you the moment access opens. The verified badge is reserved for athletes and creators." />
 	<meta name="theme-color" content="#070708" />
 	<link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
-	<link rel="stylesheet" href="styles.css?v=34" />
+	<link rel="stylesheet" href="styles.css?v=35" />
 	<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -27,12 +27,12 @@
 		<section class="wl">
 			<div class="wl__glow" data-parallax="0.06" aria-hidden="true"></div>
 			<h1 data-reveal="up">Join the<br>PLAYMAKR waitlist.</h1>
-			<p class="t-sub" data-reveal="up" style="--d:1">Claim your spot in seconds. We'll text you the moment access opens. Every
-				signup is counted live and logged in order, real numbers, no smoke.</p>
+			<p class="t-sub" data-reveal="up" style="--d:1">Drop your number and we'll text you the moment access opens. No spam,
+				just one message when you're in.</p>
 
-			<div class="counter" data-goal="10000" data-base="10000" data-reveal="up" style="--d:2">
-				<div class="odo" data-odo aria-live="polite" aria-label="People on the waitlist"></div>
-				<p class="counter__cap">on the waitlist</p>
+			<div class="counter" data-reveal="up" style="--d:2">
+				<div class="ticker-num" data-fake-count aria-live="polite">7,000</div>
+				<p class="counter__cap">already on the waitlist</p>
 			</div>
 
 			<form class="wl__form" data-waitlist data-reveal="up" style="--d:3" aria-label="Join the waitlist">
@@ -41,9 +41,10 @@
 					<button type="button" class="role" data-role="athlete" aria-checked="false">Athlete</button>
 					<button type="button" class="role" data-role="creator" aria-checked="false">Creator</button>
 				</div>
-				<div class="capture">
-					<input type="email" name="email" required placeholder="you@email.com" autocomplete="email" />
-					<button class="btn" data-magnetic type="submit">Claim my spot</button>
+				<div class="capture capture--phone">
+					<span class="capture__cc" aria-hidden="true">+1</span>
+					<input type="tel" name="phone" required inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
+					<button class="btn" data-magnetic type="submit">Join the waitlist</button>
 					<p class="capture__msg" role="status" aria-live="polite"></p>
 				</div>
 			</form>
@@ -56,7 +57,7 @@
 		<div class="wrap">
 			<div class="foot__notes">
 				<p>PLAYMAKR is an independent service and is not affiliated with, endorsed by, or sponsored by the NBA, NFL, MLB, NHL, NCAA, UFC, or any league, team or player. Team, league and player names are used for identification purposes only.</p>
-				<p>Early access is offered during a private beta and features are subject to change. PLAYMAKR does not offer, facilitate or promote sports wagering of any kind. The waitlist count reflects real signups and updates live.</p>
+				<p>Early access is offered during a private beta and features are subject to change. PLAYMAKR does not offer, facilitate or promote sports wagering of any kind.</p>
 			</div>
 			<div class="foot__grid">
 				<div class="foot__brand"><a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span><span class="brand__word">PLAYMAKR</span></a></div>
@@ -69,6 +70,6 @@
 		</div>
 	</footer>
 
-	<script src="app.js?v=34"></script>
+	<script src="app.js?v=35"></script>
 </body>
 </html>

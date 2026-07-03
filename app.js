@@ -77,70 +77,71 @@
 	if (reduce || !io) watch.forEach((el) => el.classList.add('is-in'));
 	else watch.forEach((el) => io.observe(el));
 
-	/* ── live waitlist counter: real & persistent (counterapi.dev), emails + numbers logged to Kit ── */
-	const wlCounter = document.querySelector('.counter[data-goal]');
-	if (wlCounter) {
-		const API = 'https://api.counterapi.dev/v1/playmakr-pro-launch/waitlist';
+	/* ── waitlist counter (animated) + phone-number join ── */
+	const wlNum = document.querySelector('[data-fake-count]');
+	if (wlNum) {
 		const KITF = 'https://app.kit.com/forms/9578491/subscriptions';
-		const GOAL = +wlCounter.dataset.goal || 10000;
-		const BASE = +wlCounter.dataset.base || 0;   /* set data-base to your real existing signups */
-		const odo = wlCounter.querySelector('[data-odo]');
-		const barFill = wlCounter.querySelector('.bar__fill');
-		const setBar = (n) => { if (barFill) barFill.style.width = Math.max(1.5, Math.min(100, (n / GOAL) * 100)) + '%'; };
-		const render = (n, animate) => {
-			const str = Math.max(0, Math.round(n)).toLocaleString('en-US');
-			odo.innerHTML = ''; let di = 0;
-			[...str].forEach((ch) => {
-				if (ch === ',') { const s = document.createElement('span'); s.className = 'odo__sep'; s.textContent = ','; odo.appendChild(s); return; }
-				const d = document.createElement('span'); d.className = 'odo__d';
-				const col = document.createElement('div'); col.className = 'odo__col'; const cycles = 4;
-				for (let c = 0; c < cycles; c++) for (let i = 0; i < 10; i++) { const sp = document.createElement('span'); sp.textContent = i; col.appendChild(sp); }
-				d.appendChild(col); odo.appendChild(d);
-				const offset = (cycles - 1) * 10 + (+ch); di++;
-				if (animate && !reduce) { col.style.transitionDelay = (di * 0.05) + 's'; requestAnimationFrame(() => requestAnimationFrame(() => { col.style.transform = `translateY(-${offset}em)`; })); }
-				else { col.style.transition = 'none'; col.style.transform = `translateY(-${offset}em)`; }
-			});
+		const START = 7000;
+		const EPOCH = Date.parse('2026-07-01T00:00:00Z');
+		const PERIOD = 17 * 60 * 1000;   /* baseline drift so it's a touch higher each day */
+		let count = START + Math.max(0, Math.floor((Date.now() - EPOCH) / PERIOD));
+		const set = (n) => { wlNum.textContent = Math.round(n).toLocaleString('en-US'); };
+		const bump = () => { wlNum.classList.remove('bump'); void wlNum.offsetWidth; wlNum.classList.add('bump'); };
+		let ticking = false;
+		const grow = () => {
+			if (reduce) return;
+			ticking = true;
+			const loop = () => {
+				count += 1; set(count); bump();
+				setTimeout(loop, 6500 + Math.random() * 8000);   /* a new join every ~6-14s */
+			};
+			setTimeout(loop, 4000 + Math.random() * 4000);
 		};
-		let current = BASE, fetched = false, seen = false;
-		const paint = () => { if (fetched && seen) render(current, true), setBar(current); };
-		fetch(API + '/').then((r) => r.json()).then((j) => { current = BASE + ((j && j.count) || 0); }).catch(() => {}).finally(() => { fetched = true; paint(); });
-		if ('IntersectionObserver' in window) { const o = new IntersectionObserver((en, ob) => en.forEach((e) => { if (e.isIntersecting) { seen = true; paint(); ob.disconnect(); } }), { threshold: 0.35 }); o.observe(wlCounter); }
-		else { seen = true; paint(); }
+		const reveal = () => {
+			if (reduce) { set(count); return; }
+			const from = Math.max(0, count - 220), dur = 2000, t0 = performance.now();
+			const step = (t) => {
+				const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+				set(from + (count - from) * e);
+				if (p < 1) requestAnimationFrame(step); else if (!ticking) grow();
+			};
+			requestAnimationFrame(step);
+		};
+		if ('IntersectionObserver' in window) { const o = new IntersectionObserver((en, ob) => en.forEach((e) => { if (e.isIntersecting) { reveal(); ob.disconnect(); } }), { threshold: 0.4 }); o.observe(wlNum); }
+		else reveal();
 
 		/* role picker — the verified badge is only for athletes & creators */
 		let role = 'fan';
-		const sec = wlCounter.closest('.wl') || document;
+		const sec = wlNum.closest('.wl') || document;
 		sec.querySelectorAll('.role').forEach((btn) => btn.addEventListener('click', () => {
 			role = btn.dataset.role;
 			sec.querySelectorAll('.role').forEach((b) => { const on = b === btn; b.classList.toggle('is-on', on); b.setAttribute('aria-checked', String(on)); });
 			sec.classList && sec.classList.toggle('is-vip', role !== 'fan');
 		}));
 
-		/* submit — increment the real counter, log email + number + role to Kit */
+		/* join by phone number → logged to Kit (phone_number field + role) */
 		const form = sec.querySelector('[data-waitlist]');
-		form && form.addEventListener('submit', async (e) => {
+		form && form.addEventListener('submit', (e) => {
 			e.preventDefault();
-			const input = form.querySelector('input[type="email"]');
+			const input = form.querySelector('input[type="tel"]');
 			const btn = form.querySelector('button[type="submit"]');
 			const cap = form.querySelector('.capture');
 			const msg = form.querySelector('.capture__msg');
-			if (!input.checkValidity()) { input.reportValidity(); return; }
-			const email = input.value.trim();
+			const digits = (input.value || '').replace(/\D/g, '');
+			if (digits.length < 10) { input.setCustomValidity('Enter a valid phone number'); input.reportValidity(); setTimeout(() => input.setCustomValidity(''), 10); return; }
+			const phone = digits.length === 10 ? '+1' + digits : '+' + digits;
 			if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
-			let n = current + 1;
-			try { const r = await fetch(API + '/up'); const j = await r.json(); if (j && j.count) n = BASE + j.count; } catch (_) {}
-			current = n;
 			const fd = new FormData();
-			fd.append('email_address', email);
-			fd.append('fields[waitlist_number]', n);
+			fd.append('email_address', digits + '@sms.playmakr.pro');   /* placeholder key; the real value is the phone field */
+			fd.append('fields[phone_number]', phone);
 			fd.append('fields[role]', role);
 			fetch(KITF, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
-			render(n, true); setBar(n);
+			count += 1; set(count); bump();
 			if (cap) cap.classList.add('is-done');
-			const badge = role !== 'fan' ? ' Your verified badge is pending review.' : '';
-			if (msg) msg.textContent = `You're #${n.toLocaleString('en-US')} on the waitlist.${badge}`;
+			const badge = role !== 'fan' ? " We'll review you for a verified badge." : '';
+			if (msg) msg.textContent = `You're on the list. We'll text you the moment access opens.${badge}`;
 			input.value = ''; input.disabled = true;
-			if (btn) btn.textContent = 'Secured';
+			if (btn) btn.textContent = 'Joined';
 		});
 	}
 
