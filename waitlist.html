@@ -3,62 +3,73 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>PLAYMAKR · Request access</title>
-	<meta name="description" content="Request access to the PLAYMAKR private beta." />
-	<meta name="theme-color" content="#080807" />
+	<title>PLAYMAKR · Join the waitlist</title>
+	<meta name="description" content="Join the PLAYMAKR waitlist. Drop your number and we'll text you the moment access opens. The verified badge is reserved for athletes and creators." />
+	<meta name="theme-color" content="#070708" />
 	<link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="styles.css?v=100" />
+	<link rel="stylesheet" href="styles.css?v=35" />
 	<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 	<a class="skip" href="#main">Skip to content</a>
+
 	<header class="nav" id="nav">
 		<div class="nav__inner">
-			<a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="28" height="28" /></span><span class="brand__word">PLAYMAKR</span></a>
-			<nav class="nav__links" aria-label="Primary"><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a href="waitlist.html" aria-current="page">Waitlist</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
-			<div class="nav__right"><a class="nav__login" href="index.html">Home</a><a class="nav__join" href="#main">Request access</a><button class="nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button></div>
+			<a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="24" height="24" /></span><span class="brand__word">PLAYMAKR</span></a>
+			<nav class="nav__links" aria-label="Primary"><a href="index.html">Home</a><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a href="waitlist.html" aria-current="page">Waitlist</a></nav>
+			<div class="nav__right"><a class="nav__join" href="#main">Join waitlist</a><button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button></div>
 		</div>
-		<div class="nav__mobile" id="navMobile"><a href="index.html">Home</a><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a href="mailto:founders@playmakr.pro">Contact</a></div>
+		<div class="nav__mobile" id="navMobile"><a href="index.html">Home</a><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a class="nav__mobile-cta" href="#main">Join waitlist</a></div>
 	</header>
 
 	<main id="main">
-		<section class="access wrap">
-			<div class="access__copy">
-				<p class="kicker" data-reveal="up">Private beta</p>
-				<h1 data-reveal="up" style="--d:1">Request access to PLAYMAKR.</h1>
-				<p data-reveal="up" style="--d:2">Drop your number. We will text you when your account is ready, then ask which teams and players to watch.</p>
-				<div class="counter" data-reveal="up" style="--d:3"><strong data-fake-count>7,000</strong><span>fans in line</span></div>
+		<section class="wl">
+			<div class="wl__glow" data-parallax="0.06" aria-hidden="true"></div>
+			<h1 data-reveal="up">Join the<br>PLAYMAKR waitlist.</h1>
+			<p class="t-sub" data-reveal="up" style="--d:1">Drop your number and we'll text you the moment access opens. No spam,
+				just one message when you're in.</p>
+
+			<div class="counter" data-reveal="up" style="--d:2">
+				<div class="ticker-num" data-fake-count aria-live="polite">7,000</div>
+				<p class="counter__cap">already on the waitlist</p>
 			</div>
-			<form class="access__form" data-waitlist data-reveal="surface" style="--d:2" aria-label="Request PLAYMAKR access">
-				<label for="role">I am joining as</label>
-				<div class="roles" role="radiogroup" aria-label="I am joining as">
+
+			<form class="wl__form" data-waitlist data-reveal="up" style="--d:3" aria-label="Join the waitlist">
+				<div class="roles" role="radiogroup" aria-label="I am a">
 					<button type="button" class="role is-on" data-role="fan" aria-checked="true">Fan</button>
 					<button type="button" class="role" data-role="athlete" aria-checked="false">Athlete</button>
 					<button type="button" class="role" data-role="creator" aria-checked="false">Creator</button>
 				</div>
-				<label for="phone">Phone number</label>
-				<div class="phone-field">
-					<span>+1</span>
-					<input id="phone" type="tel" name="phone" required inputmode="tel" autocomplete="tel" placeholder="555 123 4567" />
+				<div class="capture capture--phone">
+					<span class="capture__cc" aria-hidden="true">+1</span>
+					<input type="tel" name="phone" required inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
+					<button class="btn" data-magnetic type="submit">Join the waitlist</button>
+					<p class="capture__msg" role="status" aria-live="polite"></p>
 				</div>
-				<button class="btn btn--light" type="submit">Request access</button>
-				<p class="capture__msg" role="status" aria-live="polite"></p>
-				<p class="fineprint">Private beta only. No betting, no spam, no league affiliation.</p>
 			</form>
+
+			<p class="wl__badge" data-reveal="up" style="--d:4"><span class="vbadge" aria-hidden="true"></span> The verified badge is reserved for athletes &amp; creators.</p>
 		</section>
 	</main>
 
 	<footer class="foot">
-		<div class="wrap foot__inner">
-			<div><a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="24" height="24" /></span><span class="brand__word">PLAYMAKR</span></a><p>Independent sports intelligence for private beta members. Not affiliated with or endorsed by any league, team, player, or sportsbook.</p></div>
-			<nav aria-label="Footer"><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a href="waitlist.html">Waitlist</a><a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></nav>
+		<div class="wrap">
+			<div class="foot__notes">
+				<p>PLAYMAKR is an independent service and is not affiliated with, endorsed by, or sponsored by the NBA, NFL, MLB, NHL, NCAA, UFC, or any league, team or player. Team, league and player names are used for identification purposes only.</p>
+				<p>Early access is offered during a private beta and features are subject to change. PLAYMAKR does not offer, facilitate or promote sports wagering of any kind.</p>
+			</div>
+			<div class="foot__grid">
+				<div class="foot__brand"><a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span><span class="brand__word">PLAYMAKR</span></a></div>
+				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="product.html">Breaking news</a><a href="product.html">Integrations</a></nav>
+				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a></nav>
+				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="#main">Join waitlist</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
+				<nav class="foot__col" aria-label="Company"><h4>Company</h4><a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></nav>
+			</div>
+			<div class="foot__base"><span>Copyright © 2026 PLAYMAKR. All rights reserved.</span><div class="foot__legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><span>United States</span></div></div>
 		</div>
-		<div class="wrap foot__base"><span>Copyright © 2026 PLAYMAKR. All rights reserved.</span><span>playmakr.pro</span></div>
 	</footer>
-	<script src="app.js?v=100"></script>
+
+	<script src="app.js?v=35"></script>
 </body>
 </html>
