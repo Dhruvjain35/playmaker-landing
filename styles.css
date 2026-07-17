@@ -766,7 +766,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
    frame size, and an island that eats the clock is exactly the "fake OS" the
    kill list rejects. 52cqw reads as 204pt against a 393pt screen, which is a
    real compact live activity, and it leaves the chrome intact. */
-.device__island.is-live{width:54cqw;height:11.2cqw}
+.device__island.is-live{width:52cqw;height:11.2cqw}
 /* Expanded alert. */
 .device__island.is-alert{width:81.4cqw;height:26.5cqw}
 .device__island.is-live::after,
@@ -782,8 +782,12 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .device__island.is-alert .island__inner--alert{opacity:1}
 .device__island.is-alert .island__inner--live{opacity:0}
 .island__inner--alert{flex-direction:column;align-items:flex-start;justify-content:center;gap:1.2cqw;padding:3.4cqw 4.6cqw}
-.island__side{display:inline-flex;align-items:center;gap:1.6cqw;flex:none;white-space:nowrap}
-.island__inner .tm{width:2.8cqw;height:2.8cqw;border-radius:.8cqw;box-shadow:none}
+.island__side{display:inline-flex;align-items:center;gap:1.2cqw;flex:none;white-space:nowrap}
+/* No team chips in the compact activity. At a width that clears the clock and
+   the status indicators there is only room for the labels and the score, and a
+   chip that slides under the signal bars is the "fake OS" tell. The chips stay
+   in the score card, where they have the room. */
+.island__inner .tm{display:none}
 .island__score{
 	font-family:var(--font-mono);font-size:3.4cqw;font-weight:500;
 	color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.01em;
