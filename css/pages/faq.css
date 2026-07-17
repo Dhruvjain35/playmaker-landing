@@ -1,0 +1,158 @@
+/* ==========================================================================
+   PLAYMAKR . FAQ
+   Page scoped styles. Loaded after styles.css.
+
+   The foundation owns every component this page uses except one: the glass
+   accordion. It is built here, page prefixed, so it can never leak onto
+   another page. It adds no new tokens, no new easing and no new purple.
+
+   One physical quantity, --faq-o, is written by the page's spring integrator
+   and drives everything a row does: its height, its indicator, its light.
+   --faq-hi is the hover boost, registered so it can be interpolated. Both
+   compose into a single alpha expression, so a row's brightness is a fact
+   about the row, not a stack of transitions fighting each other.
+   ========================================================================== */
+
+@property --faq-hi{ syntax:'<number>'; inherits:true; initial-value:0; }
+
+/* --------------------------------------------------------------------------
+   1. PAGE HEAD
+   The nav is fixed, so the h1 buys its own clearance. Everything else on the
+   page keeps the foundation's section rhythm untouched.
+   -------------------------------------------------------------------------- */
+.faq-top{ padding-block:calc(var(--nav-h) + 88px) var(--s-8); }
+@media(max-width:760px){
+	.faq-top{ padding-block:calc(var(--nav-h) + 56px) var(--s-7); }
+}
+
+/* --------------------------------------------------------------------------
+   2. THE BLOOM CORNERS
+   The foundation rotates a bloom's corner automatically per :nth-child, but
+   only inside a .grid-2 or a .stack. These three panels are each alone in
+   their own section, so that rotation never fires and all three would light
+   from the same corner: the exact repetition the rotation exists to prevent.
+   So the corner is set here through the foundation's own four variables, with
+   the foundation's own values and colours, rather than by hand placing a
+   background-position. Panel 1 keeps the default top left.
+   -------------------------------------------------------------------------- */
+.faq-p2 .panel__bloom{
+	--bx:calc(100% + 110px); --by:-130px;
+	--fx:-110px; --fy:calc(100% + 130px);
+	background-image:radial-gradient(circle closest-side,rgba(193,143,255,.44),transparent);
+}
+.faq-p3 .panel__bloom{
+	--bx:calc(100% + 110px); --by:calc(100% + 130px);
+	--fx:-110px; --fy:-130px;
+	background-image:radial-gradient(circle closest-side,rgba(152,150,255,.42),transparent);
+}
+
+/* --------------------------------------------------------------------------
+   3. THE ACCORDION
+   Rows live directly on a flush panel body, so the panel is the material and
+   the rows are the UI inside it. --faq-pad is the row's own gutter and the
+   marquee's negative margin reads it back, so a full bleed fragment can never
+   drift out of step with the padding on any breakpoint.
+   -------------------------------------------------------------------------- */
+.faq-acc{ --faq-pad:var(--s-6); }
+@media(max-width:760px){
+	.faq-acc{ --faq-pad:var(--s-5); }
+}
+
+.faq-row{
+	--faq-o:0;
+	position:relative;
+	/* the open row's own light. one quantity, no transition: the spring is
+	   already the timing function. */
+	background:rgb(255 255 255 / calc(var(--faq-o,0) * .022));
+	scroll-margin-top:calc(var(--nav-h) + var(--s-5));
+}
+.faq-row.is-open{ --faq-o:1; }   /* the no-JS resting state */
+.faq-row + .faq-row{ box-shadow:inset 0 1px 0 var(--line-1); }
+
+.faq-row__h{ font-size:1rem; font-weight:400; }
+
+.faq-q{
+	--faq-hi:0;
+	display:flex; align-items:flex-start; justify-content:space-between;
+	gap:var(--s-5);
+	width:100%; text-align:left;
+	padding:var(--s-5) var(--faq-pad);
+	transition:--faq-hi 160ms var(--ease-hover);
+}
+.faq-q:hover{ --faq-hi:1; }
+/* The panel body clips, so the focus ring is inset rather than clipped off. */
+.faq-q:focus-visible{ outline-offset:-3px; border-radius:var(--r-well); }
+
+.faq-q__t{
+	font-family:var(--font-display);
+	font-size:1.125rem; font-weight:600; line-height:1.35; letter-spacing:-.016em;
+	color:rgb(255 255 255 / calc(.60 + var(--faq-o,0) * .36 + var(--faq-hi,0) * .12));
+	text-wrap:pretty;
+}
+
+/* The indicator is the same spring, drawn. A plus lies down into a minus, and
+   because the spring overshoots it crosses a degree or two past flat and
+   settles back. It is not a rotation on a timer. */
+.faq-q__i{
+	position:relative; flex:none;
+	width:18px; height:18px; margin-top:3px;
+	color:rgb(255 255 255 / calc(.30 + var(--faq-o,0) * .50 + var(--faq-hi,0) * .18));
+}
+.faq-q__i::before,
+.faq-q__i::after{
+	content:""; position:absolute; left:50%; top:50%;
+	width:100%; height:1.5px; border-radius:1px;
+	background:currentColor;
+	transform:translate(-50%,-50%);
+}
+.faq-q__i::after{
+	transform:translate(-50%,-50%) rotate(calc(90deg - var(--faq-o,0) * 90deg));
+}
+
+/* --------------------------------------------------------------------------
+   4. THE DRAWER
+   height is owned by the spring in faq.html. CSS only states the resting
+   truth: closed rows are clipped and out of the a11y tree, and with no JS at
+   all every answer is simply open.
+   -------------------------------------------------------------------------- */
+.faq-a{ overflow:hidden; }
+.js .faq-a{ height:0; visibility:hidden; }
+.js .faq-row.is-open .faq-a{ height:auto; visibility:visible; }
+
+.faq-a__in{
+	display:grid; gap:var(--s-6);
+	padding:0 var(--faq-pad) var(--faq-pad);
+}
+/* Prose left, a real UI fragment right, capped at a phone's width. A fragment
+   stretched to the full row would read as a web table, not as iOS. */
+.faq-a__cols{
+	display:grid;
+	grid-template-columns:minmax(0,1fr) minmax(0,390px);
+	gap:var(--s-7);
+	align-items:start;
+}
+.faq-a__txt{ display:grid; gap:var(--s-3); max-width:60ch; }
+.faq-a__frag{ min-width:0; }
+@media(max-width:900px){
+	.faq-a__cols{ grid-template-columns:minmax(0,1fr); gap:var(--s-5); }
+}
+
+/* The marquee is the answer to the leagues question, so it runs the full
+   width of the panel body. It reads --faq-pad back rather than restating it. */
+.faq-a__mq{ margin-inline:calc(var(--faq-pad) * -1); }
+
+/* A surface for a fragment that does not bring its own. */
+.faq-frag{
+	background:var(--panel-2);
+	border:1px solid var(--line-1);
+	border-radius:var(--r-card);
+	padding:var(--s-2);
+	max-width:390px;
+}
+.faq-frag--pad{ padding:var(--s-4); }
+.faq-frag .chat__body--apps{ padding:var(--s-3) var(--s-2); }
+
+/* --------------------------------------------------------------------------
+   5. CTA
+   -------------------------------------------------------------------------- */
+.faq-cta{ display:flex; align-items:center; gap:var(--s-5); flex-wrap:wrap; }

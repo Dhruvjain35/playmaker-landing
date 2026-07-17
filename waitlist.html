@@ -5,51 +5,138 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>PLAYMAKR · Join the waitlist</title>
 	<meta name="description" content="Join the PLAYMAKR waitlist. Drop your number and we'll text you the moment access opens. The verified badge is reserved for athletes and creators." />
-	<meta name="theme-color" content="#070708" />
+	<meta name="theme-color" content="#08070b" />
 	<link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
-	<link rel="stylesheet" href="styles.css?v=35" />
-	<script>document.documentElement.classList.add('js');</script>
+	<link rel="stylesheet" href="styles.css?v=1" />
+	<link rel="stylesheet" href="css/pages/waitlist.css?v=1" />
 </head>
 <body>
+	<div id="field" aria-hidden="true"></div>
+	<div id="grain" aria-hidden="true"></div>
+
 	<a class="skip" href="#main">Skip to content</a>
 
 	<header class="nav" id="nav">
 		<div class="nav__inner">
-			<a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="24" height="24" /></span><span class="brand__word">PLAYMAKR</span></a>
-			<nav class="nav__links" aria-label="Primary"><a href="index.html">Home</a><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a href="waitlist.html" aria-current="page">Waitlist</a></nav>
-			<div class="nav__right"><a class="nav__join" href="#main">Join waitlist</a><button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button></div>
+			<a class="brand" href="index.html" aria-label="PLAYMAKR home">
+				<span class="brand__mark"><img src="assets/images/logo.png" alt="" width="24" height="24" /></span>
+				<span class="brand__word">PLAYMAKR</span>
+			</a>
+			<nav class="nav__links" aria-label="Primary">
+				<a href="index.html">Home</a>
+				<a href="product.html">Product</a>
+				<a href="how-it-works.html">How it works</a>
+				<a href="integrations.html">Integrations</a>
+				<a href="coverage.html">Coverage</a>
+				<a href="manifesto.html">Manifesto</a>
+				<a href="faq.html">FAQ</a>
+				<a href="waitlist.html" aria-current="page">Waitlist</a>
+			</nav>
+			<div class="nav__right">
+				<a class="nav__join" href="#main">Join waitlist</a>
+				<button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+			</div>
 		</div>
-		<div class="nav__mobile" id="navMobile"><a href="index.html">Home</a><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a class="nav__mobile-cta" href="#main">Join waitlist</a></div>
+		<div class="nav__mobile" id="navMobile">
+			<a href="product.html">Product</a>
+			<a href="how-it-works.html">How it works</a>
+			<a href="integrations.html">Integrations</a>
+			<a href="coverage.html">Coverage</a>
+			<a href="manifesto.html">Manifesto</a>
+			<a href="faq.html">FAQ</a>
+			<a href="waitlist.html">Waitlist</a>
+			<a class="nav__mobile-cta" href="#main">Join waitlist</a>
+		</div>
 	</header>
 
 	<main id="main">
-		<section class="wl">
-			<div class="wl__glow" data-parallax="0.06" aria-hidden="true"></div>
-			<h1 data-reveal="up">Join the<br>PLAYMAKR waitlist.</h1>
-			<p class="t-sub" data-reveal="up" style="--d:1">Drop your number and we'll text you the moment access opens. No spam,
-				just one message when you're in.</p>
+		<!-- THE JOIN. The form is the graphic. -->
+		<section class="sec wl wlx" data-scrim>
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[WAITLIST]</p>
+					<h1 class="t-h1">Join the PLAYMAKR waitlist<span class="stop">.</span></h1>
+					<p class="t-sub">Drop your number and we'll text you the moment access opens. No spam, just one message when you're in.</p>
+				</div>
 
-			<div class="counter" data-reveal="up" style="--d:2">
-				<div class="ticker-num" data-fake-count aria-live="polite">7,000</div>
-				<p class="counter__cap">already on the waitlist</p>
+				<div class="panel glass wlx__join" data-lit data-refract>
+					<div class="glass__refract" aria-hidden="true"></div>
+					<div class="panel__bloom" aria-hidden="true"></div>
+					<div class="panel__body wlx__body">
+						<div class="wlx__top">
+							<div class="counter">
+								<div class="ticker-num" data-count="7000" aria-live="polite"></div>
+								<p class="counter__cap">already on the waitlist</p>
+							</div>
+						</div>
+
+						<form class="wlx__form" data-waitlist aria-label="Join the waitlist">
+							<p class="wlx__lab" id="wlxRole">I am a</p>
+							<div class="roles" role="radiogroup" aria-labelledby="wlxRole">
+								<button type="button" class="role is-on" data-role="fan" aria-checked="true">Fan</button>
+								<button type="button" class="role" data-role="athlete" aria-checked="false">Athlete</button>
+								<button type="button" class="role" data-role="creator" aria-checked="false">Creator</button>
+							</div>
+							<div class="capture capture--phone">
+								<span class="capture__cc" aria-hidden="true">+1</span>
+								<input type="tel" name="phone" required inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
+								<button class="btn" type="submit">Join the waitlist</button>
+								<p class="capture__msg" role="status" aria-live="polite"></p>
+							</div>
+						</form>
+
+						<div class="wlx__stage">
+							<div class="notif wlx__notif" data-notif>
+								<div class="notif__shadow" aria-hidden="true"></div>
+								<div class="notif__body">
+									<span class="notif__icon"><img src="assets/images/logo.png" alt="" width="34" height="34" /></span>
+									<div class="notif__main">
+										<p class="notif__t"><span>PLAYMAKR</span><span class="notif__when">now</span></p>
+										<p class="notif__p">You're on the list. We'll text you the moment access opens.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<p class="wl__badge wlx__badge"><span class="vbadge" aria-hidden="true"></span> The verified badge is reserved for athletes &amp; creators.</p>
+					</div>
+				</div>
+
+				<p class="cap">Your number, the role you pick, and nothing else.</p>
+			</div>
+		</section>
+
+		<!-- WHAT HAPPENS ONCE YOU'RE IN -->
+		<section class="sec">
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[SETUP]</p>
+					<h2 class="t-h2">Live in under a minute<span class="stop">.</span></h2>
+					<p class="t-sub">Three steps, in the apps you already text in.</p>
+				</div>
+
+				<ol class="steps">
+					<li class="step"><span class="step__no">1</span><h3>Pick your teams</h3><p>Tell PLAYMAKR who you follow and how you like it, sharp and stat-heavy, or just the moments that matter.</p></li>
+					<li class="step"><span class="step__no">2</span><h3>Connect your chat</h3><p>Link iMessage, WhatsApp, Discord or Telegram in a tap. No download, no new app to learn.</p></li>
+					<li class="step"><span class="step__no">3</span><h3>Just live your life</h3><p>It texts you first when it counts, and answers anything you ask back in seconds.</p></li>
+				</ol>
+			</div>
+		</section>
+
+		<!-- WHAT IT WATCHES -->
+		<section class="sec sec--tight wlx__leagues">
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[COVERAGE]</p>
+					<h2 class="t-h2">Nine leagues, tip-off to final<span class="stop">.</span></h2>
+					<p class="t-sub">From the Timberwolves to the Seahawks to the Yankees, across the majors, college and the pitch.</p>
+				</div>
 			</div>
 
-			<form class="wl__form" data-waitlist data-reveal="up" style="--d:3" aria-label="Join the waitlist">
-				<div class="roles" role="radiogroup" aria-label="I am a">
-					<button type="button" class="role is-on" data-role="fan" aria-checked="true">Fan</button>
-					<button type="button" class="role" data-role="athlete" aria-checked="false">Athlete</button>
-					<button type="button" class="role" data-role="creator" aria-checked="false">Creator</button>
-				</div>
-				<div class="capture capture--phone">
-					<span class="capture__cc" aria-hidden="true">+1</span>
-					<input type="tel" name="phone" required inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
-					<button class="btn" data-magnetic type="submit">Join the waitlist</button>
-					<p class="capture__msg" role="status" aria-live="polite"></p>
-				</div>
-			</form>
-
-			<p class="wl__badge" data-reveal="up" style="--d:4"><span class="vbadge" aria-hidden="true"></span> The verified badge is reserved for athletes &amp; creators.</p>
+			<div class="marquee" aria-label="Leagues we cover">
+				<div class="marquee__row" data-leagues></div>
+			</div>
 		</section>
 	</main>
 
@@ -61,15 +148,18 @@
 			</div>
 			<div class="foot__grid">
 				<div class="foot__brand"><a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span><span class="brand__word">PLAYMAKR</span></a></div>
-				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="product.html">Breaking news</a><a href="product.html">Integrations</a></nav>
-				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a></nav>
-				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="#main">Join waitlist</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
+				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="how-it-works.html">How it works</a><a href="integrations.html">Integrations</a></nav>
+				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a><a href="manifesto.html">Manifesto</a></nav>
+				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="waitlist.html">Join waitlist</a><a href="faq.html">FAQ</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
 				<nav class="foot__col" aria-label="Company"><h4>Company</h4><a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></nav>
 			</div>
-			<div class="foot__base"><span>Copyright © 2026 PLAYMAKR. All rights reserved.</span><div class="foot__legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><span>United States</span></div></div>
+			<div class="foot__base">
+				<span>Copyright &copy; 2026 PLAYMAKR. All rights reserved.</span>
+				<div class="foot__legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><span>United States</span></div>
+			</div>
 		</div>
 	</footer>
 
-	<script src="app.js?v=35"></script>
+	<script src="app.js?v=1"></script>
 </body>
 </html>

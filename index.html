@@ -8,68 +8,112 @@
 	<meta property="og:title" content="PLAYMAKR · Real-time sports, in your texts." />
 	<meta property="og:description" content="A proactive AI sports agent that texts you the second it matters. NBA, NFL, MLB, soccer and more." />
 	<meta property="og:url" content="https://playmakr.pro" />
-	<meta name="theme-color" content="#070708" />
+	<meta name="theme-color" content="#08070b" />
 	<link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
-	<link rel="stylesheet" href="styles.css?v=35" />
-	<script>document.documentElement.classList.add('js');</script>
+	<link rel="stylesheet" href="styles.css?v=1" />
+	<link rel="stylesheet" href="css/pages/index.css?v=1" />
 </head>
 <body>
+	<div id="field" aria-hidden="true"></div>
+	<div id="grain" aria-hidden="true"></div>
+
 	<a class="skip" href="#main">Skip to content</a>
 
 	<header class="nav" id="nav">
 		<div class="nav__inner">
-			<a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="24" height="24" /></span><span class="brand__word">PLAYMAKR</span></a>
-			<nav class="nav__links" aria-label="Primary"><a href="index.html" aria-current="page">Home</a><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a href="waitlist.html">Waitlist</a></nav>
-			<div class="nav__right"><a class="nav__join" href="waitlist.html">Join waitlist</a><button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button></div>
+			<a class="brand" href="index.html" aria-label="PLAYMAKR home">
+				<span class="brand__mark"><img src="assets/images/logo.png" alt="" width="24" height="24" /></span>
+				<span class="brand__word">PLAYMAKR</span>
+			</a>
+			<nav class="nav__links" aria-label="Primary">
+				<a href="index.html" aria-current="page">Home</a>
+				<a href="product.html">Product</a>
+				<a href="how-it-works.html">How it works</a>
+				<a href="integrations.html">Integrations</a>
+				<a href="coverage.html">Coverage</a>
+				<a href="manifesto.html">Manifesto</a>
+				<a href="faq.html">FAQ</a>
+				<a href="waitlist.html">Waitlist</a>
+			</nav>
+			<div class="nav__right">
+				<a class="nav__join" href="waitlist.html">Join waitlist</a>
+				<button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+			</div>
 		</div>
-		<div class="nav__mobile" id="navMobile"><a href="product.html">Product</a><a href="coverage.html">Coverage</a><a href="waitlist.html">Waitlist</a><a class="nav__mobile-cta" href="waitlist.html">Join waitlist</a></div>
+		<div class="nav__mobile" id="navMobile">
+			<a href="product.html">Product</a>
+			<a href="how-it-works.html">How it works</a>
+			<a href="integrations.html">Integrations</a>
+			<a href="coverage.html">Coverage</a>
+			<a href="manifesto.html">Manifesto</a>
+			<a href="faq.html">FAQ</a>
+			<a href="waitlist.html">Waitlist</a>
+			<a class="nav__mobile-cta" href="waitlist.html">Join waitlist</a>
+		</div>
 	</header>
 
 	<main id="main">
-		<!-- HERO -->
+
+		<!-- ==================================================================
+		     HERO
+		     The phone is the product, so the phone is the hero graphic. The
+		     island morphs to a live activity and its score ticks, because the
+		     game is still going. The thread types itself. The period is green
+		     for exactly that reason, and it is the only green on the page.
+		     ================================================================== -->
 		<section class="hero">
-			<div class="hero__glow" data-parallax="0.05" aria-hidden="true"></div>
 			<div class="hero__copy">
-				<h1 class="t-hero" data-reveal="up">Real-time sports.<br>In your texts.</h1>
-				<p class="t-sub" data-reveal="up" style="--d:1">A proactive AI agent that watches your teams and texts you the second
-					it matters, right in the apps you already use.</p>
-				<div class="hero__cta" data-reveal="up" style="--d:2">
+				<h1 class="t-hero">Real-time sports<span class="stop" data-live>.</span><br>In your texts.</h1>
+				<p class="t-sub">A proactive AI agent that watches your teams and texts you the second it matters, right in the apps you already use.</p>
+				<div class="hero__cta">
 					<a class="btn btn--lg" href="waitlist.html">Join the waitlist</a>
-					<a class="alink" href="product.html">See how it works <span aria-hidden="true">›</span></a>
+					<a class="alink" href="product.html">See how it works <span aria-hidden="true">&rsaquo;</span></a>
 				</div>
 			</div>
-			<div class="hero__stage" data-reveal="scale" style="--d:2">
-				<div class="tilt" data-tilt>
-					<div class="tilt__stage">
-						<div class="device device--float">
-							<div class="device__island" aria-hidden="true"></div>
-							<div class="device__screen">
-								<div class="chat">
-									<div class="chat__nav"><span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span><span class="chat__name">PLAYMAKR</span><span class="chat__sub">active now</span></div>
-									<div class="chat__body" data-thread>
-										<p class="day">Tonight · Live</p>
-										<div class="b b--out">what's the score?</div>
-										<div class="b b--in b--card">
-											<div class="sb"><span class="sb__state sb__live">● Live · Q3 4:12</span>
-												<div class="sb__row"><span class="sb__team"><i class="tm tm--min"></i>Timberwolves</span><span class="sb__pts">88</span></div>
-												<div class="sb__row sb__row--l"><span class="sb__team"><i class="tm tm--den"></i>Nuggets</span><span class="sb__pts">84</span></div>
-											</div>
-											<p class="sb__line"><b>Anthony Edwards</b> · 27 PTS · 6 REB</p>
-										</div>
-										<div class="b b--in">Ant just hit back-to-back threes. Wolves on a 9-0 run.</div>
-										<div class="b b--out">no way, show me</div>
-										<a class="b b--in b--clip" href="https://www.youtube.com/watch?v=mRvHSutb1Io" target="_blank" rel="noopener" data-video="mRvHSutb1Io" aria-label="Watch Anthony Edwards highlights on YouTube">
-											<span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/mRvHSutb1Io/hqdefault.jpg)"><span class="clipv__play" aria-hidden="true"></span><span class="clipv__tag">Highlights</span></span>
-											<span class="clipv__meta"><b>Anthony Edwards, 27 PTS vs Denver</b><small>Minnesota Timberwolves · YouTube</small></span>
-										</a>
-										<div class="b b--out">that's filthy</div>
-										<div class="b b--in b--mini">He's 9-for-12 from the field. I'll keep the clips coming.</div>
-										<div class="b b--out">tell me if Murray checks back in</div>
-										<div class="b b--in b--mini">On it, I'll text you the second he's at the scorer's table.</div>
-										<div class="b b--in b--mini">Update: Murray's at the scorer's table now, checking in for Denver.</div>
+
+			<div class="hero__stage">
+				<div class="device" data-lit>
+					<div class="device__island" data-island="live" aria-hidden="true">
+						<div class="island__inner island__inner--live">
+							<span class="island__side"><i class="tm tm--min"></i><span class="island__lab">MIN</span><span class="island__score" data-roll="88" data-tick="91,94">88</span></span>
+							<span class="island__dot"></span>
+							<span class="island__side"><span class="island__score" data-roll="84">84</span><span class="island__lab">DEN</span><i class="tm tm--den"></i></span>
+						</div>
+					</div>
+					<div class="device__screen">
+						<div class="chat">
+							<div class="chat__nav">
+								<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
+								<span class="chat__name">PLAYMAKR</span>
+								<span class="chat__sub">active now</span>
+							</div>
+							<div class="chat__body" data-thread>
+								<p class="day">Tonight · Live</p>
+								<div class="b b--out">what's the score?</div>
+								<div class="b b--in b--card">
+									<div class="sb">
+										<span class="sb__state sb__live">Live · Q3 4:12</span>
+										<div class="sb__row"><span class="sb__team"><i class="tm tm--min"></i>Timberwolves</span><span class="sb__pts" data-roll="88">88</span></div>
+										<div class="sb__row sb__row--l"><span class="sb__team"><i class="tm tm--den"></i>Nuggets</span><span class="sb__pts" data-roll="84">84</span></div>
 									</div>
+									<p class="sb__line"><b>Anthony Edwards</b> · 27 PTS · 6 REB</p>
 								</div>
+								<div class="b b--in">Ant just hit back-to-back threes. Wolves on a 9-0 run.</div>
+								<div class="b b--out">no way, show me</div>
+								<a class="b b--in b--clip" href="https://www.youtube.com/watch?v=mRvHSutb1Io" target="_blank" rel="noopener"
+								   data-video="mRvHSutb1Io" aria-label="Watch Anthony Edwards highlights on YouTube">
+									<span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/mRvHSutb1Io/hqdefault.jpg)">
+										<span class="clipv__play" aria-hidden="true"></span>
+										<span class="clipv__tag">Highlights</span>
+									</span>
+									<span class="clipv__meta"><b>Anthony Edwards, 27 PTS vs Denver</b><small>Minnesota Timberwolves · YouTube</small></span>
+								</a>
+								<div class="b b--out">that's filthy</div>
+								<div class="b b--in b--mini">He's 9-for-12 from the field. I'll keep the clips coming.</div>
+								<div class="b b--out">tell me if Murray checks back in</div>
+								<div class="b b--in b--mini">On it, I'll text you the second he's at the scorer's table.</div>
+								<div class="b b--in b--mini">Update: Murray's at the scorer's table now, checking in for Denver.</div>
 							</div>
 						</div>
 					</div>
@@ -77,32 +121,171 @@
 			</div>
 		</section>
 
-		<!-- STATEMENT -->
-		<section class="band">
+		<!-- ==================================================================
+		     STATEMENT BAND + LEAGUE MARQUEE
+		     The claim, then the evidence directly under it. The marquee is the
+		     band's graphic, so the two are one section. The row is left empty:
+		     app.js builds all nine leagues and runs the momentum integrator.
+		     ================================================================== -->
+		<section class="sec home-band">
 			<div class="wrap">
-				<p class="band__big" data-reveal="lines">
-					<span class="line"><span>Every game. Every play.</span></span>
-					<span class="line"><span>Every moment, the second</span></span>
-					<span class="line"><span>it happens.</span></span>
-				</p>
+				<div class="sec__head">
+					<p class="eyebrow">[COVERAGE]</p>
+					<p class="t-h1 home-band__big">Every game. Every play. Every moment, the second it happens<span class="stop">.</span></p>
+				</div>
+			</div>
+
+			<div class="marquee" aria-label="Leagues we cover">
+				<div class="marquee__row" data-leagues></div>
+			</div>
+
+			<div class="wrap">
+				<p class="cap">NBA, NFL, MLB, NHL, Premier League, Champions League, World Cup, NCAA and UFC.</p>
 			</div>
 		</section>
 
-		<!-- LEAGUE STRIP -->
-		<div class="marquee" aria-label="Leagues we cover">
-			<div class="marquee__row" data-leagues></div>
-		</div>
+		<!-- ==================================================================
+		     THE THREE CAPABILITIES
+		     Condensed. Each panel holds a real UI fragment, not an illustration,
+		     and each fragment moves the way the thing it depicts actually
+		     behaves: the notification springs from above, the status chip turns
+		     OUT and warms its own card, the app rows are a fact and so they are
+		     still. The full version of this story lives on Product.
+		     ================================================================== -->
+		<section class="sec">
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[LIVE]</p>
+					<h2 class="t-h2">It doesn't wait to be opened<span class="stop">.</span></h2>
+					<p class="t-sub">PLAYMAKR reaches out first, proactive alerts, breaking news and live updates, everywhere you already text.</p>
+				</div>
 
-		<!-- THREE MOMENTS (link to product) -->
-		<section class="cta">
-			<div class="cta__glow" data-parallax="0.08" aria-hidden="true"></div>
-			<div class="wrap cta__inner" data-reveal="rise">
-				<h2 class="t-h2">It doesn't wait to be opened.</h2>
-				<p class="t-sub">PLAYMAKR reaches out first, proactive alerts, breaking news and live updates,
-					everywhere you already text.</p>
-				<a class="btn btn--lg" href="product.html">Explore the product</a>
+				<div class="grid-2 home-caps">
+
+					<!-- 1. It texts you first.
+					     Three real notifications, not one: the claim is tip-offs,
+					     lead changes and finals, so the graphic is a live update,
+					     a clinch and a walk-off, landing in sequence the way a
+					     lock screen actually fills up. -->
+					<div class="panel glass" data-panel data-lit data-refract>
+						<div class="glass__refract" aria-hidden="true"></div>
+						<div class="panel__bloom" aria-hidden="true"></div>
+						<div class="panel__body">
+							<div class="home-frag">
+								<div class="home-notifs">
+									<div class="notif is-live" data-notif>
+										<div class="notif__shadow" aria-hidden="true"></div>
+										<div class="notif__body">
+											<span class="notif__icon"><img src="assets/images/logo.png" alt="" width="34" height="34" /></span>
+											<div class="notif__main">
+												<p class="notif__t"><span>PLAYMAKR</span><span class="notif__when">now</span></p>
+												<p class="notif__p">Wolves lead <b>88 to 84</b>. Ant has 27 and 6 with 4:12 left in the third.</p>
+											</div>
+										</div>
+									</div>
+									<div class="notif" data-notif>
+										<div class="notif__shadow" aria-hidden="true"></div>
+										<div class="notif__body">
+											<span class="notif__icon"><img src="assets/images/logo.png" alt="" width="34" height="34" /></span>
+											<div class="notif__main">
+												<p class="notif__t"><span>PLAYMAKR</span><span class="notif__when">2m ago</span></p>
+												<p class="notif__p">Seahawks clinch the <b>NFC West</b>.</p>
+											</div>
+										</div>
+									</div>
+									<div class="notif" data-notif>
+										<div class="notif__shadow" aria-hidden="true"></div>
+										<div class="notif__body">
+											<span class="notif__icon"><img src="assets/images/logo.png" alt="" width="34" height="34" /></span>
+											<div class="notif__main">
+												<p class="notif__t"><span>PLAYMAKR</span><span class="notif__when">18m ago</span></p>
+												<p class="notif__p">Judge walks it off. <b>Yankees 5, Red Sox 4</b>.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="home-cap__txt">
+								<h3 class="t-h3">It texts you first</h3>
+								<p class="cap">Tip-offs, lead changes and finals. No app to open, no feed to refresh.</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 2. The story, the second it breaks -->
+					<div class="panel glass" data-panel data-lit>
+						<div class="panel__bloom" aria-hidden="true"></div>
+						<div class="panel__body">
+							<div class="home-frag">
+								<div class="home-alerts">
+									<div class="alert">
+										<span class="alert__tag">Breaking</span>
+										<p><b>Jayson Tatum</b> (ankle) is <span class="stat-chip" data-status="OUT">Questionable</span> for Boston.</p>
+										<span class="alert__t">just now</span>
+									</div>
+									<div class="alert">
+										<span class="alert__tag">Breaking</span>
+										<p><b>Jamal Murray</b> is a game-time decision for Denver.</p>
+										<span class="alert__t">6m ago</span>
+									</div>
+								</div>
+							</div>
+							<div class="home-cap__txt">
+								<h3 class="t-h3">The story, the second it breaks</h3>
+								<p class="cap">Trades, injuries, lineup changes and walk-offs, sourced and sent in real time.</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 3. In every app you already text -->
+					<div class="panel glass" data-panel data-lit>
+						<div class="panel__bloom" aria-hidden="true"></div>
+						<div class="panel__body">
+							<div class="home-frag">
+								<div class="chat__body chat__body--apps">
+									<div class="approw"><i class="am am--msg"></i><span class="b b--in b--mini is-settled">iMessage, Seahawks just clinched the NFC West.</span></div>
+									<div class="approw"><i class="am am--wa"></i><span class="b b--in b--mini is-settled">WhatsApp, Yankees walk it off in the 9th.</span></div>
+									<div class="approw"><i class="am am--dc"></i><span class="b b--in b--mini is-settled">Discord, Ant's at 38 and counting.</span></div>
+									<div class="approw"><i class="am am--tg"></i><span class="b b--in b--mini is-settled">Telegram, UCL: six goals before the half.</span></div>
+								</div>
+							</div>
+							<div class="home-cap__txt">
+								<h3 class="t-h3">In every app you already text</h3>
+								<p class="cap">iMessage, WhatsApp, Discord and Telegram. Group chats included.</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<p class="home-caps__more"><a class="alink" href="product.html">Explore the product <span aria-hidden="true">&rsaquo;</span></a></p>
 			</div>
 		</section>
+
+		<!-- ==================================================================
+		     CLOSING CTA
+		     data-scrim pulls the field's scrim thinner as this arrives, so the
+		     purple concentrates here and nowhere else. Exactly one per page.
+		     The counter rolls; it never counts and it never idles.
+		     ================================================================== -->
+		<section class="sec home-cta" data-scrim>
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[WAITLIST]</p>
+					<h2 class="t-h2">Be first in line<span class="stop">.</span></h2>
+					<p class="t-sub">Early access is opening in a private beta. No spam, just one message when you're in.</p>
+				</div>
+
+				<div class="home-cta__row">
+					<div class="counter">
+						<div class="ticker-num" data-count="7000" aria-live="polite"></div>
+						<p class="counter__cap">already on the waitlist</p>
+					</div>
+					<a class="btn btn--lg" href="waitlist.html">Join the waitlist</a>
+				</div>
+			</div>
+		</section>
+
 	</main>
 
 	<footer class="foot">
@@ -113,15 +296,18 @@
 			</div>
 			<div class="foot__grid">
 				<div class="foot__brand"><a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span><span class="brand__word">PLAYMAKR</span></a></div>
-				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="product.html">Breaking news</a><a href="product.html">Integrations</a></nav>
-				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a></nav>
-				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="waitlist.html">Join waitlist</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
+				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="how-it-works.html">How it works</a><a href="integrations.html">Integrations</a></nav>
+				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a><a href="manifesto.html">Manifesto</a></nav>
+				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="waitlist.html">Join waitlist</a><a href="faq.html">FAQ</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
 				<nav class="foot__col" aria-label="Company"><h4>Company</h4><a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></nav>
 			</div>
-			<div class="foot__base"><span>Copyright © 2026 PLAYMAKR. All rights reserved.</span><div class="foot__legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><span>United States</span></div></div>
+			<div class="foot__base">
+				<span>Copyright &copy; 2026 PLAYMAKR. All rights reserved.</span>
+				<div class="foot__legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><span>United States</span></div>
+			</div>
 		</div>
 	</footer>
 
-	<script src="app.js?v=35"></script>
+	<script src="app.js?v=1"></script>
 </body>
 </html>

@@ -1,0 +1,118 @@
+/* ==========================================================================
+   PLAYMAKR . MANIFESTO
+   Page scoped styles. Loaded after styles.css, which owns every token, every
+   component and all motion. Nothing here restyles a foundation component:
+   every rule is namespaced .mf- and every value comes from a foundation token.
+
+   The page has no bespoke motion of its own on purpose. Its argument is text,
+   and text never animates. The motion belongs to the graphics that punctuate
+   it, and those are the foundation's: the notification springs in from above,
+   the panels unveil under a bloom sweep, the island morphs, the score rolls,
+   the thread types itself.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. THE OPENING
+   The hero shell is the foundation's .hero grid, minmax(0,1fr) + auto. The
+   copy takes the first column, the index takes the second.
+   -------------------------------------------------------------------------- */
+.mf-open .sec__head{max-width:none} /* the grid column already sizes the h1 */
+
+/* The index. A real table of contents, not decoration: four arguments, four
+   anchors. It is text, so it is simply there. Only its colour moves, and only
+   under the cursor. */
+.mf-index{
+	width:clamp(228px,24vw,286px);
+	display:grid;
+	align-content:center;
+	box-shadow:inset 0 1px 0 var(--line-2);
+}
+.mf-index__i{
+	display:grid;
+	grid-template-columns:auto minmax(0,1fr);
+	align-items:baseline;
+	gap:var(--s-4);
+	padding:var(--s-3) 0;
+	box-shadow:inset 0 -1px 0 var(--line-3);
+}
+.mf-index__n{
+	font-family:var(--font-mono);
+	font-size:.6875rem;font-weight:500;line-height:1;
+	letter-spacing:.12em;color:var(--purple-3);
+	font-variant-numeric:tabular-nums;
+	transition:color 150ms var(--ease-hover);
+}
+.mf-index__t{
+	font-family:var(--font-display);
+	font-size:.9375rem;font-weight:500;line-height:1.4;
+	letter-spacing:-.011em;color:var(--fg-3);
+	text-wrap:pretty;
+	transition:color 150ms var(--ease-hover);
+}
+.mf-index__i:hover .mf-index__t{color:var(--fg-1)}
+.mf-index__i:hover .mf-index__n{color:var(--purple-5)}
+
+@media(max-width:900px){
+	.mf-index{width:100%;max-width:420px}
+}
+
+/* --------------------------------------------------------------------------
+   2. THE STAGE
+   A panel whose only job is to hold one real UI fragment, centred, at the
+   size it is on a phone. The foundation caps the fragment at 390px; this
+   just centres it and gives the light room to fall.
+   -------------------------------------------------------------------------- */
+.mf-stage .panel__body{
+	display:grid;
+	place-items:center;
+	padding-block:var(--s-7);
+}
+.mf-stage--notif .panel__body{min-height:232px}
+
+/* The app rows bring their own 14/13 padding, so the card only needs the
+   nesting gap. Card radius 16 minus 8 padding leaves the 8 the rows sit on. */
+.mf-apps{padding:var(--s-2)}
+
+/* --------------------------------------------------------------------------
+   3. THE STATEMENT
+   One band, one line, and the largest type on the site. The metrics are
+   .t-hero's exactly (that step already exists, and Aave's own loudest
+   statement is 72px), so this invents no new scale. It is a pull quote, not
+   a headline: it carries no eyebrow and no subline, and it does not move.
+   -------------------------------------------------------------------------- */
+.mf-band__rule{
+	display:block;
+	width:40px;height:1px;
+	background:var(--purple-3);
+	opacity:.8;
+	margin-bottom:var(--s-6);
+}
+.mf-band__t{
+	font-family:var(--font-display);
+	font-size:clamp(2.75rem,1.3rem + 6vw,4.75rem);
+	font-weight:600;line-height:1.0;letter-spacing:-.042em;
+	color:var(--fg-1);
+	text-wrap:balance;
+	max-width:14ch;
+	margin-left:-.04em; /* hang the first stem. never text-indent. */
+}
+
+/* --------------------------------------------------------------------------
+   4. THE CLOSE
+   The page's one phone needs no rule of its own, and that is deliberate.
+   A narrower centred plate was built and cut on evidence: it was the only
+   centred block on a left aligned page, and it stepped its caption off the
+   rhythm every other caption on the page keeps. Full width, with one fragment
+   centred on the plate, is the same grammar as the notification and the app
+   rows, so the page speaks one panel language. The empty glass either side is
+   the stage, and it is where the bloom lives.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   5. THE EXIT
+   -------------------------------------------------------------------------- */
+.mf-end__row{
+	display:flex;align-items:center;
+	gap:var(--s-5);
+	flex-wrap:wrap;
+}

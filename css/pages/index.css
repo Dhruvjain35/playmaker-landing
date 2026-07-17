@@ -1,0 +1,151 @@
+/* ==========================================================================
+   PLAYMAKR . HOME
+   Page scoped styles only. Loaded after styles.css.
+
+   Everything here is layout for a composition that exists only on this page.
+   No token, no type scale, no easing and no component is redefined: those are
+   the foundation's and they stay the foundation's. Every value below is
+   composed from the foundation's own custom properties, so a change to the
+   spacing scale still reaches this page.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. HERO THREAD
+   FOUNDATION BUG, patched here because styles.css is not mine to edit.
+
+   .chat__body is a column flex container at a fixed height, bottom anchored,
+   with overflow:hidden. The intent is a real thread: a new message pushes the
+   stack up and the oldest messages are clipped off the top. But flex items
+   shrink by default, so once the thread overflows, every bubble is squeezed
+   instead of being pushed off.
+
+   Text bubbles survive that: their min-content height is the wrapped text, so
+   they refuse to shrink. The clip card does not. Its .clipv__media is an empty
+   aspect-ratio box whose min-content height is 0, so it absorbs the entire
+   overflow and collapses. Measured: a card whose thumbnail was a full 237x134
+   and whose meta row was 50px reported its own height as 2px. The YouTube card
+   was silently deleted from the hero.
+
+   flex:none is what the layout meant all along: bubbles keep their size and
+   the overflow leaves at the top, which is what the clipping is for. This
+   belongs in the foundation on .chat__body > *, and it fixes any thread long
+   enough to overflow, not just this one.
+   -------------------------------------------------------------------------- */
+.hero [data-thread] > *{flex:none}
+
+/* --------------------------------------------------------------------------
+   2. STATEMENT BAND + MARQUEE
+   The marquee is the band's graphic, so it belongs to the band's section. It
+   has to sit outside .wrap to bleed to the viewport edges: its own mask fades
+   at 8% and 92%, which only reads as intended at full width.
+
+   That puts it outside the reach of `.sec__head + *`, so the section rhythm
+   (48px head to graphic, 24px graphic to caption) is restated rather than
+   invented: these are the foundation's --s-7 and --s-5, not new numbers.
+
+   The band headline itself needs nothing. .sec__head's own 64ch cap already
+   wraps it to the tight three line block the rhythm asks for.
+
+   The bottom padding is pulled to --s-8 because a full 120px here lands
+   against the next section's 120px, and 240px of empty canvas under a caption
+   reads as a missing section rather than as air.
+   -------------------------------------------------------------------------- */
+.home-band{padding-bottom:var(--s-8)}
+.home-band .marquee{margin-top:var(--s-7)}
+.home-band .marquee + .wrap{margin-top:var(--s-5)}
+
+/* --------------------------------------------------------------------------
+   3. THE THREE CAPABILITIES
+   Three across, not the 2x2 with a spanning cell that this started as. A
+   spanned cell is 1034px holding a 390px fragment, and a notification capped
+   at a phone's width (correctly, per .card--frag's reasoning) leaves 320px of
+   dead canvas either side. Three columns give each panel ~270px of inner
+   width, which every fragment fills exactly, so there is no dead space at all.
+
+   .tile is deliberately not used. It is built for one centred hero glyph and
+   it centres its text to suit; a message bubble centred inside a centred card
+   is not a message bubble. These panels are the contract's other option, a
+   real UI fragment with its caption below, and they are left aligned like
+   every other block of type on the page.
+
+   The grid keeps .grid-2 in its class list purely so the foundation's bloom
+   rotation still reaches it: nth-child 1, 4n+2 and 4n+3 resolve to three
+   different corners, so the light never repeats across the row.
+   -------------------------------------------------------------------------- */
+.home-caps{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* Below this the columns fall under ~300px and the fragments start to crush,
+   so the grid goes to one. Two would orphan a third card. */
+@media(max-width:1000px){
+	.home-caps{grid-template-columns:1fr}
+}
+
+/* .panel is a block, so its body only grows to its content and a stretched
+   grid cell leaves dead space under the shorter card. Making the panel a flex
+   line hands the body the whole cell. The bloom and the refraction layer are
+   absolutely positioned and are unaffected. */
+.home-caps > .panel{display:flex}
+
+/* space-between is what aligns this row. The three fragments have genuinely
+   different natural heights (a notification stack, an alert, four app rows),
+   and forcing them equal would mean padding one with something invented.
+   Instead the fragments pin to the top and the captions pin to the bottom of
+   panels that the grid has already made equal, so both edges line up across
+   all three and the slack collects in the middle, where the bloom is. */
+.home-caps .panel__body{
+	flex:1;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between;
+	gap:var(--s-7);
+	padding:var(--s-5);
+}
+
+/* Capped at a phone's width for the reason .card--frag is: a notification
+   stretched across a panel stops reading as a notification. At three across
+	the panel is narrower than the cap, so the fragment simply fills. */
+.home-caps .home-frag{width:100%;max-width:390px}
+
+/* The app rows are borrowed out of a phone screen, where .chat__body carries
+   the screen's own gutter. On a panel that gutter is the panel's job. */
+.home-caps .home-frag .chat__body{padding:0}
+
+.home-cap__txt{display:grid;gap:var(--s-2)}
+.home-cap__txt .t-h3{text-wrap:balance}
+
+.home-caps__more{margin-top:var(--s-6)}
+
+/* The notification stack. Each one springs in on the foundation's own iOS
+   entrance; the only thing added here is a stagger, so they land in sequence
+   the way three real notifications do instead of as one block. The delay has
+   to out-specify `.js .notif[data-notif].is-in`, whose `animation` shorthand
+   resets animation-delay to 0, hence the long selector. The shadow keeps the
+   foundation's own 40ms lead on top of the stagger. */
+.home-notifs,
+.home-alerts{display:grid;gap:var(--s-2)}
+.home-notifs .notif[data-notif].is-in:nth-child(2){animation-delay:100ms}
+.home-notifs .notif[data-notif].is-in:nth-child(2) .notif__shadow{animation-delay:140ms}
+.home-notifs .notif[data-notif].is-in:nth-child(3){animation-delay:200ms}
+.home-notifs .notif[data-notif].is-in:nth-child(3) .notif__shadow{animation-delay:240ms}
+
+/* --------------------------------------------------------------------------
+   4. CLOSING CTA
+   The counter and the button are one unit: the number is the argument and the
+   button is the answer to it. They are not spread across the container, which
+   put 1200px between them and left the button reading as unrelated furniture.
+   Aligned on the counter's caption baseline, not its digits, so the button
+   sits on the line the words sit on.
+   -------------------------------------------------------------------------- */
+.home-cta__row{
+	display:flex;
+	align-items:flex-end;
+	gap:var(--s-8);
+	flex-wrap:wrap;
+}
+/* The last section's own 120px lands on the footer's 96px top margin, which
+   put 216px of empty canvas under the final button. The footer's margin is
+   the foundation's and stays; this side gives way. */
+.home-cta{padding-bottom:var(--s-8)}
+@media(max-width:560px){
+	.home-cta__row{gap:var(--s-6)}
+	.home-cta__row .btn{width:100%}
+}

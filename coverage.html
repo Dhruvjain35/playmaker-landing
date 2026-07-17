@@ -5,138 +5,270 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>PLAYMAKR · Coverage</title>
 	<meta name="description" content="From the Timberwolves to the Seahawks to the Yankees, PLAYMAKR covers every team you follow across the majors, college and the pitch." />
-	<meta name="theme-color" content="#070708" />
+	<meta name="theme-color" content="#08070b" />
 	<link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
-	<link rel="stylesheet" href="styles.css?v=35" />
-	<script>document.documentElement.classList.add('js');</script>
+	<link rel="stylesheet" href="styles.css?v=1" />
+	<link rel="stylesheet" href="css/pages/coverage.css?v=1" />
 </head>
 <body>
+	<div id="field" aria-hidden="true"></div>
+	<div id="grain" aria-hidden="true"></div>
+
 	<a class="skip" href="#main">Skip to content</a>
 
 	<header class="nav" id="nav">
 		<div class="nav__inner">
-			<a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="24" height="24" /></span><span class="brand__word">PLAYMAKR</span></a>
-			<nav class="nav__links" aria-label="Primary"><a href="index.html">Home</a><a href="product.html">Product</a><a href="coverage.html" aria-current="page">Coverage</a><a href="waitlist.html">Waitlist</a></nav>
-			<div class="nav__right"><a class="nav__join" href="waitlist.html">Join waitlist</a><button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button></div>
+			<a class="brand" href="index.html" aria-label="PLAYMAKR home">
+				<span class="brand__mark"><img src="assets/images/logo.png" alt="" width="24" height="24" /></span>
+				<span class="brand__word">PLAYMAKR</span>
+			</a>
+			<nav class="nav__links" aria-label="Primary">
+				<a href="index.html">Home</a>
+				<a href="product.html">Product</a>
+				<a href="how-it-works.html">How it works</a>
+				<a href="integrations.html">Integrations</a>
+				<a href="coverage.html" aria-current="page">Coverage</a>
+				<a href="manifesto.html">Manifesto</a>
+				<a href="faq.html">FAQ</a>
+				<a href="waitlist.html">Waitlist</a>
+			</nav>
+			<div class="nav__right">
+				<a class="nav__join" href="waitlist.html">Join waitlist</a>
+				<button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+			</div>
 		</div>
-		<div class="nav__mobile" id="navMobile"><a href="index.html">Home</a><a href="product.html">Product</a><a href="waitlist.html">Waitlist</a><a class="nav__mobile-cta" href="waitlist.html">Join waitlist</a></div>
+		<div class="nav__mobile" id="navMobile">
+			<a href="index.html">Home</a>
+			<a href="product.html">Product</a>
+			<a href="how-it-works.html">How it works</a>
+			<a href="integrations.html">Integrations</a>
+			<a href="coverage.html">Coverage</a>
+			<a href="manifesto.html">Manifesto</a>
+			<a href="faq.html">FAQ</a>
+			<a href="waitlist.html">Waitlist</a>
+			<a class="nav__mobile-cta" href="waitlist.html">Join waitlist</a>
+		</div>
 	</header>
 
 	<main id="main">
-		<section class="phead wrap">
-			<h1 class="t-h1" data-reveal="up">Built for the teams you actually follow.</h1>
-			<p class="t-sub" data-reveal="up" style="--d:1">From the Timberwolves to the Seahawks to the Yankees, across the majors,
-				college and the pitch. Tell your agent who you follow and it tailors everything.</p>
-		</section>
 
-		<!-- EDITORIAL LEAGUE INDEX -->
-		<section class="wrap idx">
-			<ul class="idx__list">
-				<li class="idx__row" data-reveal="up" style="--d:0">
-					<span class="idx__no">01</span>
-					<span class="idx__lead"><span class="idx__name">NBA</span><span class="idx__team">Ant &amp; the Wolves</span></span>
-					<p class="idx__desc">Live scores, statlines and highlight clips the moment the buzzer sounds.</p>
-					<span class="idx__mk"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 2.8v18.4M2.8 12h18.4M5.6 5.6c3.4 3.4 3.4 9.4 0 12.8M18.4 5.6c-3.4 3.4-3.4 9.4 0 12.8"/></svg></span>
-				</li>
-				<li class="idx__row" data-reveal="up" style="--d:0">
-					<span class="idx__no">02</span>
-					<span class="idx__lead"><span class="idx__name">NFL</span><span class="idx__team">Seahawks Sunday</span></span>
-					<p class="idx__desc">Drive-by-drive alerts, red-zone pings and final-whistle recaps.</p>
-					<span class="idx__mk"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-32 12 12)"/><path d="M8.8 15.2l6.4-6.4"/><path d="M10.4 12.4l1.4 1.4M11.9 10.9l1.4 1.4M13.4 9.4l1.4 1.4"/></svg></span>
-				</li>
-				<li class="idx__row" data-reveal="up" style="--d:0">
-					<span class="idx__no">03</span>
-					<span class="idx__lead"><span class="idx__name">MLB</span><span class="idx__team">Yankees, every night</span></span>
-					<p class="idx__desc">Walk-offs, no-hitters and box scores the second the last out is made.</p>
-					<span class="idx__mk"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M6.2 5.4c2.6 3.1 2.6 10.1 0 13.2M17.8 5.4c-2.6 3.1-2.6 10.1 0 13.2"/></svg></span>
-				</li>
-				<li class="idx__row" data-reveal="up" style="--d:0">
-					<span class="idx__no">04</span>
-					<span class="idx__lead"><span class="idx__name">Soccer</span><span class="idx__team">Premier League · Champions League · World Cup</span></span>
-					<p class="idx__desc">Every goal the instant the net ripples, at home and abroad.</p>
-					<span class="idx__mk"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.2l3.4 2.5-1.3 4h-4.2l-1.3-4z"/><path d="M12 7.2V3.4M15.4 9.7l3.3-1.4M14.1 13.7l2 3M9.9 13.7l-2 3M8.6 9.7L5.3 8.3"/></svg></span>
-				</li>
-				<li class="idx__row" data-reveal="up" style="--d:0">
-					<span class="idx__no">05</span>
-					<span class="idx__lead"><span class="idx__name">NHL</span><span class="idx__team">Puck drop to OT</span></span>
-					<p class="idx__desc">Goals, saves and overtime winners, beat by beat.</p>
-					<span class="idx__mk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l9.5 11M5 5v3M5 5h3M19 5L9.5 16M19 5v3M19 5h-3"/><rect x="9.6" y="17.8" width="4.8" height="2.4" rx="1.2"/></svg></span>
-				</li>
-				<li class="idx__row" data-reveal="up" style="--d:0">
-					<span class="idx__no">06</span>
-					<span class="idx__lead"><span class="idx__name">NCAA &amp; UFC</span><span class="idx__team">Saturdays &amp; fight nights</span></span>
-					<p class="idx__desc">College football, March Madness and every main-card finish.</p>
-					<span class="idx__mk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 4.5h7.6l4.2 4.2v6.6l-4.2 4.2H8.2L4 15.3V8.7z"/><path d="M12 8.5v7M9 12h6"/></svg></span>
-				</li>
-			</ul>
-		</section>
+		<!-- 1. PAGE HEAD + THE NINE LEAGUES -->
+		<section class="sec cvg-top">
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[COVERAGE]</p>
+					<h1 class="t-h1">Built for the teams you actually follow<span class="stop">.</span></h1>
+					<p class="t-sub">From the Timberwolves to the Seahawks to the Yankees, across the majors, college and the pitch. Tell your agent who you follow and it tailors everything.</p>
+				</div>
 
-		<!-- TWO VARIED MOCKUPS -->
-		<section class="wrap" style="padding-block:clamp(60px,8vw,110px)">
-			<div class="split">
-				<div data-reveal="left">
-					<h2 class="t-h2" style="max-width:13ch;margin-bottom:16px">The pitch, in real time.</h2>
-					<p class="t-sub" style="max-width:38ch">Every goal, red card and stoppage-time winner across the Premier League,
-						Champions League and the World Cup, texted the instant it happens.</p>
+				<div class="marquee" aria-label="Leagues we cover">
+					<div class="marquee__row" data-leagues></div>
 				</div>
-				<div data-reveal="right" style="display:flex;justify-content:center">
-					<div class="device device--lg"><div class="device__island"></div><div class="device__screen">
-						<div class="chat"><div class="chat__nav"><span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span><span class="chat__name">PLAYMAKR</span><span class="chat__sub">active now</span></div>
-							<div class="chat__body" data-thread>
-								<p class="day">Champions League · Live</p>
-								<div class="b b--out">how's Liverpool doing?</div>
-								<div class="b b--in b--card"><div class="sb"><span class="sb__state sb__live">● Live · 63'</span>
-									<div class="sb__row"><span class="sb__team"><i class="tm tm--liv"></i>Liverpool</span><span class="sb__pts">2</span></div>
-									<div class="sb__row sb__row--l"><span class="sb__team"><i class="tm tm--rma"></i>Real Madrid</span><span class="sb__pts">1</span></div></div>
-									<p class="sb__line"><b>M. Salah</b> · 1 G · 1 A</p>
-									
-								</div>
-								<div class="b b--in">Salah with a sublime curler into the top corner. Anfield is rocking.</div>
-									<a class="b b--in b--clip" href="https://www.youtube.com/watch?v=cUzCR25Dj90" target="_blank" rel="noopener" data-video="cUzCR25Dj90" aria-label="Watch Mohamed Salah highlight on YouTube"><span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/cUzCR25Dj90/hqdefault.jpg)"><span class="clipv__play" aria-hidden="true"></span><span class="clipv__tag">Goal</span></span><span class="clipv__meta"><b>Salah, into the top corner</b><small>Liverpool FC · YouTube</small></span></a>
-								<div class="b b--out">text me if Madrid equalize</div>
-								<div class="b b--in b--mini">Always.</div>
-							</div>
-						</div>
-					</div></div>
-				</div>
+
+				<p class="cap">Nine leagues. Your agent watches the ones you pick.</p>
 			</div>
 		</section>
 
-		<section class="wrap" style="padding-bottom:clamp(60px,8vw,110px)">
-			<div class="split">
-				<div data-reveal="left" style="display:flex;justify-content:center;order:2">
-					<div class="device device--lg"><div class="device__island"></div><div class="device__screen">
-						<div class="chat"><div class="chat__nav"><span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span><span class="chat__name">PLAYMAKR</span><span class="chat__sub">active now</span></div>
-							<div class="chat__body" data-thread>
-								<p class="day">Bronx · Late</p>
-								<div class="b b--out">Yankees score?</div>
-								<div class="b b--in b--card"><div class="sb"><span class="sb__state">Final · F/9</span>
-									<div class="sb__row"><span class="sb__team"><i class="tm tm--nyy"></i>Yankees</span><span class="sb__pts">5</span></div>
-									<div class="sb__row sb__row--l"><span class="sb__team"><i class="tm tm--bos"></i>Red Sox</span><span class="sb__pts">4</span></div></div>
-									<p class="sb__line"><b>Aaron Judge</b> · 2 HR · 4 RBI</p>
-									
+		<!-- 2. THE EDITORIAL INDEX -->
+		<section class="sec">
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[THE INDEX]</p>
+					<h2 class="t-h2">From the buzzer to the final out<span class="stop">.</span></h2>
+					<p class="t-sub">Every league on the list gets the same treatment. Your agent watches it and texts you the second something matters.</p>
+				</div>
+
+				<div class="panel glass cvg-idx" data-panel data-lit>
+					<div class="panel__bloom" aria-hidden="true"></div>
+					<div class="panel__body panel__body--flush">
+						<ol class="cvg-idx__list">
+							<li class="cvg-idx__row">
+								<span class="cvg-idx__no">01</span>
+								<div class="cvg-idx__say">
+									<span class="cvg-idx__name">NBA</span>
+									<p class="cvg-idx__team">Ant &amp; the Wolves</p>
+									<p class="cvg-idx__desc">Live scores, statlines and highlight clips the moment the buzzer sounds.</p>
 								</div>
-								<div class="b b--in">Walk-off in the 9th. Judge's second of the night ends it.</div>
-									<a class="b b--in b--clip" href="https://www.youtube.com/watch?v=yf0XCJTOQqM" target="_blank" rel="noopener" data-video="yf0XCJTOQqM" aria-label="Watch Aaron Judge walk-off home run on YouTube"><span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/yf0XCJTOQqM/hqdefault.jpg)"><span class="clipv__play" aria-hidden="true"></span><span class="clipv__tag">Walk-off</span></span><span class="clipv__meta"><b>Judge, walk-off home run</b><small>MLB · YouTube</small></span></a>
-								<div class="b b--in b--mini">That's 4 straight at home. Want tomorrow's probables?</div>
-							</div>
-						</div>
-					</div></div>
+								<span class="cvg-idx__mk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 2.8v18.4M2.8 12h18.4M5.6 5.6c3.4 3.4 3.4 9.4 0 12.8M18.4 5.6c-3.4 3.4-3.4 9.4 0 12.8"/></svg></span>
+							</li>
+							<li class="cvg-idx__row">
+								<span class="cvg-idx__no">02</span>
+								<div class="cvg-idx__say">
+									<span class="cvg-idx__name">NFL</span>
+									<p class="cvg-idx__team">Seahawks Sunday</p>
+									<p class="cvg-idx__desc">Drive-by-drive alerts, red-zone pings and final-whistle recaps.</p>
+								</div>
+								<span class="cvg-idx__mk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5.4" transform="rotate(-32 12 12)"/><path d="M8.8 15.2l6.4-6.4"/><path d="M10.4 12.4l1.4 1.4M11.9 10.9l1.4 1.4M13.4 9.4l1.4 1.4"/></svg></span>
+							</li>
+							<li class="cvg-idx__row">
+								<span class="cvg-idx__no">03</span>
+								<div class="cvg-idx__say">
+									<span class="cvg-idx__name">MLB</span>
+									<p class="cvg-idx__team">Yankees, every night</p>
+									<p class="cvg-idx__desc">Walk-offs, no-hitters and box scores the second the last out is made.</p>
+								</div>
+								<span class="cvg-idx__mk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M6.2 5.4c2.6 3.1 2.6 10.1 0 13.2M17.8 5.4c-2.6 3.1-2.6 10.1 0 13.2"/></svg></span>
+							</li>
+							<li class="cvg-idx__row">
+								<span class="cvg-idx__no">04</span>
+								<div class="cvg-idx__say">
+									<span class="cvg-idx__name">Soccer</span>
+									<p class="cvg-idx__team">Premier League · Champions League · World Cup</p>
+									<p class="cvg-idx__desc">Every goal the instant the net ripples, at home and abroad.</p>
+								</div>
+								<span class="cvg-idx__mk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.2l3.4 2.5-1.3 4h-4.2l-1.3-4z"/><path d="M12 7.2V3.4M15.4 9.7l3.3-1.4M14.1 13.7l2 3M9.9 13.7l-2 3M8.6 9.7L5.3 8.3"/></svg></span>
+							</li>
+							<li class="cvg-idx__row">
+								<span class="cvg-idx__no">05</span>
+								<div class="cvg-idx__say">
+									<span class="cvg-idx__name">NHL</span>
+									<p class="cvg-idx__team">Puck drop to OT</p>
+									<p class="cvg-idx__desc">Goals, saves and overtime winners, beat by beat.</p>
+								</div>
+								<span class="cvg-idx__mk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l9.5 11M5 5v3M5 5h3M19 5L9.5 16M19 5v3M19 5h-3"/><rect x="9.6" y="17.8" width="4.8" height="2.4" rx="1.2"/></svg></span>
+							</li>
+							<li class="cvg-idx__row">
+								<span class="cvg-idx__no">06</span>
+								<div class="cvg-idx__say">
+									<span class="cvg-idx__name">NCAA &amp; UFC</span>
+									<p class="cvg-idx__team">Saturdays &amp; fight nights</p>
+									<p class="cvg-idx__desc">College football, March Madness and every main-card finish.</p>
+								</div>
+								<span class="cvg-idx__mk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.2 4.5h7.6l4.2 4.2v6.6l-4.2 4.2H8.2L4 15.3V8.7z"/><path d="M12 8.5v7M9 12h6"/></svg></span>
+							</li>
+						</ol>
+					</div>
 				</div>
-				<div data-reveal="right" style="order:1">
-					<h2 class="t-h2" style="max-width:13ch;margin-bottom:16px">Box scores you don't have to chase.</h2>
-					<p class="t-sub" style="max-width:38ch">Walk-offs, no-hitters and final lines for every team in the majors,
-						delivered the moment the last out is recorded.</p>
-				</div>
+
+				<p class="cap">Soccer carries all three competitions. NCAA and UFC share the last line.</p>
 			</div>
 		</section>
 
-		<section class="cta">
-			<div class="cta__glow" data-parallax="0.08" aria-hidden="true"></div>
-			<div class="wrap cta__inner" data-reveal="rise">
-				<h2 class="t-h2">Your teams. Your texts.</h2>
-				<a class="btn btn--lg" href="waitlist.html">Join the waitlist</a>
+		<!-- 3. SOCCER, LIVE -->
+		<section class="sec" id="cvg-live">
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[LIVE]</p>
+					<h2 class="t-h2">The pitch, in real time<span class="stop" data-live>.</span></h2>
+					<p class="t-sub">Every goal, red card and stoppage-time winner across the Premier League, Champions League and the World Cup, texted the instant it happens.</p>
+				</div>
+
+				<div class="panel glass cvg-stage" data-panel data-lit data-refract>
+					<div class="glass__refract" aria-hidden="true"></div>
+					<div class="panel__bloom" aria-hidden="true"></div>
+					<div class="panel__body cvg-stage__body">
+						<div class="device" data-lit>
+							<div class="device__island" data-island="live" aria-hidden="true">
+								<div class="island__inner island__inner--live">
+									<span class="island__side"><i class="tm tm--liv"></i><span class="island__lab">LIV</span><span class="island__score" data-roll="2">2</span></span>
+									<span class="island__dot"></span>
+									<span class="island__side"><span class="island__score" data-roll="1">1</span><span class="island__lab">RMA</span><i class="tm tm--rma"></i></span>
+								</div>
+							</div>
+							<div class="device__screen">
+								<div class="chat">
+									<div class="chat__nav">
+										<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
+										<span class="chat__name">PLAYMAKR</span>
+										<span class="chat__sub">active now</span>
+									</div>
+									<div class="chat__body" data-thread>
+										<p class="day">Champions League · Live</p>
+										<div class="b b--out">how's Liverpool doing?</div>
+										<div class="b b--in b--card">
+											<div class="sb">
+												<span class="sb__state sb__live">Live · 63'</span>
+												<div class="sb__row"><span class="sb__team"><i class="tm tm--liv"></i>Liverpool</span><span class="sb__pts" data-roll="2">2</span></div>
+												<div class="sb__row sb__row--l"><span class="sb__team"><i class="tm tm--rma"></i>Real Madrid</span><span class="sb__pts" data-roll="1">1</span></div>
+											</div>
+											<p class="sb__line"><b>M. Salah</b> . 1 G · 1 A</p>
+										</div>
+										<div class="b b--in">Salah with a sublime curler into the top corner. Anfield is rocking.</div>
+										<a class="b b--in b--clip" href="https://www.youtube.com/watch?v=cUzCR25Dj90" target="_blank" rel="noopener" data-video="cUzCR25Dj90" aria-label="Watch Mohamed Salah highlight on YouTube">
+											<span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/cUzCR25Dj90/hqdefault.jpg)">
+												<span class="clipv__play" aria-hidden="true"></span>
+												<span class="clipv__tag">Goal</span>
+											</span>
+											<span class="clipv__meta"><b>Salah, into the top corner</b><small>Liverpool FC · YouTube</small></span>
+										</a>
+										<div class="b b--out">text me if Madrid equalize</div>
+										<div class="b b--in b--mini">Always.</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<p class="cap">The score, the story and the clip land in the same thread, while the match is still going.</p>
+			</div>
+		</section>
+
+		<!-- 4. BASEBALL, FINAL -->
+		<section class="sec" id="cvg-final">
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[FINAL]</p>
+					<h2 class="t-h2">Box scores you don't have to chase<span class="stop">.</span></h2>
+					<p class="t-sub">Walk-offs, no-hitters and final lines for every team in the majors, delivered the moment the last out is recorded.</p>
+				</div>
+
+				<div class="panel glass cvg-stage" data-panel data-lit data-refract>
+					<div class="glass__refract" aria-hidden="true"></div>
+					<div class="panel__bloom" aria-hidden="true"></div>
+					<div class="panel__body cvg-stage__body">
+						<div class="device" data-lit>
+							<div class="device__island" data-island aria-hidden="true"></div>
+							<div class="device__screen">
+								<div class="chat">
+									<div class="chat__nav">
+										<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
+										<span class="chat__name">PLAYMAKR</span>
+										<span class="chat__sub">active now</span>
+									</div>
+									<div class="chat__body" data-thread>
+										<p class="day">Bronx · Late</p>
+										<div class="b b--out">Yankees score?</div>
+										<div class="b b--in b--card">
+											<div class="sb">
+												<span class="sb__state">Final · F/9</span>
+												<div class="sb__row"><span class="sb__team"><i class="tm tm--nyy"></i>Yankees</span><span class="sb__pts" data-roll="5">5</span></div>
+												<div class="sb__row sb__row--l"><span class="sb__team"><i class="tm tm--bos"></i>Red Sox</span><span class="sb__pts" data-roll="4">4</span></div>
+											</div>
+											<p class="sb__line"><b>Aaron Judge</b> . 2 HR · 4 RBI</p>
+										</div>
+										<div class="b b--in">Walk-off in the 9th. Judge's second of the night ends it.</div>
+										<a class="b b--in b--clip" href="https://www.youtube.com/watch?v=yf0XCJTOQqM" target="_blank" rel="noopener" data-video="yf0XCJTOQqM" aria-label="Watch Aaron Judge walk-off home run on YouTube">
+											<span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/yf0XCJTOQqM/hqdefault.jpg)">
+												<span class="clipv__play" aria-hidden="true"></span>
+												<span class="clipv__tag">Walk-off</span>
+											</span>
+											<span class="clipv__meta"><b>Judge, walk-off home run</b><small>MLB · YouTube</small></span>
+										</a>
+										<div class="b b--in b--mini">That's 4 straight at home. Want tomorrow's probables?</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<p class="cap">The final line arrives with the highlight attached, seconds after the last out.</p>
+			</div>
+		</section>
+
+		<!-- 5. CTA -->
+		<section class="sec cvg-cta" data-scrim>
+			<div class="wrap">
+				<div class="sec__head">
+					<p class="eyebrow">[WAITLIST]</p>
+					<h2 class="t-h2">Your teams. Your texts<span class="stop">.</span></h2>
+					<p class="t-sub">Live in under a minute. Pick your teams, connect your chat, then just live your life.</p>
+				</div>
+				<div class="cvg-cta__act">
+					<a class="btn btn--lg" href="waitlist.html">Join the waitlist</a>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -149,15 +281,18 @@
 			</div>
 			<div class="foot__grid">
 				<div class="foot__brand"><a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span><span class="brand__word">PLAYMAKR</span></a></div>
-				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="product.html">Breaking news</a><a href="product.html">Integrations</a></nav>
-				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a></nav>
-				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="waitlist.html">Join waitlist</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
+				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="how-it-works.html">How it works</a><a href="integrations.html">Integrations</a></nav>
+				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a><a href="manifesto.html">Manifesto</a></nav>
+				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="waitlist.html">Join waitlist</a><a href="faq.html">FAQ</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
 				<nav class="foot__col" aria-label="Company"><h4>Company</h4><a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></nav>
 			</div>
-			<div class="foot__base"><span>Copyright © 2026 PLAYMAKR. All rights reserved.</span><div class="foot__legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><span>United States</span></div></div>
+			<div class="foot__base">
+				<span>Copyright &copy; 2026 PLAYMAKR. All rights reserved.</span>
+				<div class="foot__legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><span>United States</span></div>
+			</div>
 		</div>
 	</footer>
 
-	<script src="app.js?v=35"></script>
+	<script src="app.js?v=1"></script>
 </body>
 </html>
