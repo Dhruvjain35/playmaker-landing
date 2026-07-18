@@ -8,8 +8,8 @@
 	<meta name="theme-color" content="#08070b" />
 	<link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
-	<link rel="stylesheet" href="styles.css?v=1" />
-	<link rel="stylesheet" href="css/pages/product.css?v=1" />
+	<link rel="stylesheet" href="styles.css?v=26" />
+	<link rel="stylesheet" href="css/pages/product.css?v=26" />
 </head>
 <body>
 	<div id="field" aria-hidden="true"></div>
@@ -24,14 +24,9 @@
 				<span class="brand__word">PLAYMAKR</span>
 			</a>
 			<nav class="nav__links" aria-label="Primary">
-				<a href="index.html">Home</a>
 				<a href="product.html" aria-current="page">Product</a>
-				<a href="how-it-works.html">How it works</a>
-				<a href="integrations.html">Integrations</a>
 				<a href="coverage.html">Coverage</a>
-				<a href="manifesto.html">Manifesto</a>
 				<a href="faq.html">FAQ</a>
-				<a href="waitlist.html">Waitlist</a>
 			</nav>
 			<div class="nav__right">
 				<a class="nav__join" href="waitlist.html">Join waitlist</a>
@@ -39,235 +34,154 @@
 			</div>
 		</div>
 		<div class="nav__mobile" id="navMobile">
-			<a href="index.html">Home</a>
-			<a href="how-it-works.html">How it works</a>
-			<a href="integrations.html">Integrations</a>
+			<a href="product.html">Product</a>
 			<a href="coverage.html">Coverage</a>
-			<a href="manifesto.html">Manifesto</a>
 			<a href="faq.html">FAQ</a>
-			<a href="waitlist.html">Waitlist</a>
 			<a class="nav__mobile-cta" href="waitlist.html">Join waitlist</a>
 		</div>
 	</header>
 
 	<main id="main">
-		<!-- ============================================================ HEADER -->
-		<section class="phead">
+		<!-- HERO -->
+		<section class="sec page-hero">
 			<div class="wrap">
-				<div class="sec__head">
-					<h1 class="t-h1">An agent that does the watching for you<span class="stop">.</span></h1>
-					<p class="t-sub">Three things PLAYMAKR does better than any app on your home screen.</p>
+				<div class="sec__head sec--center">
+					<h1 class="page-hero__h">Your team&rsquo;s whole world,<br>in one <em>thread</em>.</h1>
+					<p class="t-sub">Scores, news, highlights and answers, delivered the second they matter, right where you already chat.</p>
 				</div>
 			</div>
 		</section>
 
-		<!-- ======================================================= THE STORY
-		     Three captions, three phones, one pin. Each caption is its own
-		     eyebrow, headline and subline, because each one is its own claim. -->
-		<section class="pstory" id="pstory" data-on="0" aria-label="What PLAYMAKR does">
-			<div class="wrap pstory__track">
+		<section class="sec--tight"><div class="wrap feature-list">
 
-				<!-- 1. IT TEXTS YOU FIRST -->
-				<div class="pstory__cap">
-					<div class="sec__head">
-						<p class="eyebrow">[LIVE]</p>
-						<h2 class="t-h2">It texts you first<span class="stop" data-live>.</span></h2>
-						<p class="t-sub">PLAYMAKR reaches out the moment something turns. Tip-offs, lead changes, finals. No app to open, no feed to refresh.</p>
-					</div>
+			<!-- 1. LIVE play-by-play + win probability -->
+			<div class="feature">
+				<div class="feature__copy">
+					<p class="feature__kicker">Live</p>
+					<h2>Every play, the second it <em>happens</em>.</h2>
+					<p>Live scores, statlines and win probability from the opening tip to the final buzzer, across every league you follow.</p>
 				</div>
-
-				<div class="pstory__stage" data-scene="0">
-					<div class="pstory__frame">
-						<div class="device" data-lit>
-							<div class="device__island" data-island="live" aria-hidden="true">
-								<div class="island__inner island__inner--live">
-									<span class="island__side"><i class="tm tm--min"></i><span class="island__lab">MIN</span><span class="island__score" data-roll="88" data-tick="90,93">88</span></span>
-									<span class="island__dot"></span>
-									<span class="island__side"><span class="island__score" data-roll="84">84</span><span class="island__lab">DEN</span><i class="tm tm--den"></i></span>
-								</div>
-							</div>
-							<div class="device__screen">
-								<div class="chat">
-									<div class="chat__nav">
-										<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
-										<span class="chat__name">PLAYMAKR</span>
-										<span class="chat__sub">active now</span>
-									</div>
-									<div class="chat__body" data-thread>
-										<p class="day">Tonight 6:58 PM</p>
-										<div class="b b--in">Ant's warming up, Wolves tip in 20. Want tonight's three keys?</div>
-										<div class="b b--in b--mini">Heads up: Murray is a game-time decision for Denver.</div>
-										<div class="b b--out">show me last night</div>
-										<a class="b b--in b--clip" href="https://www.youtube.com/watch?v=FwLONYKbcHA" target="_blank" rel="noopener"
-										   data-video="FwLONYKbcHA" aria-label="Watch Anthony Edwards highlights on YouTube">
-											<span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/FwLONYKbcHA/hqdefault.jpg)">
-												<span class="clipv__play" aria-hidden="true"></span>
-												<span class="clipv__tag">Highlights</span>
-											</span>
-											<span class="clipv__meta"><b>Anthony Edwards, 40 PTS vs Denver</b><small>Minnesota Timberwolves · YouTube</small></span>
-										</a>
-										<div class="b b--in b--mini">I'll text you at tip-off.</div>
-										<div class="chips"><span>Three keys</span><span>Injury report</span><span>Last matchup</span></div>
-									</div>
-								</div>
-							</div>
+				<div class="feature__art art" data-panel data-lit>
+					<div class="art__dashed" aria-hidden="true"></div>
+					<div class="uicard scorecard">
+						<div class="scorecard__top">
+							<img class="scorecard__lg" src="assets/images/leagues-real/nba.png" alt="NBA" width="26" height="26" />
+							<span class="scorecard__state">LIVE &middot; Q3 4:12</span>
 						</div>
-						<p class="pstory__dots" data-step="0" aria-hidden="true"><span></span><span></span><span></span></p>
+						<div class="scorerow"><span class="scorerow__team"><img src="assets/images/teams/timberwolves.png" alt="" width="26" height="26" />Timberwolves</span><span class="scorerow__pts">88</span></div>
+						<div class="scorerow scorerow--dim"><span class="scorerow__team"><img src="assets/images/teams/nuggets.png" alt="" width="26" height="26" />Nuggets</span><span class="scorerow__pts">84</span></div>
+						<div class="winprob"><span>Wolves win probability</span><span class="winprob__v">78%</span></div>
+						<div class="winbar"><span style="width:78%"></span></div>
 					</div>
 				</div>
-
-				<!-- 2. THE STORY, THE SECOND IT BREAKS -->
-				<div class="pstory__cap">
-					<div class="sec__head">
-						<p class="eyebrow">[BREAKING]</p>
-						<h2 class="t-h2">The story, the second it breaks<span class="stop" data-live>.</span></h2>
-						<p class="t-sub">Trades, injuries, lineup changes and walk-offs land in your texts before they reach your timeline. Sourced, written and sent in real time.</p>
-					</div>
-				</div>
-
-				<div class="pstory__stage" data-scene="1">
-					<div class="pstory__frame">
-						<div class="device" data-lit>
-							<div class="device__island" data-island="alert" aria-hidden="true">
-								<div class="island__inner island__inner--live">
-									<span class="island__side"><i class="tm tm--liv"></i><span class="island__lab">LIV</span><span class="island__score" data-roll="2">2</span></span>
-									<span class="island__dot"></span>
-									<span class="island__side"><span class="island__score" data-roll="1">1</span><span class="island__lab">RMA</span><i class="tm tm--rma"></i></span>
-								</div>
-								<div class="island__inner island__inner--alert">
-									<span class="island__t">Jayson Tatum, ankle</span>
-									<span class="island__s">Questionable for Boston tonight.</span>
-								</div>
-							</div>
-							<div class="device__screen">
-								<div class="chat">
-									<div class="chat__nav">
-										<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
-										<span class="chat__name">PLAYMAKR</span>
-										<span class="chat__sub">active now</span>
-									</div>
-									<div class="chat__body" data-thread>
-										<div class="b b--in b--card">
-											<div class="alert">
-												<span class="alert__tag">Breaking</span>
-												<p><b>Anthony Edwards</b> upgraded to <b>available</b>. He starts tonight vs. Denver.</p>
-												<span class="alert__t">just now</span>
-											</div>
-										</div>
-										<div class="b b--in b--mini">First to know, before it hits the timeline.</div>
-										<div class="b b--out">any other injury news?</div>
-										<div class="b b--in b--card">
-											<div class="alert">
-												<span class="alert__tag">Breaking</span>
-												<p><b>Jayson Tatum</b> (ankle) is <span class="stat-chip" data-status="OUT">Questionable</span> for Boston.</p>
-												<span class="alert__t">just now</span>
-											</div>
-										</div>
-										<div class="b b--in b--mini">Two more updates pending, I'll send them as they land.</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<p class="pstory__dots" data-step="1" aria-hidden="true"><span></span><span></span><span></span></p>
-					</div>
-				</div>
-
-				<!-- 3. IN EVERY APP YOU ALREADY TEXT -->
-				<div class="pstory__cap">
-					<div class="sec__head">
-						<p class="eyebrow">[ANYWHERE]</p>
-						<h2 class="t-h2">In every app you already text<span class="stop">.</span></h2>
-						<p class="t-sub">iMessage, WhatsApp, Discord and Telegram. Group chats included, so the whole crew talks to the same agent at once.</p>
-					</div>
-				</div>
-
-				<div class="pstory__stage" data-scene="2">
-					<div class="pstory__frame">
-						<div class="device" data-lit>
-							<div class="device__island" data-island aria-hidden="true"></div>
-							<div class="device__screen" data-chrome="no-input">
-								<div class="chat">
-									<div class="chat__nav">
-										<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
-										<span class="chat__name">PLAYMAKR</span>
-										<span class="chat__sub">in 4 chats</span>
-									</div>
-									<div class="chat__body chat__body--apps">
-										<div class="approw"><i class="am am--msg"></i><span class="b b--in b--mini is-settled">iMessage, Seahawks just clinched the NFC West.</span></div>
-										<div class="approw"><i class="am am--wa"></i><span class="b b--in b--mini is-settled">WhatsApp, Yankees walk it off in the 9th.</span></div>
-										<div class="approw"><i class="am am--dc"></i><span class="b b--in b--mini is-settled">Discord, Ant's at 38 and counting.</span></div>
-										<div class="approw"><i class="am am--tg"></i><span class="b b--in b--mini is-settled">Telegram, UCL: six goals before the half.</span></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<p class="pstory__dots" data-step="2" aria-hidden="true"><span></span><span></span><span></span></p>
-					</div>
-				</div>
-
 			</div>
-		</section>
 
-		<!-- ============================================================= SETUP -->
-		<section class="sec psetup">
-			<div class="wrap">
-				<div class="sec__head">
-					<p class="eyebrow">[SETUP]</p>
-					<h2 class="t-h2">Live in under a minute<span class="stop">.</span></h2>
-					<p class="t-sub">Tell PLAYMAKR who you follow, link the chat you already use, and let it run.</p>
+			<!-- 2. ASK anything -->
+			<div class="feature feature--flip">
+				<div class="feature__copy">
+					<p class="feature__kicker">Ask</p>
+					<h2>Ask it <em>anything</em>.</h2>
+					<p>Lineups, matchup history, the deep-cut stats. Ask like you would a friend who never forgets a box score.</p>
 				</div>
-
-				<ol class="steps">
-					<li class="step">
-						<span class="step__no">1</span>
-						<h3>Pick your teams</h3>
-						<p>Tell PLAYMAKR who you follow and how you like it, sharp and stat-heavy, or just the moments that matter.</p>
-					</li>
-					<li class="step">
-						<span class="step__no">2</span>
-						<h3>Connect your chat</h3>
-						<p>Link iMessage, WhatsApp, Discord or Telegram in a tap. No download, no new app to learn.</p>
-					</li>
-					<li class="step">
-						<span class="step__no">3</span>
-						<h3>Just live your life</h3>
-						<p>It texts you first when it counts, and answers anything you ask back in seconds.</p>
-					</li>
-				</ol>
-
-				<p class="cap">Onboarding is three steps and nothing to install.</p>
-			</div>
-		</section>
-
-		<!-- =============================================================== CTA -->
-		<section class="sec pcta" data-scrim>
-			<div class="wrap">
-				<div class="sec__head">
-					<p class="eyebrow">[WAITLIST]</p>
-					<h2 class="t-h2">Be first in line<span class="stop" data-live>.</span></h2>
-					<p class="t-sub">Drop your number and we'll text you the moment access opens.</p>
-				</div>
-
-				<div class="panel glass" data-panel data-lit data-refract>
-					<div class="glass__refract" aria-hidden="true"></div>
-					<div class="panel__bloom" aria-hidden="true"></div>
-					<div class="panel__body">
-						<div class="notif is-live" data-notif>
-							<div class="notif__shadow" aria-hidden="true"></div>
-							<div class="notif__body">
-								<span class="notif__icon"><img src="assets/images/logo.png" alt="" width="34" height="34" /></span>
-								<div class="notif__main">
-									<p class="notif__t"><span>PLAYMAKR</span><span class="notif__when">now</span></p>
-									<p class="notif__p">Wolves lead <b>88 to 84</b>. Ant has 27 and 6 with 4:12 left in the third.</p>
-								</div>
-							</div>
+				<div class="feature__art art" data-panel data-lit>
+					<div class="art__dashed" aria-hidden="true"></div>
+					<div class="art__stack">
+						<div class="uicard uicard--q"><p class="uicard__body">how has Ant played in Denver the last 3 years?</p></div>
+						<div class="uicard uicard--pop">
+							<div class="uicard__head"><span class="uicard__logo uicard__logo--sq"><img src="assets/images/logo.png" alt="PLAYMAKR" width="30" height="30" /></span><span class="uicard__title">PLAYMAKR<small>answered instantly</small></span></div>
+							<p class="uicard__body">In Denver he averages <b>26.4 PPG on 47%</b>, and the Wolves are 4-2 there. His last trip: 34 and 9.</p>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<p class="cap">No spam, just one message when you're in.</p>
+			<!-- 3. HIGHLIGHTS on demand -->
+			<div class="feature">
+				<div class="feature__copy">
+					<p class="feature__kicker">Highlights</p>
+					<h2>The highlight, <em>on demand</em>.</h2>
+					<p>Text &ldquo;show me&rdquo; and the dunk, the walk-off or the wonder goal lands in your chat, seconds after it happens.</p>
+				</div>
+				<div class="feature__art art" data-panel data-lit>
+					<div class="art__dashed" aria-hidden="true"></div>
+					<div class="art__stack">
+						<div class="imsg">show me Ant&rsquo;s highlights from tonight</div>
+						<div class="uicard clipcard uicard--pop">
+							<span class="clipcard__media" style="background-image:url(https://img.youtube.com/vi/mRvHSutb1Io/hqdefault.jpg)"><span class="clipcard__play"></span></span>
+							<div class="clipcard__meta"><img src="assets/images/leagues-real/nba.png" alt="" width="24" height="24" /><span><b>Anthony Edwards, 27 PTS vs Denver</b><small>Timberwolves &middot; 0:42</small></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-				<div class="pcta__act"><a class="btn btn--lg" href="waitlist.html">Join the waitlist</a></div>
+			<!-- 4. POST-GAME recap -->
+			<div class="feature feature--flip">
+				<div class="feature__copy">
+					<p class="feature__kicker">Recap</p>
+					<h2>The whole game, in <em>five lines</em>.</h2>
+					<p>Sixty seconds after the final whistle, the story of the night: who won it, who carried it, what it means.</p>
+				</div>
+				<div class="feature__art art" data-panel data-lit>
+					<div class="art__dashed" aria-hidden="true"></div>
+					<div class="uicard recap">
+						<div class="recap__final"><img src="assets/images/teams/timberwolves.png" alt="" width="28" height="28" /><b>Wolves 112</b><span>Final</span><b>106 Nuggets</b><img src="assets/images/teams/nuggets.png" alt="" width="28" height="28" /></div>
+						<ul class="recap__list">
+							<li>Edwards closed it out: <b>34 PTS, 8 REB, 6 AST</b>.</li>
+							<li>A 14-2 run in the third broke it open.</li>
+							<li>Wolves move to <b>3rd in the West</b>.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- 5. CUSTOM alerts / player watch -->
+			<div class="feature">
+				<div class="feature__copy">
+					<p class="feature__kicker">Your rules</p>
+					<h2>Watch a player, not a <em>feed</em>.</h2>
+					<p>&ldquo;Text me when Ant checks in.&rdquo; &ldquo;Ping me on every lead change.&rdquo; Set it once, and your agent handles the rest.</p>
+				</div>
+				<div class="feature__art art" data-panel data-lit>
+					<div class="art__dashed" aria-hidden="true"></div>
+					<div class="uicard alerts">
+						<div class="alertrow"><span>Anthony Edwards checks in</span><span class="switch is-on"></span></div>
+						<div class="alertrow"><span>Every lead change</span><span class="switch is-on"></span></div>
+						<div class="alertrow"><span>Final scores &amp; recaps</span><span class="switch is-on"></span></div>
+						<div class="alertrow alertrow--off"><span>Halftime summaries</span><span class="switch"></span></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 6. EVERYWHERE -->
+			<div class="feature feature--flip">
+				<div class="feature__copy">
+					<p class="feature__kicker">Everywhere</p>
+					<h2>Right where you already <em>text</em>.</h2>
+					<p>iMessage, WhatsApp, Discord and Telegram, group chats included. No new app, no feed to learn.</p>
+				</div>
+				<div class="feature__art art" data-panel data-lit>
+					<div class="art__dashed" aria-hidden="true"></div>
+					<div class="integ">
+						<span class="integ__logo integ__logo--msg" style="left:15%;top:15%"><img src="assets/images/logos/imessage.svg" alt="iMessage" /></span>
+						<span class="integ__logo integ__logo--wa" style="right:17%;top:20%"><img src="assets/images/apps-real/whatsapp.svg" alt="WhatsApp" /></span>
+						<span class="integ__logo integ__logo--dc" style="left:24%;bottom:16%"><img src="assets/images/apps-real/discord.svg" alt="Discord" /></span>
+						<span class="integ__logo integ__logo--tg" style="right:22%;bottom:19%"><img src="assets/images/apps-real/telegram.svg" alt="Telegram" /></span>
+					</div>
+				</div>
+			</div>
+
+		</div></section>
+
+		<!-- CTA -->
+		<section class="sec home-cta">
+			<div class="wrap">
+				<div class="sec__head sec--center">
+					<h2 class="t-h2">Be first in <em>line</em>.</h2>
+					<p class="t-sub">Early access is opening in a private beta. Drop your number and we'll text you the moment it's live.</p>
+				</div>
+				<div style="display:flex;justify-content:center;margin-top:32px">
+					<a class="btn btn--lg" href="waitlist.html">Join the waitlist</a>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -280,8 +194,8 @@
 			</div>
 			<div class="foot__grid">
 				<div class="foot__brand"><a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span><span class="brand__word">PLAYMAKR</span></a></div>
-				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="how-it-works.html">How it works</a><a href="integrations.html">Integrations</a></nav>
-				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a><a href="manifesto.html">Manifesto</a></nav>
+				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="product.html">How it works</a><a href="product.html">Integrations</a></nav>
+				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a><a href="coverage.html">Manifesto</a></nav>
 				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="waitlist.html">Join waitlist</a><a href="faq.html">FAQ</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
 				<nav class="foot__col" aria-label="Company"><h4>Company</h4><a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></nav>
 			</div>
@@ -292,7 +206,7 @@
 		</div>
 	</footer>
 
-	<script src="app.js?v=1"></script>
+	<script src="app.js?v=26"></script>
 	<script>
 	/* ----------------------------------------------------------------------
 	   Page scoped. The pinned story only.

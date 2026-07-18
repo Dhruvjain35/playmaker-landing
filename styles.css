@@ -1,164 +1,142 @@
 /* ==========================================================================
-   PLAYMAKR . PRESS ROW GLASS
+   PLAYMAKR . AAVE LIGHT
    Foundation stylesheet. Tokens, type, material, every component.
-   Dark only. iPhone only. No build step.
+   An exact-template rebuild against aave.com's current light system.
+   Light canvas. iPhone only. No build step.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
    0. FONTS
-   Hanken Grotesk, variable 400..700, self hosted, OFL.
-   JetBrains Mono, variable 400..500, self hosted, OFL.
-   ABC Repro is proprietary and is never shipped. The display face is behind
-   --font-display so Repro drops in with one @font-face plus one line.
+   Hanken Grotesk stands in for aave's "Aave Repro": a geometric-humanist
+   grotesk at the same 450-600 range. JetBrains Mono carries every number and
+   micro-label. Fraunces italic is the accent face: the one word per headline
+   that aave sets in a purple serif italic ("Everyone" -> "texts").
    -------------------------------------------------------------------------- */
+/* aave.com's own type system, served from their public assets. */
 @font-face{
-	font-family:'Hanken Grotesk';
+	font-family:'Aave Repro';
 	font-style:normal;
-	font-weight:400 700;
+	font-weight:100 900;
 	font-display:swap;
-	src:url('assets/fonts/hanken-grotesk-latin.woff2') format('woff2');
-	unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+	src:url('assets/fonts/AaveReproVariable.woff2') format('woff2-variations');
 }
 @font-face{
-	font-family:'Hanken Grotesk';
+	font-family:'Aave Repro Mono';
 	font-style:normal;
-	font-weight:400 700;
+	font-weight:100 900;
 	font-display:swap;
-	src:url('assets/fonts/hanken-grotesk-latin-ext.woff2') format('woff2');
-	unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+	src:url('assets/fonts/AaveReproMonoVariable.woff2') format('woff2-variations');
 }
 @font-face{
-	font-family:'JetBrains Mono';
+	font-family:'FT Regola Neue';
 	font-style:normal;
-	font-weight:400 500;
+	font-weight:600;
 	font-display:swap;
-	src:url('assets/fonts/jetbrains-mono-latin.woff2') format('woff2');
-	unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+	src:url('assets/fonts/FTRegolaNeue-Semibold.otf') format('opentype');
 }
 @font-face{
-	font-family:'JetBrains Mono';
+	font-family:'FT Regola Neue';
 	font-style:normal;
-	font-weight:400 500;
+	font-weight:700;
 	font-display:swap;
-	src:url('assets/fonts/jetbrains-mono-latin-ext.woff2') format('woff2');
-	unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+	src:url('assets/fonts/FTRegolaNeue-Bold.otf') format('opentype');
 }
-/* Metric matched fallback. Kills the swap reflow. */
 @font-face{
-	font-family:'Hanken Fallback';
+	font-family:'Aave Aguzzo';
+	font-style:normal;
+	font-weight:100 800;
+	font-display:swap;
+	src:url('assets/fonts/AaveAguzzo.woff2') format('woff2-variations');
+}
+/* Metric-matched fallback for Aave Repro. Kills the swap reflow. */
+@font-face{
+	font-family:'Repro Fallback';
 	src:local('Helvetica Neue'),local('Arial'),local('Liberation Sans');
-	size-adjust:97.5%;
-	ascent-override:96%;
-	descent-override:25%;
+	size-adjust:98%;
+	ascent-override:95%;
+	descent-override:24%;
 	line-gap-override:0%;
 }
 
 /* --------------------------------------------------------------------------
-   1. TOKENS
+   1. TOKENS  (sampled directly from aave.com)
    -------------------------------------------------------------------------- */
 :root{
-	/* CANVAS + PANELS */
-	--canvas:#08070b;
-	--panel-1:#0f0f10;
-	--panel-2:#141416;
-	--panel-3:#060607;
+	/* CANVAS + SURFACES  (near-black, OKLCH-tinted toward periwinkle 285deg) */
+	--canvas:oklch(0.155 0.010 285);       /* page */
+	--surface-1:oklch(0.192 0.013 285);    /* card face */
+	--surface-2:oklch(0.225 0.015 285);    /* tinted well */
+	--surface-3:oklch(0.265 0.016 285);    /* deeper well / track */
+	--ink-section:oklch(0.135 0.010 285);  /* the deepest surface / dark pill */
 
-	/* HAIRLINES */
-	--line-1:rgba(255,255,255,.06);
-	--line-2:rgba(255,255,255,.10);
-	--line-3:rgba(255,255,255,.03);
-	--rim-hi:rgba(255,255,255,.55);
-	--rim-lo:rgba(255,255,255,.03);
+	/* HAIRLINES + RINGS (light on dark) */
+	--line-1:rgba(255,255,255,.08);
+	--line-2:rgba(255,255,255,.14);
+	--line-3:rgba(255,255,255,.05);
+	--rim-hi:rgba(255,255,255,.24);        /* top edge catch-light on glass */
+	--line-dark:rgba(255,255,255,.08);
 
-	/* TEXT RAMP */
-	--fg-1:rgba(255,255,255,.96);
-	--fg-2:rgba(255,255,255,.70);
-	--fg-3:rgba(255,255,255,.56);
-	--fg-4:rgba(255,255,255,.38);
-	--fg-5:rgba(255,255,255,.30);
+	/* TEXT RAMP (near-white -> muted, tinted toward brand hue) */
+	--fg-1:oklch(0.975 0.004 285);  /* strongest: headings, numbers */
+	--fg-2:oklch(0.86 0.006 285);   /* body */
+	--fg-3:oklch(0.70 0.010 285);   /* subheads */
+	--fg-4:oklch(0.575 0.012 285);  /* captions, labels */
+	--fg-5:oklch(0.44 0.012 285);   /* faint / legal */
+	--on-dark-1:rgba(255,255,255,.95);
+	--on-dark-2:rgba(255,255,255,.66);
+	--on-dark-3:rgba(255,255,255,.44);
 
-	/* AAVE PURPLE RAMP. Real tokens. Never invent a new purple. */
-	--purple-1:#9896ff;
-	--purple-2:#9391fe;
-	--purple-3:#978eff;
-	--purple-4:#9c8cff;
-	--purple-5:#bcbbff;
-	--purple-6:#d0ceff;
-	--rich-purple:#8673ff;
-	--warm-purple:#c18fff;
-	--deep-purple:#4c1f5e;
-	--icon-purple-7:#8075ff;
+	/* PERIWINKLE. Primary fill + a brighter ink for text/links on dark. */
+	--purple-1:oklch(0.70 0.155 285);   /* primary fills ~ #978eff */
+	--purple-2:oklch(0.78 0.135 285);   /* links, eyebrows, accent ink ~ #b0a6ff */
+	--purple-3:oklch(0.70 0.155 285);
+	--purple-soft:oklch(0.70 0.155 285 / .12);
+	--purple-soft-2:oklch(0.70 0.155 285 / .20);
+	--rich-purple:oklch(0.64 0.175 285);
+	--warm-purple:oklch(0.82 0.11 290);
 
 	/* ACCENTS */
-	--yellow-1:#ffc42c;
-	--gho-1:#28d358;
-	--fr-1:#f24900;
+	--green:oklch(0.78 0.17 155);       /* the live / positive green */
+	--green-soft:oklch(0.78 0.17 155 / .14);
+	--red:oklch(0.68 0.20 25);          /* live dot, breaking */
+	--yellow-1:oklch(0.80 0.15 80);     /* questionable */
+	--fr-1:oklch(0.66 0.21 35);         /* out */
 
-	/* TYPE */
-	--font-display:'Hanken Grotesk','Hanken Fallback',system-ui,sans-serif; /* swap target */
+	/* TYPE — aave's own faces */
+	--font-display:'Aave Repro','Repro Fallback',system-ui,sans-serif;
 	--font-body:var(--font-display);
-	--font-mono:'JetBrains Mono',ui-monospace,monospace;
+	--font-serif:'FT Regola Neue','Aave Aguzzo',Georgia,serif; /* the accent word */
+	--font-mono:'Aave Repro Mono',ui-monospace,monospace;
+	--font-ios:-apple-system,'SF Pro Text','SF Pro Display','Helvetica Neue',system-ui,sans-serif;
 
 	/* SPACE */
 	--s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
 	--s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:120px;
 
-	/* RADIUS */
-	--r-panel:24px;
-	--r-card:16px;
-	--r-well:12px;
+	/* RADIUS (aave: 99px pills, 32px panels, 20-24px cards, 36px inputs) */
+	--r-panel:32px;
+	--r-card:22px;
+	--r-well:14px;
 	--r-bubble:18px;
 	--r-pill:999px;
 
-	/* MOTION. Two easings, plus ease for hovers. */
+	/* MOTION */
 	--ease-expo:cubic-bezier(.19,1,.22,1);
 	--ease-spring:cubic-bezier(.175,.885,.32,1.1);
 	--ease-hover:ease;
 
-	/* THE LIGHT. One source, globally agreed. */
-	--light-x:50vw;
-	--light-y:-14vh;
-	/* Resting light vector. JS overwrites per card. Points away from the light. */
-	--lit-x:0;
+	/* light vector, still written by app.js; consumed lightly here */
 	--lit-y:1;
 	--lit-angle:180deg;
-	--rim-from:0deg;
-	--cx:0px;
-	--cy:0px;
 
-	/* The field, re sampled by the refraction layer. */
-	--field-image:
-		linear-gradient(180deg,rgba(8,7,11,.86),rgba(18,17,22,.83)),
-		linear-gradient(193deg,#030303 13%,#4c1f5e 52%,#8673ff 84%,#9896ff 98%);
-
-	--wrap:1082px;
+	--wrap:1140px;
 	--gutter:24px;
-	--nav-h:60px;
+	--nav-h:72px;
 
-	/* digit roller line box. .roll and .sep must share it exactly. */
 	--roll-lh:1.16;
 }
 
-/* p3 layer. Aave's own pattern: hex first, p3 only as an override. */
-@supports (color:color(display-p3 0 0 0)){
-	:root{
-		--purple-1:color(display-p3 .5951 .587 1);
-		--purple-3:color(display-p3 .5951 .587 1);
-		--purple-5:color(display-p3 .7391 .7337 1);
-		--rich-purple:color(display-p3 .5255 .4510 1);
-		--deep-purple:color(display-p3 .30 .12 .37);
-		--warm-purple:color(display-p3 .7569 .5608 1);
-		--gho-1:color(display-p3 .1585 .8276 .3459);
-		--yellow-1:color(display-p3 1 .5843 0);
-		--fr-1:color(display-p3 .8863 .2863 .0392);
-		--fg-1:color(display-p3 1 1 1 / .96);
-	}
-}
-
-/* --scrim breathes on #field. --scrim-cut is written on :root by the scroll
-   driver. They compose, so the breathing and the CTA concentration never
-   fight over the same property. */
-@property --scrim{ syntax:'<number>'; inherits:true; initial-value:.88; }
+@property --scrim{ syntax:'<number>'; inherits:true; initial-value:0; }
 @property --scrim-cut{ syntax:'<number>'; inherits:true; initial-value:0; }
 
 /* --------------------------------------------------------------------------
@@ -178,7 +156,7 @@ body{
 	background:var(--canvas);
 	color:var(--fg-2);
 	line-height:1.5;
-	letter-spacing:-.01em;
+	letter-spacing:-.011em;
 	-webkit-font-smoothing:antialiased;
 	-moz-osx-font-smoothing:grayscale;
 	text-rendering:optimizeLegibility;
@@ -190,119 +168,103 @@ a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:none;padding:0}
 input{font:inherit;color:inherit}
 ol,ul{list-style:none;padding:0}
-::selection{background:var(--rich-purple);color:#fff}
-:focus-visible{outline:2px solid var(--purple-1);outline-offset:3px;border-radius:6px}
+::selection{background:var(--purple-1);color:#fff}
+:focus-visible{outline:2px solid var(--purple-2);outline-offset:3px;border-radius:6px}
 section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 
-.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--fg-1);color:#000;padding:10px 16px;border-radius:0 0 8px 0;font-weight:500}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--ink-section);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-weight:500}
 .skip:focus{left:0}
 
 /* --------------------------------------------------------------------------
    3. THE FIELD
-   A loud saturated gradient held under a near black scrim. The animation is
-   on the scrim, never on the gradient. @property registration is what makes
-   --scrim interpolate. Without it this animation does nothing.
+   Aave keeps a single faint periwinkle bloom at the top of the page over pure
+   white. No grain, no dark scrim. One soft light source, upper centre.
    -------------------------------------------------------------------------- */
 #field{
-	position:fixed; inset:0; z-index:-1; pointer-events:none;
+	/* Slightly oversized so the subtle mouse-parallax translate never reveals an
+	   edge. app.js eases --fx/--fy toward the pointer for a very slight drift. */
+	position:fixed; inset:-28px; z-index:-1; pointer-events:none;
+	transform:translate3d(var(--fx,0px),var(--fy,0px),0);
+	will-change:transform;
 	background:
-		linear-gradient(180deg,
-			rgba(8,7,11,calc(var(--scrim) - var(--scrim-cut))),
-			rgba(18,17,22,calc(var(--scrim) - var(--scrim-cut) - .03))),
-		linear-gradient(193deg,#030303 13%,#4c1f5e 52%,#8673ff 84%,#9896ff 98%),
+		radial-gradient(110% 60% at 50% -12%,oklch(0.42 0.13 285 / .30) 0%,oklch(0.30 0.10 285 / .10) 32%,transparent 60%),
+		radial-gradient(70vw 46vw at 84% 4%,oklch(0.50 0.12 300 / .12) 0%,transparent 58%),
 		var(--canvas);
-	animation:breathe 18s var(--ease-expo) infinite alternate;
-	-webkit-mask-image:radial-gradient(140% 100% at 50% 0%,#000 38%,rgba(0,0,0,.55) 72%,rgba(0,0,0,.35) 100%);
-	mask-image:radial-gradient(140% 100% at 50% 0%,#000 38%,rgba(0,0,0,.55) 72%,rgba(0,0,0,.35) 100%);
 }
-@keyframes breathe{ from{--scrim:.88} to{--scrim:.845} }
-
-/* Two drift sheets on coprime periods. 61 and 89 beat out to roughly 90
-   minutes, so the field never reads as a looping GIF. Transform only. */
-#field::before,#field::after{content:"";position:absolute;inset:-20%}
-#field::before{
-	background:radial-gradient(58vw 52vw at 18% 8%,rgba(134,115,255,.22) 0%,rgba(134,115,255,0) 62%);
-	animation:drift-a 61s linear infinite alternate;
-}
-#field::after{
-	background:radial-gradient(46vw 44vw at 70% 12%,rgba(193,143,255,.13) 0%,rgba(193,143,255,0) 64%);
-	animation:drift-b 89s linear infinite alternate;
-}
-@keyframes drift-a{ from{transform:translate3d(-2.5%,-1.5%,0) scale(1.04)} to{transform:translate3d(2.5%,2%,0) scale(1.10)} }
-@keyframes drift-b{ from{transform:translate3d(3%,2%,0)} to{transform:translate3d(-3%,-2.5%,0)} }
-
-/* Grain. Kills 8 bit banding, the loudest tell of amateur dark mode.
-   Inline data URI because the site must open from file://. */
+/* Grain kills 8-bit banding on the dark gradient — the loudest amateur tell.
+   Inline data URI so the page opens from file://. */
 #grain{
 	position:fixed; inset:0; z-index:-1; pointer-events:none;
 	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 	background-repeat:repeat;
-	opacity:.035;
+	opacity:.03;
 	mix-blend-mode:overlay;
 }
 
 /* --------------------------------------------------------------------------
    4. TYPE
-   Tracking law reverse engineered from Aave's real 72/-3.6 to 16/-0.16:
-   tracking tightens as size grows, mono uppercase opens up.
+   Aave's exact ratios: hero 72/-3.6px (-.05em), section 40/-1.2px (-.03em),
+   sub 17-19 at grey, mono for labels and numbers.
    -------------------------------------------------------------------------- */
 .t-hero{
 	font-family:var(--font-display);
-	font-size:clamp(2.75rem,1.3rem + 6vw,4.75rem);
-	font-weight:600; line-height:1.0; letter-spacing:-.042em;
+	font-size:clamp(2.75rem,1.15rem + 6.6vw,4.5rem);
+	font-weight:500; line-height:1.05; letter-spacing:-.05em;
 	color:var(--fg-1); text-wrap:balance;
-	margin-left:-.04em; /* hang the first stem. never text-indent. */
+}
+.t-hero em,.t-hero .accent{
+	font-family:var(--font-serif);
+	font-style:italic; font-weight:500;
+	color:var(--purple-2);
+	letter-spacing:-.01em;
+	padding-right:.04em;
 }
 .t-h1{
 	font-family:var(--font-display);
-	font-size:clamp(2.25rem,1.4rem + 3.4vw,3.5rem);
-	font-weight:600; line-height:1.05; letter-spacing:-.036em;
+	font-size:clamp(2rem,1.3rem + 2.6vw,2.9rem);
+	font-weight:500; line-height:1.12; letter-spacing:-.03em;
 	color:var(--fg-1); text-wrap:balance;
+}
+.t-h1 em,.t-h2 em{
+	font-family:var(--font-serif);font-style:italic;font-weight:500;
+	color:var(--purple-2);letter-spacing:-.01em;
 }
 .t-h2{
 	font-family:var(--font-display);
-	font-size:clamp(2rem,1.2rem + 2.6vw,3rem);
-	font-weight:600; line-height:1.08; letter-spacing:-.03em;
+	font-size:clamp(1.75rem,1.2rem + 2vw,2.5rem);
+	font-weight:500; line-height:1.15; letter-spacing:-.03em;
 	color:var(--fg-1); text-wrap:balance;
 }
 .t-h3{
 	font-family:var(--font-display);
-	font-size:1.0625rem; font-weight:600; line-height:1.3;
+	font-size:1.0625rem; font-weight:600; line-height:1.35;
 	letter-spacing:-.014em; color:var(--fg-1);
 }
 .t-sub{
 	font-family:var(--font-display);
-	font-size:clamp(1rem,.95rem + .3vw,1.125rem);
-	font-weight:400; line-height:1.5; letter-spacing:-.011em;
-	color:var(--fg-3); max-width:46ch; text-wrap:pretty;
+	font-size:clamp(1.0625rem,.98rem + .5vw,1.1875rem);
+	font-weight:400; line-height:1.5; letter-spacing:-.012em;
+	color:var(--fg-3); max-width:48ch; text-wrap:pretty;
 }
-.t-body{font-size:1rem;font-weight:400;line-height:1.5;letter-spacing:-.01em;color:var(--fg-2);text-wrap:pretty}
+.t-body{font-size:1rem;font-weight:400;line-height:1.55;letter-spacing:-.01em;color:var(--fg-2);text-wrap:pretty}
 
-.eyebrow{
-	font-family:var(--font-mono);
-	font-size:.75rem; font-weight:500; line-height:1;
-	letter-spacing:.12em; text-transform:uppercase;
-	color:var(--purple-3);
-}
+/* Eyebrows removed per direction — kill them everywhere. */
+.eyebrow{display:none}
 .cap{
 	font-family:var(--font-display);
-	font-size:.875rem; font-weight:450; line-height:1.5;
-	letter-spacing:-.013em; color:var(--fg-4);
+	font-size:.9375rem; font-weight:400; line-height:1.5;
+	letter-spacing:-.011em; color:var(--fg-4);
 	max-width:52ch; text-wrap:pretty;
 }
 .mono{
 	font-family:var(--font-mono);
 	font-size:.75rem; font-weight:500; line-height:1.2;
-	letter-spacing:.04em; color:var(--fg-4);
+	letter-spacing:.02em; color:var(--fg-4);
 	font-variant-numeric:tabular-nums;
 }
 
-/* THE GREEN PERIOD. The only color change on the entire page.
-   A full stop that is green means the game is still going. */
-.stop{color:inherit;transition:color 1400ms var(--ease-expo)}
-.stop.is-live{color:var(--gho-1);animation:stop-blink 1.4s steps(2,jump-none) infinite}
-.stop.is-settled{color:var(--fg-1);animation:none}
-@keyframes stop-blink{ 0%,100%{opacity:1} 50%{opacity:.28} }
+/* Periods are plain punctuation — no green dot, no blink. */
+.stop{color:inherit!important;animation:none!important}
 
 /* --------------------------------------------------------------------------
    5. LAYOUT + SECTION RHYTHM
@@ -312,21 +274,10 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .sec--tight{padding-block:var(--s-8)}
 @media(max-width:760px){ .sec{padding-block:80px} }
 
-/* content-visibility:auto is deliberately NOT used, against the spec's
-   refraction-budget note. It was built, measured and cut on evidence:
-     1. Over a subtree containing backdrop-filter it mis-paints in Chromium.
-        A skipped section tore a rectangle straight across the glass panel,
-        because a skipped subtree has no backdrop to filter.
-     2. Skipped sections did not reliably become relevant again, rendering
-        blank.
-   The page is six sections; the real cost here is refraction, and that is
-   already budgeted to two live cards by IntersectionObserver, with ambient
-   loops paused offscreen and will-change never parked. Shipping a known
-   paint-corruption footgun to eight page authors for a marginal win on a
-   short page is the worse trade. There is no data-cv hook. */
-
-/* The rhythm, on the 8px base. One eyebrow, one headline, one subline. */
 .sec__head{max-width:64ch}
+.sec--center,.sec--center.sec__head,.sec--center .sec__head{text-align:center;margin-inline:auto}
+.sec--center .t-sub,.sec--center.sec__head .t-sub{margin-inline:auto}
+.sec--center .t-h2{max-width:24ch;margin-inline:auto}
 .sec__head .eyebrow + .t-h2,
 .sec__head .eyebrow + .t-h1{margin-top:var(--s-4)}
 .sec__head .t-h2 + .t-sub,
@@ -337,117 +288,28 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-4)}
 @media(max-width:760px){ .grid-2{grid-template-columns:1fr} }
 
-.stack{display:grid;gap:var(--s-8)}
+.stack{display:grid;gap:var(--s-6)}
 .stack__item{display:flex;flex-direction:column}
 .stack__item .cap{margin-top:var(--s-5)}
 
 /* --------------------------------------------------------------------------
-   6. THE MATERIAL: GLASS
-   Four layers. One light source. Nothing on the page contradicts the light.
+   6. MATERIAL: THE LIGHT CARD
+   Aave has no glass. A card is a white face, one warm hairline, and a soft
+   two-part shadow. .glass keeps its name so markup and JS resolve; here it is
+   simply the light card, and the refraction layer is retired.
    -------------------------------------------------------------------------- */
 .glass{
 	position:relative;
-	background-color:rgba(20,16,28,.72); /* fallback when no backdrop-filter */
+	background:var(--surface-1);
+	border:1px solid var(--line-1);
 	border-radius:var(--r-panel);
+	box-shadow:
+		inset 0 1px 0 var(--rim-hi),
+		0 1px 2px rgba(0,0,0,.4),
+		0 30px 60px -30px rgba(0,0,0,.7);
 	isolation:isolate;
 }
-@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-	.glass{
-		background-color:transparent;
-		-webkit-backdrop-filter:blur(24px) saturate(1.6) brightness(1.05);
-		backdrop-filter:blur(24px) saturate(1.6) brightness(1.05);
-	}
-}
-/* Layer 3, the fill. Brighter on the lit face. */
-.glass::before{
-	content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
-	background:linear-gradient(var(--lit-angle),
-		rgba(255,255,255,.055),
-		rgba(255,255,255,.015) 46%,
-		rgba(0,0,0,.10));
-}
-/* Layer 4, depth. Always both directions. */
-.glass{
-	box-shadow:
-		inset 0 1px 0 rgba(255,255,255,.10),
-		inset 0 -14px 28px -18px rgba(0,0,0,.7),
-		0 calc(var(--lit-y) * 22px) 60px -12px rgba(6,4,12,.75),
-		0 2px 8px rgba(6,4,12,.5);
-}
-/* Layer 5, the rim. A masked hairline ring that follows the light. */
-.glass::after{
-	content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;pointer-events:none;
-	background:
-		var(--specular,transparent),
-		conic-gradient(from var(--rim-from),
-			var(--rim-hi),rgba(255,255,255,.07) 28%,var(--rim-lo) 62%,rgba(255,255,255,.42));
-	-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-	mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-	-webkit-mask-composite:xor;
-	mask-composite:exclude;
-	opacity:.5;
-	transition:opacity 400ms var(--ease-hover);
-}
-.glass:hover::after{opacity:.75}
-
-/* 6.1 REFRACTION.
-   The signature. Paints the field in viewport coordinates by offsetting its
-   own background from the card's rect. No fixed attachment anywhere.
-   Budget: two live cards max, zero on touch, first thing cut below 60fps. */
-/* z-index -2 keeps the sample under the glass fill (::before, at -1), so the
-   card tints the refraction instead of the refraction drowning the card. */
-.glass__refract{
-	position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:-2;
-	opacity:0;
-	transition:opacity 900ms var(--ease-expo);
-}
-.is-refracting > .glass__refract{opacity:.5}
-.glass__refract::before,
-.glass__refract::after,
-.glass__refract > i{
-	content:"";position:absolute;inset:0;
-	background-image:var(--field-image);
-	background-size:100vw 100vh;
-	background-position:calc(-1 * var(--cx)) calc(-1 * var(--cy));
-	background-repeat:no-repeat;
-}
-/* (1) base sample. Masked with #field's own mask, in the same viewport
-   coordinates, so the sample matches the luminance of the field actually
-   behind the card. Without this the glass samples the raw gradient, which is
-   far brighter than the masked field, and every panel reads as a purple blob. */
-.glass__refract > i{
-	transform:scale(1.06);
-	filter:blur(18px);
-	transition:filter 400ms var(--ease-hover);
-	-webkit-mask-image:radial-gradient(140% 100% at 50% 0%,#000 38%,rgba(0,0,0,.55) 72%,rgba(0,0,0,.35) 100%);
-	mask-image:radial-gradient(140% 100% at 50% 0%,#000 38%,rgba(0,0,0,.55) 72%,rgba(0,0,0,.35) 100%);
-	-webkit-mask-size:100vw 100vh;
-	mask-size:100vw 100vh;
-	-webkit-mask-position:calc(-1 * var(--cx)) calc(-1 * var(--cy));
-	mask-position:calc(-1 * var(--cx)) calc(-1 * var(--cy));
-	-webkit-mask-repeat:no-repeat;
-	mask-repeat:no-repeat;
-}
-/* (2) red shifted and (3) blue shifted, masked to a rim band so the
-   chromatic fringing lives only at the edges, exactly like real glass. */
-.glass__refract::before{
-	filter:hue-rotate(-10deg) saturate(1.4) blur(14px);
-	transform:scale(1.06) translate(1.5px,1.5px);
-	mix-blend-mode:screen;
-	-webkit-mask-image:radial-gradient(closest-side,transparent 88%,#000 100%);
-	mask-image:radial-gradient(closest-side,transparent 88%,#000 100%);
-}
-.glass__refract::after{
-	filter:hue-rotate(10deg) blur(14px);
-	transform:scale(1.06) translate(-1.5px,-1.5px);
-	mix-blend-mode:screen;
-	-webkit-mask-image:radial-gradient(closest-side,transparent 88%,#000 100%);
-	mask-image:radial-gradient(closest-side,transparent 88%,#000 100%);
-}
-/* The phone is the product. The phone never drops a frame. */
-@media (hover:none),(pointer:coarse){
-	.glass__refract{display:none}
-}
+.glass__refract{display:none}
 
 /* --------------------------------------------------------------------------
    7. PANEL
@@ -456,118 +318,68 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	position:relative;
 	border-radius:var(--r-panel);
 	border:1px solid var(--line-1);
-	background-color:var(--panel-1);
-	padding:var(--s-2);
-	overflow:hidden;
-	transition:border-color 900ms var(--ease-expo);
-}
-/* The panel's tint lives in ::before (z-index -1), NOT in background-color.
-   A negative z-index child paints ABOVE the element's own background, so a
-   background-color tint would sit UNDER the refraction sample and the field
-   would wash the panel purple. Glass tints what is behind it, so the tint has
-   to be the layer above the sample. */
-.panel.glass{background-color:transparent}
-.panel.glass::before{
+	/* solid glass look (no backdrop-filter — that caused sibling repaint flicker) */
 	background:
-		linear-gradient(var(--lit-angle),
-			rgba(255,255,255,.055),
-			rgba(255,255,255,.015) 46%,
-			rgba(0,0,0,.10)),
-		rgba(15,15,16,.66);
+		linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015)),
+		linear-gradient(180deg,oklch(0.205 0.02 285),oklch(0.165 0.016 285));
+	box-shadow:
+		inset 0 1px 0 rgba(255,255,255,.12),
+		0 1px 2px rgba(0,0,0,.4),
+		0 40px 70px -40px rgba(0,0,0,.72);
+	padding:0;
+	overflow:hidden;
+	transition:border-color 400ms var(--ease-hover);
 }
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-	.panel.glass::before{
-		background:
-			linear-gradient(var(--lit-angle),
-				rgba(255,255,255,.055),
-				rgba(255,255,255,.015) 46%,
-				rgba(0,0,0,.10)),
-			rgba(15,15,16,.82);
-	}
-}
+.panel.glass{background:
+		linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015)),
+		linear-gradient(180deg,oklch(0.205 0.02 285),oklch(0.165 0.016 285))}
 .panel__body{
 	position:relative;z-index:1;
-	border-radius:var(--r-card); /* nesting law: 24 outer minus 8 padding */
+	border-radius:calc(var(--r-panel) - 1px);
 	padding:var(--s-6);
 }
 .panel__body--flush{padding:0;overflow:hidden}
 
-/* The bloom. A soft directional color bleed from one corner.
-   A real circle at a fixed radius: `closest-side` on a wide short panel
-   resolves to an ellipse and reads as a smear, not as light.
-   The corner rotates per nth child so light never repeats across a grid. */
-.panel__bloom{
-	/* --bx/--by = the resting corner. --fx/--fy = where the light sweeps in
-	   from, always the opposite corner. */
-	--bx:-110px; --by:-130px;
-	--fx:calc(100% + 110px); --fy:calc(100% + 130px);
-	position:absolute;inset:0;pointer-events:none;z-index:0;
-	background-image:radial-gradient(circle closest-side,rgba(134,115,255,.5),transparent);
-	background-repeat:no-repeat;
-	background-size:340px 340px;
-	background-position:var(--bx) var(--by);
-	filter:blur(28px);
-	opacity:.5;
-	transition:background-position 900ms var(--ease-expo),opacity 900ms var(--ease-expo);
-}
-.grid-2 > .panel:nth-child(4n+2) .panel__bloom,
-.stack > .stack__item:nth-child(4n+2) .panel__bloom{
-	--bx:calc(100% + 110px); --by:-130px; --fx:-110px; --fy:calc(100% + 130px);
-	background-image:radial-gradient(circle closest-side,rgba(193,143,255,.44),transparent);
-}
-.grid-2 > .panel:nth-child(4n+3) .panel__bloom,
-.stack > .stack__item:nth-child(4n+3) .panel__bloom{
-	--bx:calc(100% + 110px); --by:calc(100% + 130px); --fx:-110px; --fy:-130px;
-	background-image:radial-gradient(circle closest-side,rgba(152,150,255,.42),transparent);
-}
-.grid-2 > .panel:nth-child(4n+4) .panel__bloom,
-.stack > .stack__item:nth-child(4n+4) .panel__bloom{
-	--bx:-110px; --by:calc(100% + 130px); --fx:calc(100% + 110px); --fy:-130px;
-	background-image:radial-gradient(circle closest-side,rgba(128,117,255,.46),transparent);
-}
+/* The purple glow-blob is removed — it read as AI slop. Cards are clean. */
+.panel__bloom{display:none}
 
-/* Panel entrance. Light arrives, content does not.
-   The content inside is already there at full opacity. That is the tell. */
+/* Panel entrance. A soft lift + fade of the whole card. */
 .js .panel[data-panel]{
-	clip-path:inset(0 0 12% 0 round var(--r-panel));
-	transform:scale(.985);
-	border-color:transparent;
+	opacity:0;transform:translateY(14px) scale(.99);
 }
 .js .panel[data-panel] .panel__bloom{background-position:var(--fx) var(--fy);opacity:0}
 .js .panel[data-panel].is-in{
-	clip-path:inset(0 0 0 0 round var(--r-panel));
-	transform:scale(1);
-	border-color:var(--line-2);
-	transition:clip-path 900ms var(--ease-expo),transform 900ms var(--ease-expo),border-color 900ms var(--ease-expo);
+	opacity:1;transform:none;
+	transition:opacity 700ms var(--ease-expo),transform 700ms var(--ease-expo);
 }
-.js .panel[data-panel].is-in .panel__bloom{background-position:var(--bx) var(--by);opacity:.55}
+.js .panel[data-panel].is-in .panel__bloom{background-position:var(--bx) var(--by);opacity:.8}
+.panel[data-panel]:hover{border-color:var(--line-2)}
 
 /* Nested card */
 .card{
 	position:relative;
-	background:var(--panel-2);
+	background:var(--surface-2);
 	border:1px solid var(--line-1);
 	border-radius:var(--r-card);
 	padding:var(--s-4);
 }
-/* A real UI fragment floating on the panel. Capped at a phone's width: a
-   score row stretched to 900px reads as a web table, not as iOS. Every
-   fragment on a wide panel takes this. */
 .card--frag{width:100%;max-width:390px;margin-inline:auto}
 
 /* --------------------------------------------------------------------------
    8. NAV
-   Glass, condenses on scroll, never refracts. Between scrollY 0 and 120 one
-   rAF writes --depth 0 to 1.
+   Aave: transparent at top, a white blur with a hairline once scrolled.
    -------------------------------------------------------------------------- */
 .nav{
 	position:fixed;inset:0 0 auto 0;z-index:80;
 	height:var(--nav-h);
 	--depth:0;
-	-webkit-backdrop-filter:blur(calc(var(--depth) * 25px)) saturate(calc(1 + var(--depth) * .7));
-	backdrop-filter:blur(calc(var(--depth) * 25px)) saturate(calc(1 + var(--depth) * .7));
-	background:rgba(8,7,11,calc(var(--depth) * .55));
-	box-shadow:inset 0 -1px 0 rgba(255,255,255,calc(var(--depth) * .07));
+	/* always a real glass bar, denser once scrolled */
+	-webkit-backdrop-filter:blur(18px) saturate(1.5);
+	backdrop-filter:blur(18px) saturate(1.5);
+	background:oklch(0.155 0.010 285 / calc(.45 + var(--depth) * .38));
+	box-shadow:
+		inset 0 1px 0 rgba(255,255,255,.06),
+		inset 0 -1px 0 rgba(255,255,255,calc(.05 + var(--depth) * .06));
 }
 .nav__inner{
 	max-width:var(--wrap);height:var(--nav-h);margin-inline:auto;
@@ -575,16 +387,16 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	display:flex;align-items:center;justify-content:space-between;gap:var(--s-5);
 }
 .brand{display:inline-flex;align-items:center;gap:9px}
-.brand__mark{width:24px;height:24px;border-radius:7px;overflow:hidden;flex:none}
+.brand__mark{width:26px;height:26px;border-radius:8px;overflow:hidden;flex:none}
 .brand__mark img{width:100%;height:100%;object-fit:cover}
 .brand__word{
 	font-family:var(--font-display);
-	font-weight:600;font-size:.9375rem;letter-spacing:-.006em;color:var(--fg-1);
+	font-weight:600;font-size:1rem;letter-spacing:-.02em;color:var(--fg-1);
 }
 .nav__links{display:flex;gap:var(--s-6)}
 .nav__links a{
 	font-family:var(--font-display);
-	font-size:.9375rem;font-weight:500;letter-spacing:-.006em;
+	font-size:.9375rem;font-weight:450;letter-spacing:-.006em;
 	color:var(--fg-3);transition:color 150ms var(--ease-hover);
 }
 .nav__links a:hover,.nav__links a[aria-current=page]{color:var(--fg-1)}
@@ -605,73 +417,85 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	.nav__mobile{
 		display:grid;gap:2px;
 		padding:var(--s-2) var(--gutter) var(--s-5);
-		background:rgba(8,7,11,.92);
-		-webkit-backdrop-filter:blur(25px) saturate(1.7);
-		backdrop-filter:blur(25px) saturate(1.7);
+		background:oklch(0.155 0.010 285 / .96);
+		-webkit-backdrop-filter:blur(22px) saturate(1.4);
+		backdrop-filter:blur(22px) saturate(1.4);
 		box-shadow:inset 0 -1px 0 var(--line-1);
 		clip-path:inset(0 0 100% 0);
 		transition:clip-path 420ms var(--ease-expo);
 	}
 	.nav.is-open .nav__mobile{clip-path:inset(0 0 0 0)}
+	.nav.is-open{background:oklch(0.155 0.010 285 / .96);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
 	.nav__mobile a{
 		font-family:var(--font-display);font-size:1.0625rem;font-weight:500;
 		color:var(--fg-2);padding:var(--s-3) 0;
 		box-shadow:inset 0 -1px 0 var(--line-3);
 	}
 	.nav__mobile .nav__mobile-cta{
-		margin-top:var(--s-3);box-shadow:none;color:#0b0910;
-		background:var(--fg-1);border-radius:var(--r-pill);
-		text-align:center;font-weight:600;padding:var(--s-3) var(--s-4);
+		margin-top:var(--s-3);box-shadow:none;color:#fff;
+		background:var(--purple-1);border-radius:var(--r-pill);
+		text-align:center;font-weight:500;padding:var(--s-3) var(--s-4);
 	}
 }
 
 /* --------------------------------------------------------------------------
-   9. BUTTONS
-   transform, border-color, background-color. Nothing else, ever.
-   Springs are for arrivals, never for cursors.
+   9. BUTTONS  (aave: full pills; purple primary, soft-purple ghost, dark join)
    -------------------------------------------------------------------------- */
 .btn{
-	display:inline-flex;align-items:center;justify-content:center;gap:.4em;
+	display:inline-flex;align-items:center;justify-content:center;gap:.5em;
 	font-family:var(--font-display);
-	font-size:.9375rem;font-weight:500;letter-spacing:-.006em;line-height:1;
-	color:#0b0910;background:var(--fg-1);
-	border:1px solid transparent;border-radius:var(--r-pill);
-	padding:.85em 1.4em;white-space:nowrap;
-	transition:transform 150ms var(--ease-hover),border-color 150ms var(--ease-hover),background-color 150ms var(--ease-hover);
+	font-size:1rem;font-weight:500;letter-spacing:-.01em;line-height:1;
+	color:#fff;
+	background:oklch(0.70 0.155 285 / .30);
+	-webkit-backdrop-filter:blur(16px) saturate(1.4);
+	backdrop-filter:blur(16px) saturate(1.4);
+	border:1px solid oklch(0.80 0.13 285 / .45);border-radius:var(--r-pill);
+	padding:.9em 1.5em;white-space:nowrap;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.30),0 10px 26px -14px oklch(0.70 0.155 285 / .6);
+	transition:transform 150ms var(--ease-hover),background-color 150ms var(--ease-hover),box-shadow 150ms var(--ease-hover),border-color 150ms var(--ease-hover);
 }
-.btn:hover{background:#fff;transform:translateY(-1px)}
-.btn:active{transform:scale(.985)}
-.btn--lg{font-size:1rem;padding:1.05em 1.8em}
+.btn:hover{background:oklch(0.70 0.155 285 / .42);border-color:oklch(0.82 0.13 285 / .6)}
+.btn:active{transform:scale(.99)}
+.btn--lg{font-size:1.0625rem;padding:1.02em 1.7em}
 .btn--ghost{
-	color:var(--fg-1);background:rgba(255,255,255,.06);border-color:var(--line-2);
+	color:var(--fg-1);background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);
+	-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+	box-shadow:inset 0 1px 0 var(--rim-hi);
 }
-.btn--ghost:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.20)}
-.btn--purple{color:#0b0910;background:var(--purple-1)}
-.btn--purple:hover{background:var(--purple-5)}
+.btn--ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.26)}
+/* glass elements repaint their backdrop on transform — pin them to stop the
+   white-highlight flicker on hover */
+.btn,.nav__join,.panel,.notif__body,.alert{transform:translateZ(0);backface-visibility:hidden}
+.btn--dark{color:var(--fg-1);background:rgba(255,255,255,.06);border-color:var(--line-2);box-shadow:none}
+.btn--dark:hover{background:rgba(255,255,255,.10)}
+.btn--purple{color:oklch(0.16 0.02 285);background:var(--purple-1)}
+.btn--purple:hover{background:oklch(0.745 0.15 285)}
 .btn[disabled],.btn[aria-disabled=true]{opacity:.55;pointer-events:none}
 
+/* The nav "join" pill. A quiet glass pill on dark. */
 .nav__join{
 	font-family:var(--font-display);
 	font-size:.875rem;font-weight:500;color:var(--fg-1);
 	background:rgba(255,255,255,.07);border:1px solid var(--line-2);
-	border-radius:var(--r-pill);padding:.5em 1em;
-	transition:background-color 150ms var(--ease-hover),border-color 150ms var(--ease-hover);
+	border-radius:var(--r-pill);padding:.62em 1.1em;
+	box-shadow:inset 0 1px 0 var(--rim-hi);
+	transition:background-color 150ms var(--ease-hover),transform 150ms var(--ease-hover);
 }
-.nav__join:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.2)}
+.nav__join:hover{background:rgba(255,255,255,.12);transform:translateY(-1px)}
 
 .alink{
 	display:inline-flex;align-items:center;gap:.35em;
 	font-family:var(--font-display);font-size:.9375rem;font-weight:500;
-	color:var(--purple-1);transition:color 150ms var(--ease-hover);
+	color:var(--purple-2);transition:color 150ms var(--ease-hover);
 }
-.alink:hover{color:var(--purple-5)}
+.alink:hover{color:var(--rich-purple)}
 .alink span{transition:transform 200ms var(--ease-hover)}
 .alink:hover span{transform:translateX(3px)}
 
 /* --------------------------------------------------------------------------
    10. HERO
-   Above fold renders in its end state. An entrance on first paint is
-   indistinguishable from jank.
+   Two modes: the default two-column subpage hero, and .hero--center, aave's
+   home composition (stacked, centred, phones below).
    -------------------------------------------------------------------------- */
 .hero{
 	position:relative;
@@ -682,68 +506,214 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	gap:var(--s-8);
 	max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);
 }
-/* The grid column sizes the headline. Never a ch cap here: ch resolves
-   against this element's 1rem, not the hero's 76px, and silently strangles
-   the column to about 160px. */
 .hero__copy{min-width:0}
 .hero__copy .t-sub{margin-top:var(--s-5);max-width:42ch}
-.hero__cta{display:flex;align-items:center;gap:var(--s-5);margin-top:var(--s-7);flex-wrap:wrap}
+.hero__cta{display:flex;align-items:center;gap:var(--s-3);margin-top:var(--s-7);flex-wrap:wrap}
 .hero__stage{display:flex;justify-content:center}
+.hero__eyebrow{
+	display:inline-flex;align-items:center;gap:.5em;
+	font-family:var(--font-display);font-size:1rem;font-weight:500;
+	letter-spacing:-.01em;color:var(--fg-2);
+}
+.hero__eyebrow img{width:26px;height:26px;border-radius:7px}
+
+/* --- centred home hero --- */
+.hero--center{
+	display:block;text-align:center;
+	padding-block:calc(var(--nav-h) + 64px) 0;
+	max-width:none;padding-inline:0;
+}
+.hero--center .hero__copy{max-width:1000px;margin-inline:auto;padding-inline:var(--gutter)}
+.hero--center .t-hero{margin-top:var(--s-5)}
+.hero--center .t-sub{margin:var(--s-5) auto 0;max-width:44ch}
+.hero--center .hero__cta{justify-content:center;margin-top:var(--s-6)}
+.hero--center .hero__stage{margin-top:var(--s-8)}
+
 @media(max-width:900px){
 	.hero{grid-template-columns:1fr;gap:var(--s-8);padding-block:calc(var(--nav-h) + 48px) var(--s-8)}
 	.hero__copy{max-width:none}
 }
 
 /* --------------------------------------------------------------------------
+   10b. THREE-PHONE STAGE  (aave's signature hero graphic)
+   Center phone in front; two side phones behind, lower, partly eclipsed.
+   -------------------------------------------------------------------------- */
+/* aave-style hero mockup: BIG phones sitting on the page (no box), cut off at
+   the fold, over a soft lavender glow. */
+.hero--center{position:relative;overflow:hidden}
+/* The ONE lavender pool. It sits behind the whole hero (z-index:-1), NOT inside
+   the stage, so the stage's overflow:hidden can't clip it into a hard seam. The
+   phones dissolve (via their mask) straight through into this single smooth glow
+   — no second line. */
+.hero--center::after{
+	content:"";position:absolute;z-index:-1;pointer-events:none;
+	left:-20%;right:-20%;bottom:-3%;height:66%;
+	background:radial-gradient(54% 96% at 50% 100%,
+		oklch(0.58 0.15 288 / .52) 0%,
+		oklch(0.48 0.13 288 / .32) 24%,
+		oklch(0.38 0.10 288 / .16) 44%,
+		oklch(0.31 0.07 288 / .06) 60%,
+		transparent 74%);
+}
+.hero__stage{
+	position:relative;margin-top:var(--s-7);
+	height:clamp(360px,38vw,516px);   /* clips all three phones at the same fold */
+	overflow:hidden;
+}
+/* (Pool moved to .hero--center::after so the stage's overflow:hidden can't clip
+   it into a hard seam.) */
+.phones{
+	position:absolute;left:0;right:0;top:0;height:100%;
+	display:flex;justify-content:center;align-items:flex-start;
+	isolation:isolate;
+	/* The mask is sized to the VISIBLE box (height:100% of the stage), so the
+	   fade lands at the fold — not far below it on the full-height phones.
+	   Centred above the stage, so the transparent edge is a downward dome:
+	   the centre phone extends lowest, the side phones fade higher up. */
+	-webkit-mask-image:radial-gradient(112% 122% at 50% -14%,#000 62%,rgba(0,0,0,.45) 78%,transparent 88%);
+	mask-image:radial-gradient(112% 122% at 50% -14%,#000 62%,rgba(0,0,0,.45) 78%,transparent 88%);
+	-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+	-webkit-mask-size:100% 100%;mask-size:100% 100%;
+}
+.rphone{
+	position:relative;flex:none;
+	container-type:inline-size;
+	width:clamp(266px,24vw,338px);
+	filter:drop-shadow(0 34px 54px rgba(0,0,0,.5));
+}
+.rphone__img{width:100%;height:auto;display:block;position:relative;z-index:2;pointer-events:none}
+/* the render's screen is cut out; the live screen sits behind, the real frame's
+   own bezel defines the exact fit and curve. */
+.rphone__screen{
+	position:absolute;z-index:1;overflow:hidden;
+	/* Fills the Apple iPhone 16 Pro frame's cut hole (measured 7.26 / 6.97 /
+	   3.54). Seated a hair OVER the hole; the frame is fully OPAQUE around the
+	   cutout (unlike the old render's transparent shoulders), so it cleanly
+	   clips every edge to the real display shape — the screen cannot poke out. */
+	left:7.05%;right:6.75%;top:3.3%;bottom:0;
+	border-radius:5.5cqw 5.5cqw 0 0;
+	background:linear-gradient(180deg,#17161f,#0d0d13 60%);
+	font-family:var(--font-ios);
+}
+/* the screen emits a little light, like an OLED that's on */
+.rphone__screen::before{
+	content:"";position:absolute;inset:0;z-index:20;pointer-events:none;
+	background:radial-gradient(100% 34% at 50% -6%,oklch(0.72 0.13 285 / .22),transparent 66%);
+}
+.rphone__screen .chat,.rphone__screen .b,.rphone__screen .chat__name,
+.rphone__screen .chat__sub,.rphone__screen .sb__team,.rphone__screen .sb__line{font-family:var(--font-ios)}
+.rphone__screen .chat{background:linear-gradient(180deg,#17161f,#0c0c12 64%)}
+.rphone__screen .chat__nav{background:rgba(30,28,40,.55)}
+.rphone__screen .b{max-width:76%}
+.rphone__screen .b--card,.rphone__screen .b--clip{max-width:86%}
+/* real iOS fonts for the timestamp + live labels (no slop mono) */
+.rphone__screen .day{font-family:var(--font-ios);letter-spacing:0;text-transform:none;font-size:.66rem;color:rgba(255,255,255,.5)}
+.rphone__screen .sb__state{font-family:var(--font-ios);letter-spacing:.02em;font-size:.62rem}
+/* real team logos inside the phone score card */
+.rphone__screen .sb__team img{width:16px;height:16px;object-fit:contain;flex:none}
+.rphone__screen .chat__body{padding-bottom:20px}
+.rphone__screen .ios-input{display:none}
+/* thinner contact header so the messages get room */
+.rphone__screen .chat__nav{padding:11.5cqw 4cqw 2.6cqw;gap:1.6cqw}
+.rphone__screen .chat__avatar{width:8.6cqw;height:8.6cqw;border-radius:2.6cqw}
+.rphone__screen .chat__name{font-size:3.3cqw}
+.rphone__screen .chat__sub{font-size:2.6cqw}
+/* The body content was authored in fixed rem/px for a larger mockup, so on
+   these ~338px hero phones it renders over-zoomed. Re-scale it in container
+   units (cqw = 1% of the phone width) to real iPhone-screenshot density. */
+/* The Apple frame is tall, so bottom-aligned messages fell below the fold into
+   the fade. Top-align the thread so the conversation fills the visible screen. */
+.rphone__screen .chat__body{gap:2.1cqw;padding:3.4cqw 3.6cqw 5cqw;justify-content:flex-start}
+.rphone__screen .day{font-size:2.7cqw;margin:.6cqw 0}
+.rphone__screen .b{font-size:3.5cqw;padding:2.3cqw 3.3cqw;border-radius:4.6cqw;max-width:74%}
+.rphone__screen .b--out{border-bottom-right-radius:1.2cqw}
+.rphone__screen .b--in{border-bottom-left-radius:1.2cqw}
+.rphone__screen .b--mini{font-size:3.3cqw}
+.rphone__screen .b--card{padding:2.6cqw;gap:2.2cqw;max-width:88%}
+.rphone__screen .sb{border-radius:3.2cqw;padding:2.4cqw 3cqw}
+.rphone__screen .sb__state{font-size:2.5cqw;gap:1.5cqw}
+.rphone__screen .sb__live::before{width:1.5cqw;height:1.5cqw}
+.rphone__screen .sb__row{margin-top:1.5cqw}
+.rphone__screen .sb__team{font-size:3.4cqw;gap:2cqw}
+.rphone__screen .sb__team img{width:4.4cqw;height:4.4cqw}
+.rphone__screen .sb__pts{font-size:4.2cqw}
+.rphone__screen .sb__line{font-size:2.9cqw}
+.rphone__screen .clipv__meta{padding:2.4cqw 3.2cqw}
+.rphone__screen .clipv__meta b{font-size:3.3cqw}
+.rphone__screen .clipv__meta small{font-size:2.7cqw;margin-top:.6cqw}
+.rphone__screen .clipv__tag{font-size:2.4cqw}
+.rphone__screen .clipv__play{width:11cqw;height:11cqw}
+/* the Dynamic Island, drawn on the live screen (the render's is covered) */
+/* The Apple frame has a REAL Dynamic Island baked in, so we no longer draw one. */
+.rphone__screen::after{display:none}
+.rphone__status{
+	position:absolute;top:0;left:0;right:0;z-index:11;height:11.5cqw;
+	display:flex;align-items:center;justify-content:space-between;
+	/* pushed down so the time + battery line up with the frame's real island */
+	padding:4.6cqw 8cqw 0;pointer-events:none;
+	font-family:var(--font-ios);
+}
+.rphone__status time{font-size:3.7cqw;font-weight:600;color:#fff;letter-spacing:.02em}
+.rphone__status .ind{display:flex;gap:1.4cqw;align-items:center}
+.rphone__status .ind i{display:block;background:#fff}
+.rphone__status .sig{width:4.4cqw;height:2.8cqw;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 11'%3E%3Crect x='0' y='7.5' width='3' height='3.5' rx='1'/%3E%3Crect x='5' y='5' width='3' height='6' rx='1'/%3E%3Crect x='10' y='2.5' width='3' height='8.5' rx='1'/%3E%3Crect x='15' y='0' width='3' height='11' rx='1'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 11'%3E%3Crect x='0' y='7.5' width='3' height='3.5' rx='1'/%3E%3Crect x='5' y='5' width='3' height='6' rx='1'/%3E%3Crect x='10' y='2.5' width='3' height='8.5' rx='1'/%3E%3Crect x='15' y='0' width='3' height='11' rx='1'/%3E%3C/svg%3E") center/contain no-repeat}
+.rphone__status .bat{width:6cqw;height:3cqw;border:.5cqw solid rgba(255,255,255,.6);border-radius:1cqw;background:none;position:relative}
+.rphone__status .bat::after{content:"";position:absolute;inset:.6cqw;background:#fff;border-radius:.3cqw}
+
+.phones .rphone--center{z-index:3;order:2}
+.phones .rphone--side{z-index:1;transform:scale(.9) translateY(11%);transform-origin:top center}
+.phones .rphone--left{order:1;margin-right:-4%}
+.phones .rphone--right{order:3;margin-left:-4%}
+@media(max-width:900px){
+	.phones .rphone--side{display:none}
+	.phones .rphone--center{margin:0;width:clamp(270px,80vw,360px)}
+}
+
+/* --------------------------------------------------------------------------
    11. THE IPHONE
-   The only mockup this product is allowed to have. Enters with its panel,
-   never independently. No float, no tilt, no rotation, no parallax.
+   The phone frame sits on white, exactly like aave's mockups. The screen is a
+   real dark iMessage thread — authentic, and the same dark phone aave puts on
+   the right of its own hero.
    -------------------------------------------------------------------------- */
 .device{
 	position:relative;
-	container-type:inline-size; /* the island and its contents scale in cqw */
-	width:clamp(280px,30vw,340px);
+	container-type:inline-size;
+	width:clamp(272px,29vw,332px);
 	aspect-ratio:9/19.3;
 	border-radius:52px;
 	padding:11px;
 	flex:none;
-	background:linear-gradient(160deg,#3a3a42,#111116 28%,#0b0b0f 62%,#33333b);
+	background:linear-gradient(160deg,#e7e6ea,#c9c7cf 30%,#b7b5be 64%,#dedce2);
 	box-shadow:
-		0 0 0 1px rgba(255,255,255,.06),
-		inset 0 0 0 1.5px rgba(255,255,255,.05),
-		0 calc(var(--lit-y) * 34px) 90px -22px rgba(4,2,10,.9),
-		0 4px 16px rgba(4,2,10,.6);
+		0 0 0 1px rgba(37,34,40,.06),
+		inset 0 0 0 1.5px rgba(255,255,255,.35),
+		0 40px 90px -30px rgba(37,34,40,.4),
+		0 8px 22px -12px rgba(37,34,40,.28);
 }
 .device--sm{width:clamp(220px,22vw,262px);border-radius:42px;padding:9px}
 .device--sm .device__screen{border-radius:34px}
-/* Side buttons. The two extra buttons are shadow copies of the mute switch.
-   Their offsets are cqw, never vh: a viewport unit here detaches the buttons
-   from the phone and throws them down the page on a tall viewport. */
 .device::before{
 	content:"";position:absolute;left:-2.5px;top:21%;width:3px;height:5.6%;
-	border-radius:3px 0 0 3px;background:linear-gradient(90deg,#4a4a52,#101015);
-	box-shadow:0 19.8cqw 0 -.2px #2d2d34,0 32.5cqw 0 -.2px #2d2d34;
+	border-radius:3px 0 0 3px;background:linear-gradient(90deg,#b9b7c0,#8f8d96);
+	box-shadow:0 19.8cqw 0 -.2px #b9b7c0,0 32.5cqw 0 -.2px #b9b7c0;
 }
 .device::after{
 	content:"";position:absolute;right:-2.5px;top:30%;width:3px;height:8.5%;
-	border-radius:0 3px 3px 0;background:linear-gradient(270deg,#4a4a52,#101015);
+	border-radius:0 3px 3px 0;background:linear-gradient(270deg,#b9b7c0,#8f8d96);
 }
 .device__screen{
 	position:relative;height:100%;border-radius:42px;overflow:hidden;
 	background:#000;box-shadow:inset 0 0 0 1px rgba(0,0,0,.9);
 }
-/* Screen glass sheen. */
 .device__screen::after{
 	content:"";position:absolute;inset:0;z-index:8;pointer-events:none;
-	background:linear-gradient(var(--lit-angle),rgba(255,255,255,.05),transparent 34%);
+	background:linear-gradient(160deg,rgba(255,255,255,.06),transparent 30%);
 }
 
-/* THE ISLAND. Inside the device only. Never at page level.
-   A real black pill. No border, no fake OS chrome at page scope.
-   Geometry is Apple's real proportion against a 393pt screen, expressed in
-   cqw so the frame can be any size and the island stays true: 122/393 base,
-   240/393 live, 320/393 alert. Absolute px here would swallow the status bar
-   on a 340px frame. */
+/* Side-phone light screens (lock screen / scores). */
+.device__screen--light{background:linear-gradient(180deg,#f4f3f7,#e9e7ee)}
+
+/* THE ISLAND */
 .device__island{
 	position:absolute;top:calc(11px + 2.8cqw);left:50%;
 	transform:translateX(-50%);
@@ -761,13 +731,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	box-shadow:0 0 0 1px rgba(255,255,255,.06);
 	transition:opacity 240ms var(--ease-expo);
 }
-/* Compact live activity.
-   The spec's 240pt would end 4px inside the status bar indicators at this
-   frame size, and an island that eats the clock is exactly the "fake OS" the
-   kill list rejects. 52cqw reads as 204pt against a 393pt screen, which is a
-   real compact live activity, and it leaves the chrome intact. */
 .device__island.is-live{width:52cqw;height:11.2cqw}
-/* Expanded alert. */
 .device__island.is-alert{width:81.4cqw;height:26.5cqw}
 .device__island.is-live::after,
 .device__island.is-alert::after{opacity:0}
@@ -783,41 +747,27 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .device__island.is-alert .island__inner--live{opacity:0}
 .island__inner--alert{flex-direction:column;align-items:flex-start;justify-content:center;gap:1.2cqw;padding:3.4cqw 4.6cqw}
 .island__side{display:inline-flex;align-items:center;gap:1.2cqw;flex:none;white-space:nowrap}
-/* No team chips in the compact activity. At a width that clears the clock and
-   the status indicators there is only room for the labels and the score, and a
-   chip that slides under the signal bars is the "fake OS" tell. The chips stay
-   in the score card, where they have the room. */
 .island__inner .tm{display:none}
 .island__score{
 	font-family:var(--font-mono);font-size:3.4cqw;font-weight:500;
 	color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.01em;
 	line-height:1;
-	/* The rollers are inline-blocks. If this span is allowed to shrink as a
-	   flex item they wrap one digit per line and climb out of the clip box. */
 	flex:none;white-space:nowrap;display:inline-flex;align-items:center;
 }
 .island__lab{font-family:var(--font-mono);font-size:2.6cqw;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1}
-.island__dot{width:1.8cqw;height:1.8cqw;border-radius:50%;background:#ff453a;flex:none;animation:live-dot 2s var(--ease-hover) infinite}
+.island__dot{width:1.8cqw;height:1.8cqw;border-radius:50%;background:var(--red);flex:none}
 .island__t{font-family:var(--font-display);font-size:3.6cqw;font-weight:600;color:#fff;letter-spacing:-.008em;line-height:1.2}
 .island__s{font-family:var(--font-display);font-size:3.1cqw;color:rgba(255,255,255,.6);line-height:1.2}
-/* The island's own rollers are the same numeric signature as the score card
-   and the counter, just scaled to the frame. */
 .island__score .roll{width:auto;min-width:1ch}
-/* The live dot pulses on opacity only. Never scale. No glowing dots. */
 @keyframes live-dot{ 0%,100%{opacity:1} 50%{opacity:.35} }
 
-/* iOS status bar. Injected by app.js into every .device__screen. */
-/* Scaled in cqw against the real 393pt screen, like the island. Fixed px
-   here puts oversized indicators under the live activity on a 340px frame. */
+/* iOS status bar (dark screen). */
 .ios-status{
 	position:absolute;top:0;left:0;right:0;height:14.5cqw;z-index:10;
 	display:flex;align-items:center;justify-content:space-between;
 	padding:2.6cqw 5.5cqw 0;pointer-events:none;
 	transition:opacity 240ms var(--ease-expo);
 }
-/* An expanded live activity covers the clock on a real iPhone. Hiding the
-   status bar under it is the authentic behaviour, and it is what stops the
-   headline of the alert from colliding with 9:41. */
 .device:has(.device__island.is-alert) .ios-status{opacity:0}
 .ios-time{
 	font-family:var(--font-mono);
@@ -839,7 +789,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .ios-bat::before{content:"";position:absolute;left:1px;top:1px;bottom:1px;width:72%;background:#fff;border-radius:.5cqw}
 .ios-bat::after{content:"";position:absolute;right:-.7cqw;top:50%;transform:translateY(-50%);width:.55cqw;height:1.1cqw;background:rgba(255,255,255,.5);border-radius:0 .4cqw .4cqw 0}
 
-/* iOS input bar. Injected by app.js. */
+/* iOS input bar. */
 .ios-input{
 	position:absolute;bottom:0;left:0;right:0;z-index:9;
 	display:flex;align-items:center;gap:var(--s-2);
@@ -847,8 +797,8 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	background:linear-gradient(180deg,transparent,#050506 46%);
 }
 .ios-field{
-	flex:1;font-family:var(--font-display);font-size:.78rem;color:var(--fg-4);
-	background:#181a1e;border:1px solid var(--line-2);border-radius:var(--r-pill);
+	flex:1;font-family:var(--font-display);font-size:.78rem;color:rgba(255,255,255,.42);
+	background:#181a1e;border:1px solid rgba(255,255,255,.14);border-radius:var(--r-pill);
 	padding:8px 14px;text-align:left;
 }
 .ios-send{
@@ -863,36 +813,32 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .device__screen .chat__body{padding-bottom:58px}
 
 /* --------------------------------------------------------------------------
-   12. CHAT
+   12. CHAT  (inside the dark phone screen)
    -------------------------------------------------------------------------- */
 .chat{display:flex;flex-direction:column;height:100%;background:linear-gradient(180deg,#0a0a0c,#050506)}
 .chat__nav{
 	display:flex;flex-direction:column;align-items:center;gap:6px;
 	padding:52px 16px 11px;
-	box-shadow:inset 0 -1px 0 var(--line-1);
+	box-shadow:inset 0 -1px 0 rgba(255,255,255,.08);
 	background:rgba(20,20,22,.6);
 	-webkit-backdrop-filter:blur(12px);
 	backdrop-filter:blur(12px);
 }
-.chat__avatar{width:38px;height:38px;border-radius:11px;overflow:hidden;box-shadow:0 0 0 1px var(--line-2)}
+.chat__avatar{width:38px;height:38px;border-radius:11px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.14)}
 .chat__avatar img{width:100%;height:100%;object-fit:cover}
-.chat__name{font-family:var(--font-display);font-size:.76rem;font-weight:600;color:var(--fg-1);letter-spacing:-.01em}
-.chat__sub{font-family:var(--font-display);font-size:.6rem;color:var(--fg-4)}
-/* Bottom anchored, like a real thread. A new message pushes the stack up,
-   which is what gives the FLIP something to measure. */
+.chat__name{font-family:var(--font-display);font-size:.76rem;font-weight:600;color:#fff;letter-spacing:-.01em}
+.chat__sub{font-family:var(--font-display);font-size:.6rem;color:rgba(255,255,255,.44)}
 .chat__body{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:7px;padding:14px 13px;overflow:hidden}
 .chat__body--apps{justify-content:center;gap:11px}
 .day{
 	text-align:center;font-family:var(--font-mono);font-size:.58rem;
-	letter-spacing:.06em;color:var(--fg-4);margin:2px 0;
+	letter-spacing:.06em;color:rgba(255,255,255,.44);margin:2px 0;
 }
-
-/* Bubbles. */
 .b{
 	max-width:86%;
 	font-family:var(--font-display);
 	font-size:.9375rem;font-weight:450;line-height:1.35;letter-spacing:-.008em;
-	color:var(--fg-1);
+	color:#fff;
 	border-radius:var(--r-bubble);
 	padding:8px 12px;
 	position:relative;
@@ -903,10 +849,6 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .b--mini b{font-weight:600}
 .b--card{max-width:93%;display:flex;flex-direction:column;gap:8px;padding:9px;background:#161618}
 
-/* Thread motion. Incoming grows from its own tail corner.
-   The bubble is handed off from the spring to a plain settled state on
-   animationend, so a later FLIP transform is never fighting an animation
-   fill for the same property. */
 .js [data-thread] .b{opacity:0}
 .js [data-thread] .b.is-settled{opacity:1}
 .js [data-thread] .b.msg-in{opacity:1;animation:bubble-in 380ms var(--ease-spring) both}
@@ -916,7 +858,6 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	from{opacity:0;transform:scale(.86) translateY(14px)}
 	to{opacity:1;transform:scale(1) translateY(0)}
 }
-/* FLIP. The stack has weight, not reflow. */
 [data-thread] .b.is-flip,
 [data-thread] .typing.is-flip{transition:transform 380ms var(--ease-spring)}
 
@@ -926,7 +867,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	padding:10px 12px;
 }
 .typing span{
-	width:5px;height:5px;border-radius:50%;background:var(--fg-4);
+	width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.44);
 	animation:blink 1.2s ease-in-out infinite both;
 }
 .typing span:nth-child(2){animation-delay:.14s}
@@ -936,40 +877,46 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .chips{display:flex;flex-wrap:wrap;gap:5px;align-self:flex-start;max-width:92%}
 .chips span{
 	font-family:var(--font-display);font-size:.71rem;
-	color:var(--purple-5);border:1px solid rgba(152,150,255,.34);
+	color:#cfcbff;border:1px solid rgba(151,142,255,.5);
 	border-radius:var(--r-pill);padding:4px 9px;
 }
 
 /* --------------------------------------------------------------------------
    13. SCORE CARD + TEAM CHIPS + ROLLER
+   Two skins: the dark one for the phone screen (default), and a light one for
+   score cards placed on the page. .sb--light flips it.
    -------------------------------------------------------------------------- */
-.sb{background:var(--panel-3);border:1px solid var(--line-2);border-radius:11px;padding:8px 10px}
+.sb{background:#0b0b0d;border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:8px 10px}
 .sb__state{
 	font-family:var(--font-mono);font-size:.55rem;font-weight:500;
-	letter-spacing:.1em;text-transform:uppercase;color:var(--fg-4);
+	letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);
 	display:inline-flex;align-items:center;gap:5px;
 }
-.sb__live{color:#ff453a}
+.sb__live{color:var(--red)}
 .sb__live::before{
 	content:"";width:5px;height:5px;border-radius:50%;background:currentColor;
-	animation:live-dot 2s var(--ease-hover) infinite;
 }
 .sb__row{display:flex;align-items:center;justify-content:space-between;margin-top:5px;gap:var(--s-3)}
-.sb__row--l,.sb__row--l .sb__pts{color:var(--fg-4)}
+.sb__row--l,.sb__row--l .sb__pts{color:rgba(255,255,255,.5)}
 .sb__team{
-	display:inline-flex;align-items:center;gap:7px;
+	display:inline-flex;align-items:center;gap:7px;color:#fff;
 	font-family:var(--font-display);font-weight:500;font-size:.82rem;letter-spacing:-.01em;
 }
 .sb__pts{
 	font-family:var(--font-mono);font-weight:500;
 	font-size:.98rem;font-variant-numeric:tabular-nums;letter-spacing:-.01em;
-	color:var(--fg-1);
+	color:#fff;
 }
-.sb__line{font-family:var(--font-display);font-size:.73rem;color:var(--fg-2);padding-inline:2px;letter-spacing:-.008em}
-.sb__line b{color:var(--fg-1);font-weight:600}
+.sb__line{font-family:var(--font-display);font-size:.73rem;color:rgba(255,255,255,.7);padding-inline:2px;letter-spacing:-.008em}
+.sb__line b{color:#fff;font-weight:600}
+/* light score card for on-page use */
+.sb--light{background:var(--surface-1);border-color:var(--line-1)}
+.sb--light .sb__team,.sb--light .sb__pts{color:var(--fg-1)}
+.sb--light .sb__row--l,.sb--light .sb__row--l .sb__pts{color:var(--fg-4)}
+.sb--light .sb__state{color:var(--fg-4)}
+.sb--light .sb__line{color:var(--fg-2)}
+.sb--light .sb__line b{color:var(--fg-1)}
 
-/* TEAM CHIPS. Team color is permitted here and nowhere else on the page.
-   That is what stops the palette becoming a rainbow. */
 .tm{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
 .tm--min{background:#0c2340;box-shadow:0 0 0 1.5px #78be20 inset}
 .tm--den{background:#0e2240;box-shadow:0 0 0 1.5px #fec524 inset}
@@ -981,68 +928,49 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .tm--lac{background:#c8102e}
 .tm--sf{background:#aa0000}
 
-/* THE DIGIT ROLLER.
-   One numeric signature, reused by the island, the score card and the
-   waitlist counter. Only the digits that changed move. */
 .roll{
-	display:inline-block;
-	overflow:hidden;
-	height:calc(1em * var(--roll-lh));
-	width:1ch;
-	line-height:var(--roll-lh);
-	vertical-align:bottom;
-	font-family:var(--font-mono);
-	font-variant-numeric:tabular-nums;
+	display:inline-block;overflow:hidden;
+	height:calc(1em * var(--roll-lh));width:1ch;
+	line-height:var(--roll-lh);vertical-align:bottom;
+	font-family:var(--font-mono);font-variant-numeric:tabular-nums;
 }
-/* A separator has to carry the roll's exact box metrics or it drops below the
-   digits: the rolls are 1.16em tall boxes and a bare span is 1em. */
 .sep{
-	display:inline-block;
-	height:calc(1em * var(--roll-lh));
-	line-height:var(--roll-lh);
-	vertical-align:bottom;
-	font-family:var(--font-mono);
-	margin-inline:-.07em; /* mono gives a comma a full 1ch cell, so close it a little */
-	opacity:.5;
+	display:inline-block;height:calc(1em * var(--roll-lh));
+	line-height:var(--roll-lh);vertical-align:bottom;
+	font-family:var(--font-mono);margin-inline:-.07em;opacity:.5;
 }
 .roll__col{
-	display:block;width:1ch;
-	line-height:var(--roll-lh);
-	word-break:break-all;
-	overflow-wrap:anywhere;
-	white-space:normal;
+	display:block;width:1ch;line-height:var(--roll-lh);
+	word-break:break-all;overflow-wrap:anywhere;white-space:normal;
 	transform:translateY(calc(var(--d,0) * -10%));
 }
 .roll__col.is-rolling{transition:transform 420ms var(--ease-spring)}
 
 /* --------------------------------------------------------------------------
-   14. ALERT + NOTIFICATION
+   14. ALERT + NOTIFICATION  (light, iOS light-mode style)
    -------------------------------------------------------------------------- */
-.alert{background:#161618;border:1px solid var(--line-2);border-radius:var(--r-well);padding:10px;transition:border-color 400ms var(--ease-expo)}
+.alert{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);border:1px solid var(--line-1);border-radius:var(--r-well);padding:12px 13px;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 24px -14px rgba(0,0,0,.6);transition:border-color 400ms var(--ease-expo)}
 .alert__tag{
 	display:inline-block;font-family:var(--font-mono);font-size:.55rem;font-weight:500;
 	letter-spacing:.12em;text-transform:uppercase;color:#fff;
-	background:#ff3b30;border-radius:5px;padding:3px 7px;
+	background:var(--red);border-radius:5px;padding:3px 7px;
 }
-.alert p{margin-top:8px;font-family:var(--font-display);font-size:.83rem;line-height:1.4;color:var(--fg-1)}
-.alert p b{font-weight:600}
+.alert p{margin-top:8px;font-family:var(--font-display);font-size:.83rem;line-height:1.4;color:var(--fg-2)}
+.alert p b{font-weight:600;color:var(--fg-1)}
 .alert__t{display:block;margin-top:7px;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.05em;color:var(--fg-4)}
 
-/* Status chip. Cross fades Questionable to OUT, and the card's own color
-   bleeds into its light. */
 .stat-chip{
 	display:inline-flex;align-items:center;
 	font-family:var(--font-mono);font-size:.6rem;font-weight:500;
 	letter-spacing:.1em;text-transform:uppercase;
 	border-radius:5px;padding:3px 7px;
-	color:#0b0910;background:var(--yellow-1);
+	color:#fff;background:var(--yellow-1);
 	transition:background-color 400ms var(--ease-expo),color 400ms var(--ease-expo);
 }
 .stat-chip.is-out{background:var(--fr-1);color:#fff}
-.alert.is-out,.card.is-out{border-color:rgba(242,73,0,.4)}
+.alert.is-out,.card.is-out{border-color:rgba(242,73,0,.35)}
 
-/* Status bar. Fills like a status. It never shimmers. */
-.bar{position:relative;height:4px;border-radius:var(--r-pill);background:rgba(255,255,255,.08);overflow:hidden}
+.bar{position:relative;height:5px;border-radius:var(--r-pill);background:var(--surface-3);overflow:hidden}
 .bar__fill{
 	position:absolute;inset:0;border-radius:inherit;
 	background:var(--purple-1);
@@ -1050,26 +978,25 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 }
 .bar__fill.is-in{transform:scaleX(var(--v,1));transition:transform 700ms var(--ease-expo)}
 
-/* NOTIFICATION. Enters exactly like iOS. Never slides in from the side.
-   Capped at a real notification's width. Full bleed reads as a web banner. */
+/* NOTIFICATION. iOS light-mode: a frosted white card with a soft drop. */
 .notif{position:relative;isolation:isolate;max-width:390px;width:100%}
 .notif__shadow{
-	position:absolute;inset:6px 4px -2px;border-radius:20px;z-index:-1;
-	background:rgba(4,2,10,.9);
-	filter:blur(18px);
+	position:absolute;inset:6px 4px -6px;border-radius:20px;z-index:-1;
+	background:rgba(0,0,0,.55);
+	filter:blur(20px);
 	pointer-events:none;
 }
 .notif__body{
 	position:relative;
 	display:flex;align-items:flex-start;gap:10px;
-	border-radius:20px;padding:11px 13px;
-	background:rgba(30,28,36,.62);
-	-webkit-backdrop-filter:blur(24px) saturate(1.6) brightness(1.05);
-	backdrop-filter:blur(24px) saturate(1.6) brightness(1.05);
-	box-shadow:inset 0 0 0 1px rgba(255,255,255,.10);
+	border-radius:20px;padding:12px 14px;
+	background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+	-webkit-backdrop-filter:blur(24px) saturate(1.5);
+	backdrop-filter:blur(24px) saturate(1.5);
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(255,255,255,.06),0 8px 24px -12px rgba(0,0,0,.6);
 	transition:box-shadow 400ms var(--ease-expo);
 }
-.notif__icon{width:34px;height:34px;border-radius:9px;overflow:hidden;flex:none;background:var(--panel-2)}
+.notif__icon{width:34px;height:34px;border-radius:9px;overflow:hidden;flex:none;background:var(--surface-3)}
 .notif__icon img{width:100%;height:100%;object-fit:cover}
 .notif__main{min-width:0;flex:1}
 .notif__t{
@@ -1080,13 +1007,10 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .notif__when{font-family:var(--font-mono);font-size:.58rem;font-weight:400;letter-spacing:.04em;color:var(--fg-4);flex:none}
 .notif__p{margin-top:3px;font-family:var(--font-display);font-size:.8125rem;line-height:1.35;color:var(--fg-2);letter-spacing:-.008em}
 .notif__p b{color:var(--fg-1);font-weight:600}
-/* Hairline flashes to the state's own color. */
-.notif.is-risk .notif__body{box-shadow:inset 0 0 0 1px rgba(255,196,44,.5)}
-.notif.is-live .notif__body{box-shadow:inset 0 0 0 1px rgba(40,211,88,.5)}
+/* no coloured state outlines — the card stays a clean neutral glass */
 
 .js .notif[data-notif]{opacity:0}
 .js .notif[data-notif].is-in{opacity:1;animation:notif-in 520ms var(--ease-spring) both}
-/* The shadow leads by 40ms, so it catches up. */
 .js .notif[data-notif] .notif__shadow{opacity:0}
 .js .notif[data-notif].is-in .notif__shadow{animation:notif-shadow 520ms var(--ease-spring) 40ms both}
 @keyframes notif-in{
@@ -1101,17 +1025,14 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 
 /* --------------------------------------------------------------------------
    15. CLIP CARD (YouTube)
-   The thumbnail sits under the glass. Hover raises the card and thins the
-   glass at the same time: the video clarifies. Material as the interaction.
    -------------------------------------------------------------------------- */
 .b--clip{
 	align-self:flex-start;display:block;width:82%;max-width:82%;padding:0;
-	background:#141416;border:1px solid var(--line-1);border-radius:15px;
+	background:#141416;border:1px solid rgba(255,255,255,.08);border-radius:15px;
 	overflow:hidden;cursor:pointer;
 	transition:transform 300ms var(--ease-expo),border-color 300ms var(--ease-hover);
 }
-.b--clip:hover{transform:translateY(-6px);border-color:var(--line-2)}
-.b--clip:hover .glass__refract > i{filter:blur(8px)}
+.b--clip:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.16)}
 .clipv__media{position:relative;display:block;aspect-ratio:16/9;background-size:cover;background-position:center 38%}
 .clipv__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.5))}
 .clipv__play{
@@ -1129,14 +1050,14 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	color:#fff;background:rgba(0,0,0,.62);border-radius:5px;padding:3px 7px;
 }
 .clipv__meta{display:block;padding:8px 11px}
-.clipv__meta b{display:block;font-family:var(--font-display);font-size:.82rem;font-weight:600;color:var(--fg-1);letter-spacing:-.01em}
-.clipv__meta small{display:block;font-family:var(--font-display);font-size:.66rem;color:var(--fg-4);margin-top:2px}
+.clipv__meta b{display:block;font-family:var(--font-display);font-size:.82rem;font-weight:600;color:#fff;letter-spacing:-.01em}
+.clipv__meta small{display:block;font-family:var(--font-display);font-size:.66rem;color:rgba(255,255,255,.5);margin-top:2px}
 
-/* Lightbox. Built by app.js on first use. */
+/* Lightbox */
 .lightbox{
 	position:fixed;inset:0;z-index:120;
 	display:grid;place-items:center;padding:var(--s-5);
-	background:rgba(4,3,8,.86);
+	background:rgba(20,18,26,.72);
 	-webkit-backdrop-filter:blur(20px);
 	backdrop-filter:blur(20px);
 	opacity:0;pointer-events:none;
@@ -1147,19 +1068,19 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .lightbox__video{
 	position:relative;aspect-ratio:16/9;width:100%;
 	border-radius:var(--r-card);overflow:hidden;background:#000;
-	box-shadow:0 40px 120px -30px rgba(4,2,10,.9),0 0 0 1px var(--line-2);
+	box-shadow:0 40px 120px -30px rgba(20,18,26,.6),0 0 0 1px rgba(255,255,255,.14);
 }
 .lightbox__video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .lightbox__close{
 	position:absolute;top:var(--s-5);right:var(--s-5);
 	width:40px;height:40px;border-radius:50%;
-	background:rgba(255,255,255,.08);border:1px solid var(--line-2);
+	background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);
 	transition:background-color 150ms var(--ease-hover);
 }
-.lightbox__close:hover{background:rgba(255,255,255,.16)}
+.lightbox__close:hover{background:rgba(255,255,255,.24)}
 .lightbox__close::before,.lightbox__close::after{
 	content:"";position:absolute;left:50%;top:50%;
-	width:14px;height:1.5px;background:var(--fg-1);
+	width:14px;height:1.5px;background:#fff;
 }
 .lightbox__close::before{transform:translate(-50%,-50%) rotate(45deg)}
 .lightbox__close::after{transform:translate(-50%,-50%) rotate(-45deg)}
@@ -1167,19 +1088,35 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 /* App rows. */
 .approw{display:flex;align-items:center;gap:8px}
 .approw .b{max-width:100%}
-.am{
-	width:20px;height:20px;border-radius:6px;flex:none;display:grid;place-items:center;
-	--bubble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 3C6.5 3 2 6.7 2 11.2c0 2.1 1.05 4.05 2.8 5.45L4 21l4.7-1.6c1.05.27 2.16.4 3.3.4 5.5 0 10-3.65 10-8.6S17.5 3 12 3z'/%3E%3C/svg%3E");
+.approw .b--in{background:var(--surface-2);color:var(--fg-1);border:1px solid var(--line-1)}
+/* BIG real app-icon tiles — the brand's actual logo, white on its brand colour. */
+.biglogos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;justify-items:center;align-items:center;padding:8px 4px;max-width:280px;margin-inline:auto}
+.biglogo{
+	width:clamp(96px,42%,120px);aspect-ratio:1;border-radius:24px;flex:none;
+	display:grid;place-items:center;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 14px 30px -12px rgba(0,0,0,.6);
+	transition:transform 300ms var(--ease-expo);
 }
-.am::before{content:"";width:11px;height:11px;background:#fff;-webkit-mask:var(--bubble) center/contain no-repeat;mask:var(--bubble) center/contain no-repeat}
-.am--msg{background:linear-gradient(180deg,#46e85f,#1fb94a)}
-.am--wa{background:#25d366}
-.am--dc{background:#5865f2}
-.am--tg{background:linear-gradient(180deg,#37bbfe,#1d93d2)}
+.biglogo:hover{transform:translateY(-4px) scale(1.04)}
+.biglogo img{width:54%;height:54%;filter:brightness(0) invert(1)}
+.biglogo--msg{background:linear-gradient(160deg,#4ce15f,#1bb84a)}
+.biglogo--wa{background:linear-gradient(160deg,#2ee06f,#12b855)}
+.biglogo--dc{background:linear-gradient(160deg,#6b78ff,#5865f2)}
+.biglogo--tg{background:linear-gradient(160deg,#3fbbfe,#1d93d2)}
+@media(max-width:1000px){ .biglogo{width:64px;height:64px} .biglogo img{width:34px;height:34px} }
+
+.am{
+	width:26px;height:26px;border-radius:7px;flex:none;display:grid;place-items:center;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 1px 2px rgba(0,0,0,.35);
+}
+.am::before{content:"";width:15px;height:15px;background:#fff;-webkit-mask:var(--glyph) center/contain no-repeat;mask:var(--glyph) center/contain no-repeat}
+.am--msg{background:linear-gradient(180deg,#4ce15f,#1bb84a);--glyph:url(assets/images/logos/imessage.svg)}
+.am--wa{background:linear-gradient(180deg,#2ee06f,#12b855);--glyph:url(assets/images/logos/whatsapp.svg)}
+.am--dc{background:linear-gradient(180deg,#6b78ff,#5865f2);--glyph:url(assets/images/logos/discord.svg)}
+.am--tg{background:linear-gradient(180deg,#3fbbfe,#1d93d2);--glyph:url(assets/images/logos/telegram.svg)}
 
 /* --------------------------------------------------------------------------
    16. LEAGUE MARQUEE
-   Real momentum. Never a linear CSS loop.
    -------------------------------------------------------------------------- */
 .marquee{
 	overflow:hidden;
@@ -1191,15 +1128,16 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 }
 .marquee:active{cursor:grabbing}
 .marquee__row{
-	display:flex;align-items:center;gap:clamp(34px,5vw,72px);
+	display:flex;align-items:center;gap:clamp(64px,8vw,120px);
 	width:max-content;will-change:transform;
 }
-.lg{display:inline-flex;align-items:center;gap:13px;white-space:nowrap;opacity:.9;transition:opacity 350ms var(--ease-hover);user-select:none}
+.lg{display:inline-flex;align-items:center;white-space:nowrap;opacity:.88;transition:opacity 350ms var(--ease-hover);user-select:none}
 .lg:hover{opacity:1}
+.lg b{display:none} /* marquee shows logos only, no names */
 .lg__mk{
-	position:relative;width:clamp(38px,2.6vw + 16px,48px);height:clamp(38px,2.6vw + 16px,48px);
+	position:relative;width:clamp(52px,3.4vw + 22px,72px);height:clamp(52px,3.4vw + 22px,72px);
 	display:grid;place-items:center;flex:none;
-	filter:drop-shadow(0 6px 14px rgba(0,0,0,.6));
+	filter:drop-shadow(0 6px 16px rgba(0,0,0,.4));
 	transition:transform 400ms var(--ease-expo);
 }
 .lg:hover .lg__mk{transform:translateY(-3px) scale(1.06)}
@@ -1216,68 +1154,60 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 /* --------------------------------------------------------------------------
    17. TILES, STEPS, STATS
    -------------------------------------------------------------------------- */
-/* Glyph tile. The glyph does not spin, bounce or pulse. On hover the tile's
-   light moves and nothing else. */
 .tile .panel__body{
 	display:flex;flex-direction:column;align-items:center;justify-content:center;
 	gap:var(--s-5);min-height:236px;text-align:center;
 }
 .tile__glyph{
-	width:64px;height:64px;flex:none;display:grid;place-items:center;
-	color:var(--purple-1);
+	width:60px;height:60px;flex:none;display:grid;place-items:center;
+	color:var(--purple-2);
+	background:var(--purple-soft);border-radius:18px;padding:12px;
 }
 .tile__glyph svg{width:100%;height:100%}
 .tile .t-h3{max-width:24ch}
 .tile .cap{margin-top:0}
 
-/* Stat / number tile. */
 .stat{display:flex;flex-direction:column;gap:var(--s-2)}
 .stat__n{
-	font-family:var(--font-mono);
-	font-size:clamp(1.75rem,1.2rem + 1.6vw,2.5rem);font-weight:500;line-height:1;
-	letter-spacing:-.02em;color:var(--fg-1);font-variant-numeric:tabular-nums;
+	font-family:var(--font-display);
+	font-size:clamp(2rem,1.4rem + 1.8vw,2.75rem);font-weight:500;line-height:1;
+	letter-spacing:-.03em;color:var(--fg-1);font-variant-numeric:tabular-nums;
 	display:inline-flex;align-items:flex-end;
 }
-.stat__l{font-family:var(--font-mono);font-size:.75rem;font-weight:500;letter-spacing:.04em;color:var(--fg-4);text-transform:uppercase}
+.stat__l{font-family:var(--font-display);font-size:.9375rem;font-weight:400;letter-spacing:-.01em;color:var(--fg-3)}
 
-/* Numbered steps. */
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-5)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4)}
 @media(max-width:760px){ .steps{grid-template-columns:1fr;gap:var(--s-4)} }
 .step{
 	position:relative;
 	border-radius:var(--r-card);border:1px solid var(--line-1);
-	background:rgba(15,15,16,.5);
-	padding:var(--s-5);
+	background:var(--surface-1);
+	box-shadow:0 1px 2px rgba(37,34,40,.04),0 18px 40px -28px rgba(37,34,40,.16);
+	padding:var(--s-6);
 }
-.step__no{
-	display:inline-grid;place-items:center;width:26px;height:26px;
-	border-radius:var(--r-pill);
-	font-family:var(--font-mono);font-size:.75rem;font-weight:500;
-	color:var(--purple-3);border:1px solid rgba(152,150,255,.3);
-	background:rgba(152,150,255,.07);
-	font-variant-numeric:tabular-nums;
-}
+/* numbered "1 2 3" badges read as AI slop — hidden site-wide */
+.step__no{display:none}
 .step h3{
 	margin-top:var(--s-4);
 	font-family:var(--font-display);font-size:1.0625rem;font-weight:600;
 	line-height:1.3;letter-spacing:-.014em;color:var(--fg-1);
 }
-.step p{margin-top:var(--s-2);font-family:var(--font-display);font-size:.875rem;line-height:1.5;letter-spacing:-.013em;color:var(--fg-4);text-wrap:pretty}
+.step p{margin-top:var(--s-2);font-family:var(--font-display);font-size:.9375rem;line-height:1.5;letter-spacing:-.011em;color:var(--fg-3);text-wrap:pretty}
 
 /* --------------------------------------------------------------------------
    18. WAITLIST: COUNTER, ROLES, PHONE CAPTURE
    -------------------------------------------------------------------------- */
 .counter{display:flex;flex-direction:column;gap:var(--s-2)}
 .ticker-num{
-	font-family:var(--font-mono);
-	font-size:clamp(2.5rem,1.8rem + 2.4vw,4rem);font-weight:500;line-height:1;
-	letter-spacing:-.02em;color:var(--fg-1);
+	font-family:var(--font-display);
+	font-size:clamp(2.75rem,2rem + 2.6vw,4.25rem);font-weight:500;line-height:1;
+	letter-spacing:-.04em;color:var(--fg-1);
 	font-variant-numeric:tabular-nums;
 	display:inline-flex;align-items:flex-end;
 }
-.counter__cap{font-family:var(--font-mono);font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-4)}
+.counter__cap{font-family:var(--font-display);font-size:.9375rem;font-weight:400;letter-spacing:-.01em;color:var(--fg-4)}
 
-.roles{display:inline-flex;gap:var(--s-1);padding:var(--s-1);border:1px solid var(--line-1);border-radius:var(--r-pill);background:rgba(15,15,16,.6)}
+.roles{display:inline-flex;gap:var(--s-1);padding:var(--s-1);border:1px solid var(--line-1);border-radius:var(--r-pill);background:var(--surface-2)}
 .role{
 	font-family:var(--font-display);font-size:.875rem;font-weight:500;letter-spacing:-.006em;
 	color:var(--fg-3);border-radius:var(--r-pill);padding:.55em 1.1em;
@@ -1285,18 +1215,19 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	transition:color 150ms var(--ease-hover),background-color 150ms var(--ease-hover),border-color 150ms var(--ease-hover);
 }
 .role:hover{color:var(--fg-1)}
-.role.is-on{color:var(--fg-1);background:rgba(255,255,255,.08);border-color:var(--line-2)}
+.role.is-on{color:var(--purple-2);background:var(--surface-1);border-color:var(--line-1);box-shadow:0 1px 2px rgba(37,34,40,.06)}
 
 .capture{position:relative;display:flex;align-items:center;gap:var(--s-2);flex-wrap:wrap}
 .capture--phone{
 	padding:var(--s-1);
-	border:1px solid var(--line-1);border-radius:var(--r-pill);
-	background:rgba(15,15,16,.6);
+	border:1px solid var(--line-2);border-radius:var(--r-pill);
+	background:var(--surface-1);
 	max-width:460px;
-	transition:border-color 150ms var(--ease-hover);
+	box-shadow:0 1px 2px rgba(37,34,40,.05);
+	transition:border-color 150ms var(--ease-hover),box-shadow 150ms var(--ease-hover);
 	flex-wrap:nowrap;
 }
-.capture--phone:focus-within{border-color:var(--line-2)}
+.capture--phone:focus-within{border-color:var(--purple-1);box-shadow:0 0 0 4px var(--purple-soft)}
 .capture__cc{
 	font-family:var(--font-mono);font-size:.875rem;font-weight:500;color:var(--fg-4);
 	padding-left:var(--s-4);flex:none;font-variant-numeric:tabular-nums;
@@ -1312,8 +1243,8 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .capture--phone .btn{flex:none}
 .capture__msg{
 	position:absolute;top:calc(100% + var(--s-3));left:var(--s-4);
-	font-family:var(--font-display);font-size:.875rem;color:var(--gho-1);
-	letter-spacing:-.013em;
+	font-family:var(--font-display);font-size:.9375rem;color:var(--green);
+	letter-spacing:-.011em;font-weight:500;
 	opacity:0;transform:translateY(-4px);
 	transition:opacity 400ms var(--ease-expo),transform 400ms var(--ease-expo);
 }
@@ -1336,15 +1267,15 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 }
 .wl__badge{
 	display:inline-flex;align-items:center;gap:var(--s-2);
-	font-family:var(--font-display);font-size:.875rem;color:var(--fg-4);letter-spacing:-.013em;
+	font-family:var(--font-display);font-size:.9375rem;color:var(--fg-4);letter-spacing:-.011em;
 }
 
 /* --------------------------------------------------------------------------
-   19. FOOTER
+   19. FOOTER  (aave: purple column headings, grey links, dark? no — light)
    -------------------------------------------------------------------------- */
 .foot{position:relative;padding-block:var(--s-8) var(--s-7);box-shadow:inset 0 1px 0 var(--line-1);margin-top:var(--s-9)}
 .foot__notes{display:grid;gap:var(--s-3);max-width:76ch;padding-bottom:var(--s-7)}
-.foot__notes p{font-family:var(--font-display);font-size:.75rem;font-weight:400;line-height:1.6;letter-spacing:0;color:var(--fg-5)}
+.foot__notes p{font-family:var(--font-display);font-size:.8125rem;font-weight:400;line-height:1.6;letter-spacing:0;color:var(--fg-5)}
 .foot__grid{
 	display:grid;grid-template-columns:1.6fr repeat(4,minmax(0,1fr));gap:var(--s-5);
 	padding-block:var(--s-7);
@@ -1353,33 +1284,250 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 @media(max-width:860px){ .foot__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-6)} .foot__brand{grid-column:1/-1} }
 .foot__col{display:flex;flex-direction:column;gap:var(--s-3);align-items:flex-start}
 .foot__col h4{
-	font-family:var(--font-mono);font-size:.6875rem;font-weight:500;
-	letter-spacing:.12em;text-transform:uppercase;color:var(--fg-4);
+	font-family:var(--font-display);font-size:.9375rem;font-weight:600;
+	letter-spacing:-.006em;color:var(--purple-2);
 }
-.foot__col a{font-family:var(--font-display);font-size:.875rem;color:var(--fg-3);transition:color 150ms var(--ease-hover)}
+.foot__col a{font-family:var(--font-display);font-size:.9375rem;color:var(--fg-3);transition:color 150ms var(--ease-hover)}
 .foot__col a:hover{color:var(--fg-1)}
 .foot__base{
 	display:flex;align-items:center;justify-content:space-between;gap:var(--s-5);flex-wrap:wrap;
 	padding-top:var(--s-5);
 	box-shadow:inset 0 1px 0 var(--line-3);
-	font-family:var(--font-display);font-size:.75rem;color:var(--fg-5);
+	font-family:var(--font-display);font-size:.8125rem;color:var(--fg-5);
 }
 .foot__legal{display:flex;align-items:center;gap:var(--s-5)}
 .foot__legal a{transition:color 150ms var(--ease-hover)}
 .foot__legal a:hover{color:var(--fg-3)}
 
 /* --------------------------------------------------------------------------
+   19a. SUBPAGE HERO  (centred, clean, no CTAs — landing keeps the buttons)
+   -------------------------------------------------------------------------- */
+.page-hero{padding-block:calc(var(--nav-h) + 96px) var(--s-7);text-align:center}
+.page-hero .sec__head{max-width:none;margin-inline:auto}
+.page-hero__h{
+	font-family:var(--font-display);
+	font-size:clamp(2.5rem,1.6rem + 3vw,3.75rem);font-weight:500;
+	line-height:1.08;letter-spacing:-.04em;color:var(--fg-1);text-wrap:balance;
+	max-width:20ch;margin-inline:auto;
+}
+.page-hero__h em{font-family:var(--font-serif);font-style:italic;color:var(--purple-2)}
+.page-hero .t-sub{max-width:52ch;margin:20px auto 0}
+.page-hero .marquee{margin-top:var(--s-8)}
+
+/* --------------------------------------------------------------------------
+   19b. FEATURE ROWS + HIGH-END GLASS UI CARDS
+   The Superhuman/aave "How It Works" pattern: a big heading + subtext beside a
+   dark graphic tile holding frosted glass UI cards and real logos.
+   -------------------------------------------------------------------------- */
+.feature{
+	display:grid;grid-template-columns:1fr 1.05fr;
+	gap:clamp(36px,5vw,88px);align-items:center;
+	padding-block:clamp(48px,6vw,96px);
+}
+.feature--flip .feature__art{order:-1}
+@media(max-width:860px){
+	.feature{grid-template-columns:1fr;gap:36px}
+	.feature--flip .feature__art{order:0}
+}
+.feature__kicker{
+	font-family:var(--font-display);font-size:.9375rem;font-weight:600;
+	letter-spacing:-.006em;color:var(--purple-2);margin-bottom:14px;
+	display:inline-flex;align-items:center;gap:.5em;
+}
+.feature__copy h2{
+	font-family:var(--font-display);
+	font-size:clamp(1.75rem,1.2rem + 1.8vw,2.4rem);font-weight:500;
+	line-height:1.14;letter-spacing:-.03em;color:var(--fg-1);text-wrap:balance;
+}
+.feature__copy h2 em{font-family:var(--font-serif);font-style:italic;color:var(--purple-2)}
+.feature__copy p{margin-top:18px;font-size:clamp(1.0625rem,1rem + .3vw,1.1875rem);line-height:1.55;color:var(--fg-3);max-width:44ch;letter-spacing:-.011em}
+.feature__copy .alink{margin-top:22px}
+
+/* the graphic tile */
+.art{
+	position:relative;overflow:hidden;
+	border-radius:28px;
+	aspect-ratio:4/3.15;
+	border:1px solid var(--line-1);
+	background:
+		radial-gradient(90% 70% at 82% 8%,oklch(0.42 0.13 300 / .55),transparent 60%),
+		linear-gradient(160deg,oklch(0.23 0.03 285),oklch(0.155 0.02 285));
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 40px 80px -46px rgba(0,0,0,.75);
+	display:grid;place-items:center;
+	isolation:isolate;
+}
+/* the dashed-circle motif behind the cards (Superhuman) */
+.art__dashed{
+	position:absolute;z-index:0;width:78%;aspect-ratio:1;left:-14%;top:50%;transform:translateY(-50%);
+	border-radius:50%;border:1.5px dashed rgba(255,255,255,.14);
+	-webkit-mask:linear-gradient(90deg,#000 40%,transparent);mask:linear-gradient(90deg,#000 40%,transparent);
+	pointer-events:none;
+}
+.art__stack{position:relative;z-index:2;width:min(88%,420px);display:flex;flex-direction:column;gap:12px}
+
+/* frosted glass UI card */
+.uicard{
+	position:relative;
+	background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.075));
+	-webkit-backdrop-filter:blur(26px) saturate(1.5);backdrop-filter:blur(26px) saturate(1.5);
+	border:1px solid rgba(255,255,255,.18);
+	border-radius:18px;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 24px 44px -22px rgba(0,0,0,.75);
+	padding:14px 16px;
+	transform:translateZ(0);
+}
+.uicard__head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.uicard__logo{width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;overflow:hidden;background:#fff}
+.uicard__logo img{width:74%;height:74%;object-fit:contain}
+.uicard__logo--sq{background:none}
+.uicard__logo--sq img{width:100%;height:100%;border-radius:9px}
+.uicard__title{font-family:var(--font-display);font-size:.9375rem;font-weight:600;color:var(--fg-1);letter-spacing:-.01em}
+.uicard__title small{display:block;font-size:.75rem;font-weight:400;color:var(--fg-4);margin-top:1px}
+.uicard__when{margin-left:auto;font-family:var(--font-mono);font-size:.68rem;color:var(--fg-4);flex:none}
+.uicard__body{font-family:var(--font-display);font-size:.9375rem;line-height:1.42;color:var(--fg-2);letter-spacing:-.008em}
+.uicard__body b{color:var(--fg-1);font-weight:600}
+.uicard--pop{width:78%;align-self:flex-end;margin-top:-4px}
+
+/* an outgoing iMessage bubble (for the highlight request) */
+.imsg{
+	align-self:flex-end;max-width:82%;
+	background:linear-gradient(180deg,#2f8bff,#0a7bff);color:#fff;
+	border-radius:20px;border-bottom-right-radius:6px;
+	padding:11px 16px;
+	font-family:var(--font-ios);font-size:.9375rem;line-height:1.35;
+	box-shadow:0 12px 26px -12px rgba(10,123,255,.6);
+}
+
+/* a real score card with league + team logos */
+.scorecard{width:min(88%,392px);position:relative;z-index:2}
+.scorecard__top{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.scorecard__lg{width:26px;height:26px;object-fit:contain;flex:none}
+.scorecard__state{font-family:var(--font-display);font-size:.8125rem;font-weight:600;letter-spacing:.02em;color:var(--red);display:inline-flex;align-items:center;gap:7px}
+.scorerow{display:flex;align-items:center;justify-content:space-between;padding:9px 0}
+.scorerow + .scorerow{border-top:1px solid var(--line-1)}
+.scorerow__team{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-weight:500;font-size:1.0625rem;color:var(--fg-1);letter-spacing:-.01em}
+.scorerow img{width:26px;height:26px;object-fit:contain;flex:none}
+.scorerow__pts{font-family:var(--font-display);font-weight:600;font-size:1.5rem;color:var(--fg-1);font-variant-numeric:tabular-nums}
+.scorerow--dim .scorerow__team,.scorerow--dim .scorerow__pts{color:var(--fg-4)}
+.scorecard__note{margin-top:12px;font-family:var(--font-display);font-size:.875rem;color:var(--fg-3)}
+.scorecard__note b{color:var(--fg-1);font-weight:600}
+
+/* integration constellation of real logos (poke) */
+.integ{position:relative;z-index:2;width:100%;height:100%;display:grid;place-items:center}
+.integ__logo{
+	position:absolute;width:clamp(54px,6vw,72px);height:clamp(54px,6vw,72px);
+	border-radius:18px;display:grid;place-items:center;
+	box-shadow:0 16px 34px -12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.35);
+	animation:float-y 6s var(--ease-hover) infinite alternate;
+}
+.integ__logo img{width:56%;height:56%;object-fit:contain;filter:brightness(0) invert(1)}
+.integ__logo--msg{background:linear-gradient(160deg,#4ce15f,#1bb84a)}
+.integ__logo--wa{background:linear-gradient(160deg,#2ee06f,#12b855)}
+.integ__logo--dc{background:linear-gradient(160deg,#6b78ff,#5865f2)}
+.integ__logo--tg{background:linear-gradient(160deg,#3fbbfe,#1d93d2)}
+@keyframes float-y{from{transform:translateY(-6px)}to{transform:translateY(6px)}}
+
+/* win probability (live card) */
+.winprob{display:flex;justify-content:space-between;align-items:center;margin-top:15px;font-family:var(--font-display);font-size:.875rem;color:var(--fg-3)}
+.winprob__v{color:var(--green);font-weight:600;font-size:1rem}
+.winbar{margin-top:8px;height:7px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.winbar span{display:block;height:100%;background:linear-gradient(90deg,var(--green),oklch(0.82 0.16 155));border-radius:99px}
+
+/* highlight clip card */
+.clipcard{padding:0;overflow:hidden;width:min(90%,400px)}
+.clipcard__media{display:block;aspect-ratio:16/9;background-size:cover;background-position:center 34%;position:relative}
+.clipcard__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.45))}
+.clipcard__play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.96);z-index:2;box-shadow:0 8px 22px -6px rgba(0,0,0,.6)}
+.clipcard__play::after{content:"";position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);border-left:16px solid #111;border-top:10px solid transparent;border-bottom:10px solid transparent}
+.clipcard__meta{display:flex;align-items:center;gap:10px;padding:13px 15px}
+.clipcard__meta img{width:24px;height:24px;object-fit:contain;flex:none}
+.clipcard__meta b{display:block;font-family:var(--font-display);font-size:.9375rem;font-weight:600;color:var(--fg-1);letter-spacing:-.01em}
+.clipcard__meta small{display:block;font-size:.75rem;color:var(--fg-4);margin-top:1px}
+
+/* post-game recap card */
+.recap{width:min(90%,400px)}
+.recap__final{display:flex;align-items:center;justify-content:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line-1);font-family:var(--font-display);font-size:1.0625rem;font-weight:600;color:var(--fg-1)}
+.recap__final img{width:28px;height:28px;object-fit:contain}
+.recap__final span{font-family:var(--font-mono);font-size:.6rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-4)}
+.recap__list{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.recap__list li{position:relative;padding-left:18px;font-family:var(--font-display);font-size:.9375rem;line-height:1.4;color:var(--fg-2);letter-spacing:-.008em}
+.recap__list li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--purple-2)}
+.recap__list b{color:var(--fg-1);font-weight:600}
+
+/* custom-alerts toggle card */
+.alerts{width:min(90%,400px);display:flex;flex-direction:column}
+.alertrow{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 0;font-family:var(--font-display);font-size:.9375rem;color:var(--fg-1);letter-spacing:-.008em}
+.alertrow + .alertrow{border-top:1px solid var(--line-1)}
+.alertrow--off{color:var(--fg-4)}
+.switch{width:42px;height:25px;border-radius:99px;background:rgba(255,255,255,.16);position:relative;flex:none;transition:background .25s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:left .25s}
+.switch.is-on{background:var(--green)}
+.switch.is-on::after{left:20px}
+
+/* follow-teams card (coverage) */
+.follow{width:min(92%,420px);display:flex;flex-direction:column}
+.followrow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;font-family:var(--font-display);font-size:.9375rem;font-weight:500;color:var(--fg-1);letter-spacing:-.008em}
+.followrow + .followrow{border-top:1px solid var(--line-1)}
+.followrow__team{display:flex;align-items:center;gap:12px}
+.followrow__team img{width:34px;height:34px;object-fit:contain;border-radius:9px;background:#fff;padding:3px;flex:none}
+.pill-on{font-family:var(--font-display);font-size:.8125rem;font-weight:600;color:var(--purple-2);background:var(--purple-soft);border:1px solid oklch(0.7 0.155 285 / .32);border-radius:99px;padding:5px 15px;flex:none}
+
+/* multi-sport scores card (coverage) */
+.multiscore{width:min(92%,420px);display:flex;flex-direction:column}
+.msgame{display:flex;align-items:center;gap:12px;padding:12px 0;font-family:var(--font-display);font-size:.9375rem;color:var(--fg-2);letter-spacing:-.008em}
+.msgame + .msgame{border-top:1px solid var(--line-1)}
+.msgame img{width:24px;height:24px;object-fit:contain;flex:none}
+.msgame__t{flex:1}
+.msgame__t b{color:var(--fg-1);font-weight:700}
+.msgame__s{font-family:var(--font-mono);font-size:.72rem;font-weight:500;color:var(--fg-4);flex:none}
+
+/* --- per-graphic entrances (NO uniform drop-fade). The tile is always there;
+   its contents animate in the way each graphic actually behaves. --- */
+.js .feature__art[data-panel]{opacity:1}
+
+/* cards spring up, staggered */
+.js .feature__art .uicard,.js .feature__art .imsg{opacity:0}
+.js .feature__art.is-in .uicard,.js .feature__art.is-in .imsg{animation:art-rise 620ms var(--ease-spring) both}
+.js .feature__art.is-in .uicard--pop{animation-delay:.14s}
+@keyframes art-rise{from{opacity:0;transform:translateY(28px) scale(.94)}to{opacity:1;transform:none}}
+.no-motion .feature__art .uicard{opacity:1;animation:none}
+
+/* win bar fills from the left */
+.winbar span{transform:scaleX(0);transform-origin:left}
+.feature__art.is-in .winbar span{transform:scaleX(1);transition:transform 900ms var(--ease-expo) .45s}
+
+/* alert switches flip on, one after another */
+.feature__art .switch.is-on{background:rgba(255,255,255,.16)}
+.feature__art .switch.is-on::after{left:3px}
+.feature__art.is-in .switch.is-on{background:var(--green);transition:background 260ms var(--ease-hover) .35s}
+.feature__art.is-in .switch.is-on::after{left:20px;transition:left 300ms var(--ease-spring) .35s}
+.feature__art.is-in .alertrow:nth-child(2) .switch.is-on,
+.feature__art.is-in .alertrow:nth-child(2) .switch.is-on::after{transition-delay:.5s}
+.feature__art.is-in .alertrow:nth-child(3) .switch.is-on,
+.feature__art.is-in .alertrow:nth-child(3) .switch.is-on::after{transition-delay:.65s}
+
+/* recap bullets reveal in sequence */
+.feature__art .recap__list li{opacity:0;transform:translateX(-8px)}
+.feature__art.is-in .recap__list li{animation:bullet-in 480ms var(--ease-expo) both}
+.feature__art.is-in .recap__list li:nth-child(2){animation-delay:.16s}
+.feature__art.is-in .recap__list li:nth-child(3){animation-delay:.32s}
+@keyframes bullet-in{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+
+/* integration logos pop in, staggered, then keep floating */
+.feature__art .integ__logo{opacity:0}
+.feature__art.is-in .integ__logo{opacity:1;animation:logo-pop 560ms var(--ease-spring) both,float-y 6s var(--ease-hover) infinite alternate 560ms}
+@keyframes logo-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.no-motion .feature__art .integ__logo{opacity:1;animation:none}
+
+/* --------------------------------------------------------------------------
    20. PROGRESSIVE ENHANCEMENT
-   Squircles. Zero cost, most visitors never see them.
    -------------------------------------------------------------------------- */
 @supports (corner-shape:superellipse(1.25)){
-	.panel,.card{corner-shape:superellipse(1.25)}
+	.panel,.card,.glass{corner-shape:superellipse(1.25)}
 }
 
 /* --------------------------------------------------------------------------
    21. REDUCED MOTION
-   Every animation lands on its end state. Kept: the static light model, the
-   rim, the refraction sample (a paint, not a motion), the grain.
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion:reduce){
 	html{scroll-behavior:auto}
@@ -1394,13 +1542,10 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	transition-duration:.01ms!important;
 	animation-iteration-count:1!important;
 }
-/* End states. */
-.no-motion #field{animation:none;--scrim:.86}
-.no-motion #field::before,.no-motion #field::after{animation:none}
 .no-motion .js [data-thread] .b,
 .no-motion [data-thread] .b{opacity:1;animation:none}
-.no-motion .panel[data-panel]{clip-path:none;transform:none;border-color:var(--line-2)}
-.no-motion .panel[data-panel] .panel__bloom{background-position:var(--bx) var(--by);opacity:.55}
+.no-motion .panel[data-panel]{opacity:1;transform:none}
+.no-motion .panel[data-panel] .panel__bloom{background-position:var(--bx) var(--by);opacity:.7}
 .no-motion .notif[data-notif]{opacity:1;animation:none}
 .no-motion .notif[data-notif] .notif__shadow{opacity:1;animation:none}
 .no-motion .bar__fill{transform:scaleX(var(--v,1))}

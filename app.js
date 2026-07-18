@@ -293,7 +293,7 @@
 	/* ----------------------------------------------- 10. panels and entrances
 	   Light arrives, content does not. The content inside is already there at
 	   full opacity. That is the anti slop tell. */
-	$$('.panel[data-panel]').forEach((p) => watch(p, (el) => el.classList.add('is-in')));
+	$$('[data-panel]').forEach((p) => watch(p, (el) => el.classList.add('is-in')));
 	$$('.notif[data-notif]').forEach((n) => watch(n, (el) => el.classList.add('is-in')));
 	$$('.bar__fill[data-bar]').forEach((b) => watch(b, (el) => el.classList.add('is-in')));
 
@@ -446,7 +446,7 @@
 		/* Only listed files are ever requested, so there is no 404 noise for
 		   absent logos. manifest.json will not fetch over file://, and the
 		   catch already handles it: the SVG emblems simply remain. */
-		fetch(LOGO_DIR + 'manifest.json').then((r) => (r.ok ? r.json() : [])).then((list) => {
+		fetch(LOGO_DIR + 'manifest.json?v=6').then((r) => (r.ok ? r.json() : [])).then((list) => {
 			(Array.isArray(list) ? list : []).forEach((e) => {
 				const slug = typeof e === 'string' ? e : e && e.slug;
 				if (!slug) return;
@@ -455,7 +455,7 @@
 					const img = document.createElement('img');
 					img.className = 'lg__img';
 					img.alt = '';
-					img.src = LOGO_DIR + file;
+					img.src = LOGO_DIR + file + '?v=6';
 					img.onload = () => img.classList.add('on');
 					mk.appendChild(img);
 				});
@@ -648,4 +648,46 @@
 			open(el.dataset.video);
 		}));
 	}
+})();
+
+/* ==========================================================================
+   AMBIENT FIELD . very slight mouse parallax
+   The background glow drifts a few px toward the pointer and eases back, so the
+   page feels alive without ever calling attention to itself. Fine pointers only,
+   and fully off under prefers-reduced-motion.
+   ========================================================================== */
+(() => {
+	'use strict';
+	const field = document.getElementById('field');
+	if (!field) return;
+	const fine = window.matchMedia('(pointer: fine)').matches;
+	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (!fine || reduce) return;
+
+	const MAX = 12;            /* px of drift at the very edge — deliberately tiny */
+	let tx = 0, ty = 0;        /* target */
+	let cx = 0, cy = 0;        /* current (eased) */
+	let running = false;
+
+	const frame = () => {
+		/* ease toward target; the lag is what reads as a soft "jiggle" */
+		cx += (tx - cx) * 0.06;
+		cy += (ty - cy) * 0.06;
+		field.style.setProperty('--fx', cx.toFixed(2) + 'px');
+		field.style.setProperty('--fy', cy.toFixed(2) + 'px');
+		if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) {
+			requestAnimationFrame(frame);
+		} else {
+			running = false;
+		}
+	};
+	const kick = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
+
+	window.addEventListener('pointermove', (e) => {
+		const nx = (e.clientX / window.innerWidth) * 2 - 1;   /* -1 .. 1 */
+		const ny = (e.clientY / window.innerHeight) * 2 - 1;
+		tx = nx * MAX;
+		ty = ny * MAX;
+		kick();
+	}, { passive: true });
 })();

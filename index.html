@@ -11,8 +11,8 @@
 	<meta name="theme-color" content="#08070b" />
 	<link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-32.png" />
 	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
-	<link rel="stylesheet" href="styles.css?v=1" />
-	<link rel="stylesheet" href="css/pages/index.css?v=1" />
+	<link rel="stylesheet" href="styles.css?v=26" />
+	<link rel="stylesheet" href="css/pages/index.css?v=26" />
 </head>
 <body>
 	<div id="field" aria-hidden="true"></div>
@@ -27,14 +27,9 @@
 				<span class="brand__word">PLAYMAKR</span>
 			</a>
 			<nav class="nav__links" aria-label="Primary">
-				<a href="index.html" aria-current="page">Home</a>
 				<a href="product.html">Product</a>
-				<a href="how-it-works.html">How it works</a>
-				<a href="integrations.html">Integrations</a>
 				<a href="coverage.html">Coverage</a>
-				<a href="manifesto.html">Manifesto</a>
 				<a href="faq.html">FAQ</a>
-				<a href="waitlist.html">Waitlist</a>
 			</nav>
 			<div class="nav__right">
 				<a class="nav__join" href="waitlist.html">Join waitlist</a>
@@ -43,12 +38,8 @@
 		</div>
 		<div class="nav__mobile" id="navMobile">
 			<a href="product.html">Product</a>
-			<a href="how-it-works.html">How it works</a>
-			<a href="integrations.html">Integrations</a>
 			<a href="coverage.html">Coverage</a>
-			<a href="manifesto.html">Manifesto</a>
 			<a href="faq.html">FAQ</a>
-			<a href="waitlist.html">Waitlist</a>
 			<a class="nav__mobile-cta" href="waitlist.html">Join waitlist</a>
 		</div>
 	</header>
@@ -62,61 +53,99 @@
 		     game is still going. The thread types itself. The period is green
 		     for exactly that reason, and it is the only green on the page.
 		     ================================================================== -->
-		<section class="hero">
+		<section class="hero hero--center">
 			<div class="hero__copy">
-				<h1 class="t-hero">Real-time sports<span class="stop" data-live>.</span><br>In your texts.</h1>
+				<p class="hero__eyebrow"><img src="assets/images/logo.png" alt="" width="26" height="26" />PLAYMAKR</p>
+				<h1 class="t-hero">Real-time sports,<br>in your <em>texts</em><span class="stop" data-live>.</span></h1>
 				<p class="t-sub">A proactive AI agent that watches your teams and texts you the second it matters, right in the apps you already use.</p>
 				<div class="hero__cta">
 					<a class="btn btn--lg" href="waitlist.html">Join the waitlist</a>
-					<a class="alink" href="product.html">See how it works <span aria-hidden="true">&rsaquo;</span></a>
+					<a class="btn btn--lg btn--ghost" href="product.html">See how it works</a>
 				</div>
 			</div>
 
 			<div class="hero__stage">
-				<div class="device" data-lit>
-					<div class="device__island" data-island="live" aria-hidden="true">
-						<div class="island__inner island__inner--live">
-							<span class="island__side"><i class="tm tm--min"></i><span class="island__lab">MIN</span><span class="island__score" data-roll="88" data-tick="91,94">88</span></span>
-							<span class="island__dot"></span>
-							<span class="island__side"><span class="island__score" data-roll="84">84</span><span class="island__lab">DEN</span><i class="tm tm--den"></i></span>
-						</div>
-					</div>
-					<div class="device__screen">
-						<div class="chat">
-							<div class="chat__nav">
-								<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
-								<span class="chat__name">PLAYMAKR</span>
-								<span class="chat__sub">active now</span>
-							</div>
-							<div class="chat__body" data-thread>
-								<p class="day">Tonight · Live</p>
-								<div class="b b--out">what's the score?</div>
-								<div class="b b--in b--card">
-									<div class="sb">
-										<span class="sb__state sb__live">Live · Q3 4:12</span>
-										<div class="sb__row"><span class="sb__team"><i class="tm tm--min"></i>Timberwolves</span><span class="sb__pts" data-roll="88">88</span></div>
-										<div class="sb__row sb__row--l"><span class="sb__team"><i class="tm tm--den"></i>Nuggets</span><span class="sb__pts" data-roll="84">84</span></div>
-									</div>
-									<p class="sb__line"><b>Anthony Edwards</b> · 27 PTS · 6 REB</p>
+				<div class="phones">
+
+					<!-- LEFT phone · BREAKING NEWS the second it happens -->
+					<div class="rphone rphone--side rphone--left" aria-hidden="true">
+						<img class="rphone__img" src="assets/images/device/ip16-natural.png" alt="" width="1406" height="2822" />
+						<div class="rphone__screen">
+							<div class="rphone__status"><time>9:41</time><span class="ind"><i class="sig"></i><i class="bat"></i></span></div>
+							<div class="chat">
+								<div class="chat__nav">
+									<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
+									<span class="chat__name">PLAYMAKR</span>
+									<span class="chat__sub">breaking news</span>
 								</div>
-								<div class="b b--in">Ant just hit back-to-back threes. Wolves on a 9-0 run.</div>
-								<div class="b b--out">no way, show me</div>
-								<a class="b b--in b--clip" href="https://www.youtube.com/watch?v=mRvHSutb1Io" target="_blank" rel="noopener"
-								   data-video="mRvHSutb1Io" aria-label="Watch Anthony Edwards highlights on YouTube">
-									<span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/mRvHSutb1Io/hqdefault.jpg)">
-										<span class="clipv__play" aria-hidden="true"></span>
-										<span class="clipv__tag">Highlights</span>
-									</span>
-									<span class="clipv__meta"><b>Anthony Edwards, 27 PTS vs Denver</b><small>Minnesota Timberwolves · YouTube</small></span>
-								</a>
-								<div class="b b--out">that's filthy</div>
-								<div class="b b--in b--mini">He's 9-for-12 from the field. I'll keep the clips coming.</div>
-								<div class="b b--out">tell me if Murray checks back in</div>
-								<div class="b b--in b--mini">On it, I'll text you the second he's at the scorer's table.</div>
-								<div class="b b--in b--mini">Update: Murray's at the scorer's table now, checking in for Denver.</div>
+								<div class="chat__body">
+									<p class="day">Today</p>
+									<div class="b b--in is-settled">Seahawks just clinched the <b>NFC West</b>.</div>
+									<div class="b b--in b--mini is-settled">Trade: the Suns land a first-round pick.</div>
+									<div class="b b--in is-settled">Judge walks it off, <b>Yankees 8, Red Sox 4</b>.</div>
+									<div class="b b--out is-settled">no way</div>
+								</div>
 							</div>
 						</div>
 					</div>
+
+					<!-- RIGHT phone · ASK ANYTHING, answered in seconds -->
+					<div class="rphone rphone--side rphone--right" aria-hidden="true">
+						<img class="rphone__img" src="assets/images/device/ip16-natural.png" alt="" width="1406" height="2822" />
+						<div class="rphone__screen">
+							<div class="rphone__status"><time>9:41</time><span class="ind"><i class="sig"></i><i class="bat"></i></span></div>
+							<div class="chat">
+								<div class="chat__nav">
+									<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
+									<span class="chat__name">PLAYMAKR</span>
+									<span class="chat__sub">ask anything</span>
+								</div>
+								<div class="chat__body">
+									<div class="b b--out is-settled">who's starting for the Wolves?</div>
+									<div class="b b--in is-settled">Edwards, McDaniels, Gobert, Conley, Randle. Murray's a game-time decision for Denver.</div>
+									<div class="b b--out is-settled">how's Ant this month?</div>
+									<div class="b b--in b--mini is-settled">31.2 PPG on 48%, a career-best stretch.</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- CENTER phone · LIVE play-by-play + highlights -->
+					<div class="rphone rphone--center">
+						<img class="rphone__img" src="assets/images/device/ip16-natural.png" alt="PLAYMAKR live in your messages" width="1406" height="2822" />
+						<div class="rphone__screen">
+							<div class="rphone__status"><time>9:41</time><span class="ind"><i class="sig"></i><i class="bat"></i></span></div>
+							<div class="chat">
+								<div class="chat__nav">
+									<span class="chat__avatar"><img src="assets/images/logo.png" alt="" width="26" height="26" /></span>
+									<span class="chat__name">PLAYMAKR</span>
+									<span class="chat__sub">Wolves · live</span>
+								</div>
+								<div class="chat__body">
+									<p class="day">Tonight · Live</p>
+									<div class="b b--in b--card is-settled">
+										<div class="sb">
+											<span class="sb__state sb__live">Live · Q3 4:12</span>
+											<div class="sb__row"><span class="sb__team"><img src="assets/images/teams/timberwolves.png" alt="" width="16" height="16" />Timberwolves</span><span class="sb__pts">88</span></div>
+											<div class="sb__row sb__row--l"><span class="sb__team"><img src="assets/images/teams/nuggets.png" alt="" width="16" height="16" />Nuggets</span><span class="sb__pts">84</span></div>
+										</div>
+										<p class="sb__line"><b>Anthony Edwards</b> · 27 PTS · 6 REB</p>
+									</div>
+									<div class="b b--in is-settled">Ant just hit back-to-back threes. Wolves on a 9-0 run.</div>
+									<div class="b b--out is-settled">no way, show me</div>
+									<a class="b b--in b--clip is-settled" href="https://www.youtube.com/watch?v=mRvHSutb1Io" target="_blank" rel="noopener"
+									   aria-label="Anthony Edwards highlights">
+										<span class="clipv__media" style="background-image:url(https://img.youtube.com/vi/mRvHSutb1Io/hqdefault.jpg)">
+											<span class="clipv__play" aria-hidden="true"></span>
+											<span class="clipv__tag">Highlights</span>
+										</span>
+										<span class="clipv__meta"><b>Anthony Edwards, 27 PTS vs Denver</b><small>Minnesota Timberwolves · YouTube</small></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</section>
@@ -130,8 +159,8 @@
 		<section class="sec home-band">
 			<div class="wrap">
 				<div class="sec__head">
-					<p class="eyebrow">[COVERAGE]</p>
-					<p class="t-h1 home-band__big">Every game. Every play. Every moment, the second it happens<span class="stop">.</span></p>
+					<p class="eyebrow">Coverage</p>
+					<p class="t-h1 home-band__big">Every game. Every play.<br>Every moment, the second it <em>happens</em><span class="stop">.</span></p>
 				</div>
 			</div>
 
@@ -155,8 +184,8 @@
 		<section class="sec">
 			<div class="wrap">
 				<div class="sec__head">
-					<p class="eyebrow">[LIVE]</p>
-					<h2 class="t-h2">It doesn't wait to be opened<span class="stop">.</span></h2>
+					<p class="eyebrow">Proactive</p>
+					<h2 class="t-h2">It doesn't wait to be <em>opened</em><span class="stop">.</span></h2>
 					<p class="t-sub">PLAYMAKR reaches out first, proactive alerts, breaking news and live updates, everywhere you already text.</p>
 				</div>
 
@@ -242,11 +271,11 @@
 						<div class="panel__bloom" aria-hidden="true"></div>
 						<div class="panel__body">
 							<div class="home-frag">
-								<div class="chat__body chat__body--apps">
-									<div class="approw"><i class="am am--msg"></i><span class="b b--in b--mini is-settled">iMessage, Seahawks just clinched the NFC West.</span></div>
-									<div class="approw"><i class="am am--wa"></i><span class="b b--in b--mini is-settled">WhatsApp, Yankees walk it off in the 9th.</span></div>
-									<div class="approw"><i class="am am--dc"></i><span class="b b--in b--mini is-settled">Discord, Ant's at 38 and counting.</span></div>
-									<div class="approw"><i class="am am--tg"></i><span class="b b--in b--mini is-settled">Telegram, UCL: six goals before the half.</span></div>
+								<div class="biglogos">
+									<span class="biglogo biglogo--msg" title="iMessage"><img src="assets/images/logos/imessage.svg" alt="iMessage" width="40" height="40" /></span>
+									<span class="biglogo biglogo--wa" title="WhatsApp"><img src="assets/images/logos/whatsapp.svg" alt="WhatsApp" width="40" height="40" /></span>
+									<span class="biglogo biglogo--dc" title="Discord"><img src="assets/images/logos/discord.svg" alt="Discord" width="40" height="40" /></span>
+									<span class="biglogo biglogo--tg" title="Telegram"><img src="assets/images/logos/telegram.svg" alt="Telegram" width="40" height="40" /></span>
 								</div>
 							</div>
 							<div class="home-cap__txt">
@@ -271,8 +300,8 @@
 		<section class="sec home-cta" data-scrim>
 			<div class="wrap">
 				<div class="sec__head">
-					<p class="eyebrow">[WAITLIST]</p>
-					<h2 class="t-h2">Be first in line<span class="stop">.</span></h2>
+					<p class="eyebrow">Waitlist</p>
+					<h2 class="t-h2">Be first in <em>line</em><span class="stop">.</span></h2>
 					<p class="t-sub">Early access is opening in a private beta. No spam, just one message when you're in.</p>
 				</div>
 
@@ -296,8 +325,8 @@
 			</div>
 			<div class="foot__grid">
 				<div class="foot__brand"><a class="brand" href="index.html" aria-label="PLAYMAKR home"><span class="brand__mark"><img src="assets/images/logo.png" alt="" width="22" height="22" /></span><span class="brand__word">PLAYMAKR</span></a></div>
-				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="how-it-works.html">How it works</a><a href="integrations.html">Integrations</a></nav>
-				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a><a href="manifesto.html">Manifesto</a></nav>
+				<nav class="foot__col" aria-label="Product"><h4>Product</h4><a href="product.html">Proactive agent</a><a href="product.html">How it works</a><a href="product.html">Integrations</a></nav>
+				<nav class="foot__col" aria-label="Coverage"><h4>Coverage</h4><a href="coverage.html">Teams</a><a href="coverage.html">Leagues</a><a href="coverage.html">Manifesto</a></nav>
 				<nav class="foot__col" aria-label="Get started"><h4>Get started</h4><a href="waitlist.html">Join waitlist</a><a href="faq.html">FAQ</a><a href="mailto:founders@playmakr.pro">Contact</a></nav>
 				<nav class="foot__col" aria-label="Company"><h4>Company</h4><a href="mailto:founders@playmakr.pro">founders@playmakr.pro</a></nav>
 			</div>
@@ -308,6 +337,6 @@
 		</div>
 	</footer>
 
-	<script src="app.js?v=1"></script>
+	<script src="app.js?v=26"></script>
 </body>
 </html>

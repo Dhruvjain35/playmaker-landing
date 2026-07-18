@@ -1,1 +1,9 @@
-[]
+[
+  {"slug":"nba","file":"nba.png"},
+  {"slug":"nfl","file":"nfl.png"},
+  {"slug":"mlb","file":"mlb.png"},
+  {"slug":"nhl","file":"nhl.png"},
+  {"slug":"premier-league","file":"premier-league.png"},
+  {"slug":"champions-league","file":"champions-league.png"},
+  {"slug":"ufc","file":"ufc.png"}
+]

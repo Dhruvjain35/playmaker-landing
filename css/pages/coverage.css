@@ -1,261 +1,51 @@
 /* ==========================================================================
    PLAYMAKR . COVERAGE
-   Page scoped styles. Loaded after styles.css.
-
-   Everything here is prefixed .cvg- and belongs to this page alone. Tokens,
-   easings, type and the glass material come from the foundation and are never
-   redeclared. The only component built here is the editorial league index,
-   which exists nowhere else on the site.
+   Page-scoped styles. aave/poke format: a clean grid of glass league cards,
+   no numbered index, no hover glow-blob.
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   0. NAV, THE EIGHT LINK BAND
-   FOUNDATION ISSUE, PATCHED HERE BECAUSE THIS PAGE DOES NOT OWN styles.css.
-
-   The nav in styles.css hands the links to the burger at 860px, which is right
-   for the four link nav it was built against. This site's nav carries eight
-   links plus the CTA, and that bar does not fit above 860px: measured at a
-   900px viewport, the nav needs 871px and has 837px, and the Join waitlist
-   pill lands at 822..895 against a 885px viewport, so it hangs off the right
-   edge. No gap value rescues it either, since at 861px the eight links alone
-   need 535px of the 813px available before the brand and the CTA are placed.
-
-   So the burger takes over at 1080px instead. The block below is the
-   foundation's own 860px block, verbatim, on a wider query. It is additive:
-   it never touches the 860px band, and it cannot reach another page, because
-   this file only loads here. Delete it the moment styles.css moves its own
-   breakpoint, and move the breakpoint, because every page has this nav.
-   -------------------------------------------------------------------------- */
+/* Nav: burger takes over at 1080px on this page (kept from foundation). */
 @media(min-width:861px) and (max-width:1080px){
 	.nav__links{display:none}
 	.nav__burger{display:flex}
 	.nav__join{display:none}
 	.nav__mobile{
-		display:grid;gap:2px;
-		padding:var(--s-2) var(--gutter) var(--s-5);
-		background:rgba(8,7,11,.92);
-		-webkit-backdrop-filter:blur(25px) saturate(1.7);
-		backdrop-filter:blur(25px) saturate(1.7);
+		display:grid;gap:2px;padding:var(--s-2) var(--gutter) var(--s-5);
+		background:oklch(0.155 0.010 285 / .96);
+		-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);
 		box-shadow:inset 0 -1px 0 var(--line-1);
-		clip-path:inset(0 0 100% 0);
-		transition:clip-path 420ms var(--ease-expo);
+		clip-path:inset(0 0 100% 0);transition:clip-path 420ms var(--ease-expo);
 	}
 	.nav.is-open .nav__mobile{clip-path:inset(0 0 0 0)}
-	.nav__mobile a{
-		font-family:var(--font-display);font-size:1.0625rem;font-weight:500;
-		color:var(--fg-2);padding:var(--s-3) 0;
-		box-shadow:inset 0 -1px 0 var(--line-3);
-	}
-	.nav__mobile .nav__mobile-cta{
-		margin-top:var(--s-3);box-shadow:none;color:#0b0910;
-		background:var(--fg-1);border-radius:var(--r-pill);
-		text-align:center;font-weight:600;padding:var(--s-3) var(--s-4);
-	}
+	.nav__mobile a{font-family:var(--font-display);font-size:1.0625rem;font-weight:500;color:var(--fg-2);padding:var(--s-3) 0;box-shadow:inset 0 -1px 0 var(--line-3)}
+	.nav__mobile .nav__mobile-cta{margin-top:var(--s-3);box-shadow:none;color:#fff;background:var(--purple-1);border-radius:var(--r-pill);text-align:center;font-weight:500;padding:var(--s-3) var(--s-4)}
 }
 
-/* --------------------------------------------------------------------------
-   1. PAGE HEAD
-   The first section carries the fixed nav's height, the way .hero does.
-   -------------------------------------------------------------------------- */
-.cvg-top{padding-top:calc(var(--nav-h) + 72px)}
 @media(max-width:900px){ .cvg-top{padding-top:calc(var(--nav-h) + 48px)} }
-
-/* The marquee is this section's graphic, so its caption takes the same 24px a
-   panel's caption takes. */
 .cvg-top .marquee + .cap{margin-top:var(--s-5)}
 
-/* --------------------------------------------------------------------------
-   2. THE EDITORIAL LEAGUE INDEX
-   One lit surface, six rows. Number, league, team line, what it sends, mark.
-
-   Motion: the panel unveils, and that is the only entrance. The rows are text
-   and text never animates, so they are simply there at full opacity. What a
-   row responds to is the light: hovering one carries the panel's own bloom in
-   from the reading direction and rests it under the mark, and the number and
-   the mark turn the agent's purple. Nothing moves but the light. That is the
-   same law the panels obey, applied per row.
-   -------------------------------------------------------------------------- */
-/* Three columns: the number, the entry, the mark. The entry stacks.
-
-   This started as a four column table, league in its own column, and both ways
-   of sizing that column failed. An fr resolves from free space rather than
-   content, so it handed "NBA" a 300px cell and opened a 230px hole between the
-   league and its own sentence. max-content fixed the hole and broke the table:
-   every row is its own grid, so each column resolved to its own row's content
-   and the copy started at a different x on all six rows.
-
-   The hole is inherent. Aligned columns plus a three letter league always leave
-   one. So the league moved into the entry, where it hangs over its own copy and
-   there is no gap to cross. The space that is left is to the right of a
-   sentence's natural measure, which reads as measure rather than as a hole, and
-   it is where the mark sits and where the lamp comes to rest. */
-.cvg-idx__row{
-	position:relative;
+/* --- LEAGUE GRID: glass cards, big mark, no numbers, no glow --- */
+.cvg-grid{
 	display:grid;
-	grid-template-columns:40px minmax(0,1fr) 48px;
-	align-items:center;
-	gap:clamp(16px,2.2vw,34px);
-	padding:clamp(20px,2.4vw,28px) clamp(18px,2.2vw,28px);
-	box-shadow:inset 0 -1px 0 var(--line-3);
-	transition:box-shadow 400ms var(--ease-hover);
+	grid-template-columns:repeat(3,minmax(0,1fr));
+	gap:16px;
 }
-.cvg-idx__row:hover{box-shadow:inset 0 -1px 0 var(--line-2)}
-.cvg-idx__row:last-child,
-.cvg-idx__row:last-child:hover{box-shadow:none}
+@media(max-width:900px){ .cvg-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media(max-width:560px){ .cvg-grid{grid-template-columns:1fr} }
 
-/* The lamp. Same grammar as .panel__bloom: a real circle at a fixed radius,
-   moved by background-position on the expo curve, never scaled.
-   It travels in on hover and dims in place on leave, because a light that
-   retreats the way it came reads as a rewind, not as a room. Removing the
-   animation hands the property back to the base rule, and the base rule
-   transitions opacity alone. */
-.cvg-idx__row{--lamp-rest:calc(100% - 198px)}
-.cvg-idx__row::before{
-	content:"";
-	position:absolute;inset:0;z-index:-1;pointer-events:none;
-	background-image:radial-gradient(circle closest-side,rgba(134,115,255,.34),transparent);
-	background-repeat:no-repeat;
-	background-size:300px 300px;
-	background-position:var(--lamp-rest) 50%;
-	filter:blur(24px);
-	opacity:0;
-	transition:opacity 420ms var(--ease-expo);
+.cvg-card .panel__body{display:flex;flex-direction:column;gap:8px;padding:var(--s-6)}
+.cvg-card__logo{
+	width:60px;height:60px;display:grid;place-items:center;flex:none;
+	background:#fff;border:1px solid rgba(255,255,255,.2);
+	border-radius:16px;padding:9px;margin-bottom:10px;
+	box-shadow:0 8px 20px -8px rgba(0,0,0,.5);
 }
-.cvg-idx__row:hover::before{
-	opacity:1;
-	animation:cvg-lamp 760ms var(--ease-expo) both;
+.cvg-card__logo img{width:100%;height:100%;object-fit:contain}
+.cvg-card__team{
+	font-family:var(--font-display);font-size:.9375rem;font-weight:600;
+	letter-spacing:-.01em;color:var(--purple-2);
 }
-@keyframes cvg-lamp{
-	from{background-position:-300px 50%;opacity:0}
-	to{background-position:var(--lamp-rest) 50%;opacity:1}
-}
+.cvg-card .cap{margin-top:2px}
 
-/* The number and the mark ride the league's own line, not the middle of a
-   three line entry: an index number that sits beside the second line looks
-   like it is numbering the wrong thing. */
-.cvg-idx__no{
-	font-family:var(--font-mono);
-	font-size:.75rem;font-weight:500;line-height:1.2;letter-spacing:.04em;
-	color:var(--fg-4);
-	font-variant-numeric:tabular-nums;
-	align-self:start;
-	padding-top:9px;
-	transition:color 400ms var(--ease-hover);
-}
-.cvg-idx__row:hover .cvg-idx__no{color:var(--purple-3)}
-
-/* The league, the hook, then the promise. One measure, top to bottom, so the
-   eye never crosses a gap. The 620px cap is the sentence's measure; without it
-   a long line would run the full 880px of the column and stop being readable. */
-.cvg-idx__say{display:flex;flex-direction:column;gap:6px;min-width:0;max-width:620px}
-.cvg-idx__name{
-	font-family:var(--font-display);
-	font-size:clamp(1.5rem,1.05rem + 1.4vw,2rem);
-	font-weight:600;line-height:1;letter-spacing:-.026em;
-	color:var(--fg-1);
-	white-space:nowrap;
-	margin-bottom:2px;
-}
-.cvg-idx__team{
-	font-family:var(--font-display);
-	font-size:.9375rem;font-weight:500;line-height:1.35;letter-spacing:-.011em;
-	color:var(--fg-2);
-	text-wrap:pretty;
-}
-/* No ch cap here. The grid column is the measure: a ch cap resolves against
-   this element's own font size, not the column's, and quietly strangles the
-   sentence to a third of its cell, which then reads as a gap. */
-.cvg-idx__desc{
-	font-family:var(--font-display);
-	font-size:.875rem;font-weight:400;line-height:1.5;letter-spacing:-.013em;
-	color:var(--fg-4);
-	text-wrap:pretty;
-}
-.cvg-idx__mk{
-	justify-self:end;
-	align-self:start;
-	margin-top:-8px; /* centres the 48px emblem on the 32px league line */
-	width:48px;height:48px;flex:none;
-	display:grid;place-items:center;
-	color:var(--fg-3);
-	transition:color 400ms var(--ease-expo);
-}
-.cvg-idx__row:hover .cvg-idx__mk{color:var(--purple-1)}
-.cvg-idx__mk svg{width:100%;height:100%}
-
-/* The number holds the left rail and the mark the right, both against the
-   league itself rather than against the middle of a three line entry. */
-@media(max-width:860px){
-	.cvg-idx__row{
-		--lamp-rest:calc(100% - 130px);
-		align-items:start;
-		gap:14px;
-		padding:22px 18px;
-	}
-	.cvg-idx__no{padding-top:7px}
-	.cvg-idx__mk{width:34px;height:34px;margin-top:-2px}
-}
-@media(max-width:520px){
-	.cvg-idx__row{grid-template-columns:28px minmax(0,1fr) 30px;gap:10px}
-	.cvg-idx__mk{width:30px;height:30px}
-}
-
-/* --------------------------------------------------------------------------
-   3. THE PHONE STAGE
-   A rounded panel holding one live looking iPhone. The frame enters with its
-   panel and never on its own: the life is on its screen.
-
-   The panel is a portrait figure, not the full container. An iPhone is 19.3:9,
-   so at the container's full 1034px the panel is 790px tall with 250px of bare
-   glass either side of the phone, which reads as a void rather than as a
-   stage. Aave can run their step panels full width because the fragment inside
-   them is a wide card; ours is a whole phone. The panel and its caption are
-   one centred figure, so the caption hangs off the figure's own left edge.
-   -------------------------------------------------------------------------- */
-.cvg-stage,
-.cvg-stage + .cap{
-	width:100%;
-	max-width:700px;
-	margin-inline:auto;
-}
-.cvg-stage__body{
-	display:grid;
-	place-items:center;
-	padding:clamp(20px,4vw,56px);
-}
-
-/* A message keeps the height it has.
-   .chat__body is a column flex container with overflow:hidden, so every bubble
-   carries the default flex-shrink:1 on the block axis. Once a thread outgrows
-   the screen, which both of these do, the flex algorithm squashes the items
-   instead of overflowing them. Text bubbles resist, because their min-content
-   height is the text, but .b--clip wraps an aspect-ratio box whose min-content
-   height is nothing, so it collapses to its own caption: measured at 15px short
-   of 16:9 on a 340px frame, and gone entirely at 390px, where the clip card is
-   half the reason the section exists. flex:none makes the thread overflow the
-   top instead, which is what a real thread does when a message arrives.
-   Scoped here rather than fixed in styles.css, which this page does not own. */
-.cvg-stage .chat__body > *{flex:0 0 auto}
-
-/* The two stages sit in different sections, so the grid's nth-child bloom
-   rotation cannot reach them and both would light the same corner. Mirror them
-   by hand with the foundation's own rotation values, so the light never
-   repeats down the page: index top left, live top right, final bottom left. */
-#cvg-live .panel__bloom{
-	--bx:calc(100% + 110px); --by:-130px;
-	--fx:-110px; --fy:calc(100% + 130px);
-	background-image:radial-gradient(circle closest-side,rgba(193,143,255,.44),transparent);
-}
-#cvg-final .panel__bloom{
-	--bx:-110px; --by:calc(100% + 130px);
-	--fx:calc(100% + 110px); --fy:-130px;
-	background-image:radial-gradient(circle closest-side,rgba(128,117,255,.46),transparent);
-}
-
-/* --------------------------------------------------------------------------
-   4. CTA
-   The footer already carries 96px of its own top margin, so the section's full
-   120px underneath the button strands it. 64px reads as one closing move.
-   -------------------------------------------------------------------------- */
-.cvg-cta{padding-bottom:var(--s-8)}
-.cvg-cta__act{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s-5)}
+/* --- LIVE STAGE: the phone sits centred, no glow --- */
+.cvg-stage__body{display:flex;justify-content:center;padding-block:var(--s-8)}

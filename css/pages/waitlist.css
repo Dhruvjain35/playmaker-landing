@@ -1,142 +1,44 @@
 /* ==========================================================================
    PLAYMAKR . WAITLIST
-   Page scoped layout only, loaded after styles.css. Every class here is
-   prefixed .wlx and every value comes from a foundation token. No component,
-   no motion grammar and no token is redefined in this file: the counter, the
-   roller, the roles, the capture, the badge, the notification and the marquee
-   are all the foundation's, wired by the data-* hooks in waitlist.html.
+   aave newsletter-band style: centred heading, the notification as the single
+   glass graphic (no box behind it), a glass capture bar, a quiet counter line.
    ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   1. THE JOIN SECTION
-   This form is the CTA of the whole site, so the section starts under the nav
-   like a hero rather than at the 120px section rhythm. That is what keeps the
-   number field and the submit above the fold on a 900px viewport.
-   -------------------------------------------------------------------------- */
-.wlx{padding-block:calc(var(--nav-h) + 64px) var(--s-9)}
-@media(max-width:760px){ .wlx{padding-block:calc(var(--nav-h) + 40px) var(--s-8)} }
-
-/* No [data-panel] on this one panel, deliberately. The spec's hero rule is
-   that an above fold panel renders in its end state, because an entrance on
-   first paint is indistinguishable from jank. This line IS the end state of
-   [data-panel].is-in, and leaving the hook off also frees .panel__bloom for
-   the focus light below, which [data-panel].is-in would otherwise outrank. */
-.wlx__join{border-color:var(--line-2)}
-
-/* The card reads as a card: a header that is the count, a rule, the body that
-   is the form and the message it produces, then a footer. Both rules run the
-   full width, because a divider that stops halfway across a panel reads as a
-   mistake rather than as structure.
-
-   The 64px row gap is load bearing, not taste. The foundation positions
-   .capture__msg absolutely, so it takes no space and lands on whatever sits
-   under the form: measured at 1440, the two line athlete message runs 54px
-   past the capture (12px offset plus two lines at 21px) and it landed on the
-   badge at y=809. The row gap holds that space open on both sides of the body,
-   which is why the success message arrives with no layout shift and the body
-   still sits symmetrically between its two rules. Do not drop it below 64. */
-.wlx__body{
-	display:grid;
-	grid-template-columns:minmax(0,1fr) minmax(0,390px);
-	align-items:center;
-	gap:var(--s-8) clamp(32px,4vw,64px);
-	padding:clamp(24px,3vw,40px);
+.wl-hero{
+	text-align:center;
+	padding-block:calc(var(--nav-h) + 88px) 120px;
 }
-/* Stacked, the message's 54px lands on the notification instead of the badge.
-   Same arithmetic, so the same row gap survives: only the columns collapse. */
-@media(max-width:900px){
-	.wlx__body{grid-template-columns:minmax(0,1fr)}
+.wl-hero .sec__head{margin-inline:auto;max-width:none}
+.wl-hero .t-h1{max-width:16ch;margin-inline:auto}
+.wl-hero .t-sub{margin-inline:auto;max-width:50ch}
+/* the notification reads as a real notification — left aligned */
+.wl-graphic .notif,.wl-graphic .notif__t,.wl-graphic .notif__p{text-align:left}
+
+/* the notification IS the graphic — one glass object, floating on its own glow */
+.wl-graphic{
+	position:relative;
+	display:flex;justify-content:center;
+	margin-top:var(--s-8);
 }
-
-.wlx__top{
-	grid-column:1/-1;
-	padding-bottom:clamp(24px,3vw,40px);
-	box-shadow:inset 0 -1px 0 var(--line-3);
+.wl-graphic::before{
+	content:"";position:absolute;z-index:-1;
+	inset:-40% 4% -60%;
+	background:radial-gradient(50% 58% at 50% 50%,oklch(0.52 0.15 285 / .30),transparent 68%);
+	filter:blur(36px);
 }
-.wlx__badge{
-	grid-column:1/-1;
-	padding-top:clamp(24px,3vw,40px);
-	box-shadow:inset 0 1px 0 var(--line-3);
+.wl-graphic .notif{max-width:420px}
+.wl-graphic .notif__body{padding:14px 16px}
+
+.wl-form{
+	display:flex;flex-direction:column;align-items:center;gap:var(--s-5);
+	margin-top:var(--s-8);
 }
-
-/* --------------------------------------------------------------------------
-   2. THE FORM
-   -------------------------------------------------------------------------- */
-.wlx__form{min-width:0}
-/* Matches .counter__cap exactly: this is the same label rank. */
-.wlx__lab{
-	font-family:var(--font-mono);font-size:.75rem;font-weight:500;
-	letter-spacing:.1em;text-transform:uppercase;color:var(--fg-4);
+.wl-form .capture--phone{width:100%;max-width:440px}
+.wl-count{
+	font-family:var(--font-display);font-size:.9375rem;color:var(--fg-4);
+	display:inline-flex;align-items:baseline;gap:.45em;letter-spacing:-.011em;
 }
-.wlx__form .roles{margin-top:var(--s-3)}
-
-/* The pill fills the body column, which is already about the width the
-   foundation caps it at. Stacked, the column becomes the whole card and a
-   776px phone field is not a phone field, so the foundation's cap comes back. */
-.wlx__form .capture--phone{
-	margin-top:var(--s-5);max-width:none;
-	transition:
-		border-color 200ms var(--ease-hover),
-		background-color 200ms var(--ease-hover),
-		box-shadow 200ms var(--ease-hover);
+.wl-count .ticker-num{
+	font-size:1.0625rem;line-height:1;color:var(--fg-2);
+	display:inline-flex;letter-spacing:-.01em;
 }
-@media(max-width:900px){ .wlx__form .capture--phone{max-width:460px} }
-
-/* Focus is light, not a ring. The pill warms, and the panel's own bloom swells
-   behind it on the foundation's 900ms expo: the card notices you. */
-.wlx__form .capture--phone:focus-within{
-	border-color:rgba(152,150,255,.38);
-	background-color:rgba(22,20,32,.72);
-	box-shadow:0 0 0 1px rgba(152,150,255,.16),0 14px 40px -18px rgba(134,115,255,.55);
-}
-.wlx__join:has(.capture--phone:focus-within) .panel__bloom{opacity:.78}
-
-/* Joined. The card's own colour bleeds into its light, exactly as .alert.is-out
-   does: the pill's hairline and the panel's rim both settle to the live green,
-   the rim over the .panel's own 900ms border transition. The counter rolls
-   itself up by one at the same moment, and that one is you. */
-.wlx__form .capture.is-done.capture--phone{
-	border-color:rgba(40,211,88,.34);
-	background-color:rgba(10,20,13,.5);
-	box-shadow:none;
-}
-.wlx__join:has(.capture.is-done){border-color:rgba(40,211,88,.3)}
-
-/* --------------------------------------------------------------------------
-   3. THE VERIFIED BADGE
-   Fixed copy: reserved for athletes and creators. So it is inert for a fan and
-   it lights the moment the role picker says otherwise. app.js writes .is-vip on
-   the section. Filter, not background, because a gradient does not interpolate
-   from a flat colour and the change would snap halfway through.
-   -------------------------------------------------------------------------- */
-.wlx__badge{transition:color 400ms var(--ease-expo)}
-.wlx__badge .vbadge{
-	filter:grayscale(1) brightness(.62);
-	box-shadow:0 0 0 0 rgba(134,115,255,0);
-	transition:filter 400ms var(--ease-expo),box-shadow 400ms var(--ease-expo);
-}
-.wlx.is-vip .wlx__badge{color:var(--fg-2)}
-.wlx.is-vip .wlx__badge .vbadge{filter:none;box-shadow:0 0 0 4px rgba(134,115,255,.16)}
-
-/* --------------------------------------------------------------------------
-   4. THE MESSAGE
-   The one message you get, as the iOS object that delivers it. It arrives on
-   the foundation's notification spring, from above, with its shadow lagging by
-   40ms. A .device was built here first and cut on the screenshot: at the frame
-   width this column allows, the chat's px type blows out to about 130% of real
-   iMessage, two thirds of the screen is empty black, and a 560px tall phone
-   forces the form to float in 140px of dead air. The notification is the same
-   promise at the size this card can actually hold.
-   -------------------------------------------------------------------------- */
-.wlx__stage{display:flex;align-items:center;justify-content:center}
-
-/* Joined: the message that was a preview is now a real one, so its hairline
-   settles to the live green on .notif__body's own 400ms expo. */
-.wlx__join:has(.capture.is-done) .notif__body{box-shadow:inset 0 0 0 1px rgba(40,211,88,.5)}
-
-/* --------------------------------------------------------------------------
-   5. LEAGUES
-   The marquee runs full bleed, outside the wrap, so its masked edges leave the
-   window rather than a 1082px column.
-   -------------------------------------------------------------------------- */
-.wlx__leagues .marquee{margin-top:var(--s-7)}
+.wl-count .counter__cap{font-size:.9375rem;text-transform:none;letter-spacing:-.011em;color:var(--fg-4)}

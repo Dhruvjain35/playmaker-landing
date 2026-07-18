@@ -1,147 +1,19 @@
 /* ==========================================================================
    PLAYMAKR . PRODUCT
-   Page scoped styles. Linked after styles.css, only from product.html.
-
-   styles.css owns every component on this page: the device, the island, the
-   chat, the alert, the notification, the panel, the steps, the footer. The
-   only thing built here is the pinned story, because the foundation has no
-   hook for it. Every selector below is prefixed .phead / .pstory / .psetup /
-   .pcta so nothing can leak onto another page.
+   Superhuman/aave-style feature rows. Components live in the foundation;
+   this file only positions the page.
    ========================================================================== */
+.hero--product{padding-block:calc(var(--nav-h) + 88px) var(--s-8)}
+.hero--product .sec__head{max-width:none}
+.hero--product .t-hero{max-width:16ch;margin-inline:auto}
+.hero--product .t-sub{max-width:54ch}
 
-/* --------------------------------------------------------------------------
-   1. PAGE HEADER
-   No eyebrow. A page header is not a section, it is the page's own name, and
-   the three eyebrows that matter are down in the story.
-   -------------------------------------------------------------------------- */
-.phead{padding-block:calc(var(--nav-h) + 92px) var(--s-8)}
-.phead .t-h1{max-width:17ch}
-@media(max-width:760px){
-	.phead{padding-block:calc(var(--nav-h) + 56px) var(--s-6)}
+/* the ask-anything query card reads like something you typed */
+.uicard--q{
+	align-self:flex-start;width:82%;
+	background:linear-gradient(180deg,oklch(0.70 0.155 285 / .22),oklch(0.70 0.155 285 / .12));
+	border-color:oklch(0.78 0.13 285 / .34);
 }
+.uicard--q .uicard__body{color:#fff}
 
-/* --------------------------------------------------------------------------
-   2. THE PINNED STORY
-
-   Three captions, three phones, one column of scroll.
-
-   The mobile layout is the real one and it is the default: caption, phone,
-   caption, phone, caption, phone. No pin, no overlap, nothing that can break.
-   A phone mockup and a readable caption cannot share a 390px viewport, so on
-   a phone they alternate.
-
-   Above 900px the three stages collapse into a single sticky grid cell. They
-   sit on top of each other, they share one pin, and only the stage belonging
-   to the caption that owns the viewport centre is rendered. The frames are
-   identical, so the read is one phone whose screen cuts. Per the spec's kill
-   list the phone never rotates and never scrubs: the scenes hard cut.
-
-   The desktop pin is gated on .js. Without it the page stays in the stacked
-   layout, which is complete, not a fallback.
-   -------------------------------------------------------------------------- */
-.pstory{padding-block:var(--s-6) var(--s-9)}
-.pstory__track{display:flex;flex-direction:column;gap:var(--s-6)}
-.pstory__stage{display:grid;place-items:center;margin-bottom:var(--s-9)}
-.pstory__stage:last-child{margin-bottom:0}
-.pstory__frame{display:flex;flex-direction:column;align-items:center;gap:var(--s-5)}
-.pstory .device{width:clamp(280px,76vw,340px)}
-
-/* Scene 2 has four threads, not one, so it carries no input bar. The
-   foundation reserves 58px for the bar it is not getting. */
-.pstory .device__screen[data-chrome=no-input] .chat__body{padding-bottom:14px}
-
-/* A breaking card is the alert itself arriving as a bubble. The bubble is the
-   spring and the tail, the alert is the material. Left as two boxes this is
-   two identical #161618 fills with a hairline stranded between them. Flatten
-   the wrapper, keep the alert: [data-status] still finds .alert, so the
-   card's border still warms to the chip. */
-.pstory .b--card:has(> .alert){background:transparent;padding:0}
-
-/* The iOS page control. It says which of three you are on and how many are
-   left, and it never animates: a stage is only ever rendered at its own
-   index, so the active dot is already wide when the scene cuts in. */
-.pstory__dots{display:flex;align-items:center;justify-content:center;gap:6px}
-.pstory__dots span{
-	width:6px;height:6px;border-radius:var(--r-pill);
-	background:rgba(255,255,255,.16);
-}
-.pstory__dots[data-step="0"] span:nth-child(1),
-.pstory__dots[data-step="1"] span:nth-child(2),
-.pstory__dots[data-step="2"] span:nth-child(3){width:20px;background:var(--fg-3)}
-
-/* Scene 2's own motion, and it is the only motion this file adds.
-   Four apps, one agent, arriving in a burst. Each row grows from its own tail
-   corner on the foundation's spring at the foundation's 380ms, which is the
-   same grammar as an incoming bubble, because that is what it is. Not a fade
-   up: the icon and its bubble are one object and they arrive together. */
-.js .pstory__stage .approw{opacity:0;transform-origin:left bottom}
-.js .pstory__stage.is-lit .approw{animation:pstory-ping 380ms var(--ease-spring) both}
-.js .pstory__stage.is-lit .approw:nth-child(1){animation-delay:240ms}
-.js .pstory__stage.is-lit .approw:nth-child(2){animation-delay:560ms}
-.js .pstory__stage.is-lit .approw:nth-child(3){animation-delay:880ms}
-.js .pstory__stage.is-lit .approw:nth-child(4){animation-delay:1200ms}
-@keyframes pstory-ping{
-	from{opacity:0;transform:scale(.86) translateY(14px)}
-	to{opacity:1;transform:scale(1) translateY(0)}
-}
-/* End state. A delay is not a duration, so .no-motion would still stagger. */
-.no-motion .pstory__stage .approw{opacity:1;animation:none}
-
-@media(min-width:901px){
-	.js .pstory{padding-block:0 var(--s-9)}
-	.js .pstory__track{
-		display:grid;
-		grid-template-columns:minmax(0,1fr) minmax(0,auto);
-		grid-template-rows:repeat(3,100svh);
-		column-gap:clamp(32px,5vw,80px);
-		align-items:center;
-	}
-	/* The caption fills its whole row and centres its own content, so the
-	   three caps tile the track edge to edge. As auto height blocks they were
-	   190px islands with 710px of nothing between them, and the observer band
-	   spent most of the scroll inside no caption at all, which left the pin on
-	   whichever scene it happened to cut to last. */
-	.js .pstory__cap{
-		grid-column:1;height:100%;
-		display:flex;flex-direction:column;justify-content:center;
-	}
-	.js .pstory__track > .pstory__cap:nth-child(1){grid-row:1}
-	.js .pstory__track > .pstory__cap:nth-child(3){grid-row:2}
-	.js .pstory__track > .pstory__cap:nth-child(5){grid-row:3}
-	/* One cell, one pin, three stages stacked in it. The pin spans all three
-	   rows, so the frame is still and the captions run past it. */
-	.js .pstory__stage{
-		grid-column:2;grid-row:1/4;
-		position:sticky;top:0;align-self:start;
-		height:100svh;margin-bottom:0;
-		padding-block:calc(var(--nav-h) + 12px) var(--s-5);
-		display:none;
-	}
-	.js .pstory[data-on="0"] .pstory__stage[data-scene="0"],
-	.js .pstory[data-on="1"] .pstory__stage[data-scene="1"],
-	.js .pstory[data-on="2"] .pstory__stage[data-scene="2"]{display:grid}
-	/* The frame is sized off the viewport it is pinned in, so the phone never
-	   outgrows a short laptop. 9/19.3 is the frame's own aspect ratio; the
-	   124px is the nav clearance, the page control and its gap. */
-	.js .pstory .device{width:clamp(268px,calc((100svh - 124px) * .4663),340px)}
-}
-
-/* --------------------------------------------------------------------------
-   3. SETUP
-   .steps is the graphic, so it takes the caption spacing a panel would.
-   -------------------------------------------------------------------------- */
-.psetup .steps + .cap{margin-top:var(--s-5)}
-
-/* --------------------------------------------------------------------------
-   4. CTA
-   Centred, because it is the last thing on the page and there is nothing to
-   read past it. The scrim driver pulls the purple up to meet it.
-   -------------------------------------------------------------------------- */
-.pcta .sec__head{max-width:52ch;margin-inline:auto;text-align:center}
-.pcta .sec__head .t-sub{margin-inline:auto}
-.pcta .panel__body{display:grid;place-items:center;padding-block:var(--s-9)}
-.pcta > .wrap > .cap{margin-inline:auto;text-align:center}
-.pcta__act{display:flex;justify-content:center;margin-top:var(--s-7)}
-@media(max-width:760px){
-	.pcta .panel__body{padding-block:var(--s-8)}
-}
+.home-cta{padding-block:var(--s-9)}
