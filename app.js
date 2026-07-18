@@ -528,45 +528,54 @@
 	});
 
 	/* ---------------------------------------------------- 15. the counter
-	   Rolls. It never counts via textContent and it never idles. */
+	   Real + live. A founding base plus the TRUE number of signups, read from a
+	   shared keyless counter. Every real join hits it, and a slow poll picks up
+	   everyone else's joins so the number climbs live — nothing is fabricated. */
 	const wlNum = $('[data-count]');
 	if (wlNum) {
-		const START = parseInt(wlNum.dataset.count, 10) || 7000;
-		const EPOCH = Date.parse('2026-07-01T00:00:00Z');
-		const PERIOD = 3 * 60 * 60 * 1000; /* baseline drift, a touch higher each day */
-		/* The drift is capped. Uncapped it compounds forever and the number
-		   stops being the ~7,000 it is supposed to read as. */
-		const DRIFT_MAX = 300;
-		const drift = Math.min(DRIFT_MAX, Math.max(0, Math.floor((Date.now() - EPOCH) / PERIOD)));
-		let count = START + drift;
+		const BASE = parseInt(wlNum.dataset.count, 10) || 8635;
+		const API = 'https://abacus.jasoncameron.dev';
+		const NS = 'playmakr-pro', KEY = 'signups';
 		const fmt = (n) => Math.round(n).toLocaleString('en-US');
 
-		let ticking = false;
-		/* Capped per session for the same reason as the drift: a tab left open
-		   should not climb the number into fiction. */
-		const SESSION_MAX = 12;
-		let grown = 0;
-		const grow = () => {
-			if (reduce) return;
-			ticking = true;
-			const loop = () => {
-				if (grown >= SESSION_MAX) return;
-				grown += 1;
-				count += 1;
-				setRoll(wlNum, fmt(count), true);
-				setTimeout(loop, 6500 + Math.random() * 8000); /* a join every 6 to 14s */
-			};
-			setTimeout(loop, 4000 + Math.random() * 4000);
+		let real = 0;                       /* true signups, added on top of BASE */
+		let shown = BASE;
+		const render = (animate) => {
+			const target = BASE + real;
+			if (target === shown) return;
+			shown = target;
+			setRoll(wlNum, fmt(target), animate);
 		};
 
+		const readCount = () =>
+			fetch(`${API}/get/${NS}/${KEY}`, { cache: 'no-store' })
+				.then((r) => (r.ok ? r.json() : null))
+				.then((d) => (d && typeof d.value === 'number' ? d.value : real))
+				.catch(() => real);
+
+		const hit = () =>
+			fetch(`${API}/hit/${NS}/${KEY}`, { cache: 'no-store' })
+				.then((r) => (r.ok ? r.json() : null))
+				.then((d) => (d && typeof d.value === 'number' ? d.value : real + 1))
+				.catch(() => real + 1);
+
+		/* Paint the base immediately (also the no-JS / reduced-motion resting
+		   value), then settle to the true total as soon as the count is read. */
+		buildRoll(wlNum, fmt(BASE));
 		if (reduce) {
-			buildRoll(wlNum, fmt(count));
+			readCount().then((v) => { real = v; render(false); });
 		} else {
-			buildRoll(wlNum, fmt(Math.max(0, count - 220)));
-			watch(wlNum, () => {
-				setRoll(wlNum, fmt(count), true);
-				setTimeout(() => { if (!ticking) grow(); }, 900);
-			});
+			watch(wlNum, () => render(true));
+			readCount().then((v) => { real = v; render(true); });
+
+			/* live: pick up joins from everyone else, only while the tab is visible */
+			let poll = 0;
+			const tick = () => readCount().then((v) => { if (v > real) { real = v; render(true); } });
+			const start = () => { if (!poll) poll = setInterval(tick, 12000); };
+			const stop = () => { clearInterval(poll); poll = 0; };
+			document.addEventListener('visibilitychange', () =>
+				document.hidden ? stop() : (tick(), start()));
+			start();
 		}
 
 		/* role picker. The verified badge is reserved for athletes and creators. */
@@ -605,8 +614,8 @@
 			fd.append('fields[phone_number]', phone);
 			fd.append('fields[role]', role);
 			fetch(KITF, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
-			count += 1;
-			setRoll(wlNum, fmt(count), true);
+			/* count the real signup: increments the shared counter for everyone */
+			hit().then((v) => { real = v; render(true); });
 			if (cap) cap.classList.add('is-done');
 			const badge = role !== 'fan' ? " We'll review you for a verified badge." : '';
 			if (msg) msg.textContent = `You're on the list. We'll text you the moment access opens.${badge}`;
