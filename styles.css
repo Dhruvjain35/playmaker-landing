@@ -550,7 +550,8 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	/* the headline's desktop min (2.75rem) overflows a phone — scale it to width */
 	.hero--center .t-hero{font-size:clamp(1.95rem,8.4vw,2.9rem)}
 	.hero--center .t-sub{font-size:1rem;max-width:34ch}
-	.hero__stage{height:clamp(390px,112vw,520px)}
+	.phones .rphone--center{width:clamp(248px,72vw,300px)}
+	.hero__stage{height:clamp(440px,128vw,560px)}
 	.hero__cta .btn{flex:1 1 auto;justify-content:center}
 }
 
@@ -686,8 +687,9 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .phones .rphone--right{order:3;margin-left:-4%}
 @media(max-width:900px){
 	.phones .rphone--side{display:none}
-	.phones .rphone--center{margin:0;width:clamp(270px,76vw,340px)}
-	.hero__stage{height:clamp(380px,64vw,560px)}
+	.phones .rphone--center{margin:0;width:clamp(260px,66vw,330px)}
+	/* tall enough that almost the whole phone shows (it was clipping to ~half) */
+	.hero__stage{height:clamp(440px,74vw,620px)}
 }
 
 /* --------------------------------------------------------------------------
@@ -872,12 +874,12 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 
 .js [data-thread] .b{opacity:0}
 .js [data-thread] .b.is-settled{opacity:1}
-.js [data-thread] .b.msg-in{opacity:1;animation:bubble-in 380ms var(--ease-spring) both}
-.js [data-thread] .b--out.msg-in{animation:bubble-in 300ms var(--ease-spring) both;transform-origin:right bottom}
+.js [data-thread] .b.msg-in{opacity:1;animation:bubble-in 460ms var(--ease-expo) both}
+.js [data-thread] .b--out.msg-in{animation:bubble-in 420ms var(--ease-expo) both;transform-origin:right bottom}
 .js [data-thread] .b--in.msg-in{transform-origin:left bottom}
 @keyframes bubble-in{
-	from{opacity:0;transform:scale(.86) translateY(14px)}
-	to{opacity:1;transform:scale(1) translateY(0)}
+	from{opacity:0;transform:translateY(12px)}
+	to{opacity:1;transform:translateY(0)}
 }
 [data-thread] .b.is-flip,
 [data-thread] .typing.is-flip{transition:transform 380ms var(--ease-spring)}
@@ -1031,17 +1033,20 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 /* no coloured state outlines — the card stays a clean neutral glass */
 
 .js .notif[data-notif]{opacity:0}
-.js .notif[data-notif].is-in{opacity:1;animation:notif-in 520ms var(--ease-spring) both}
+/* Smooth fade + gentle rise (no spring overshoot, no drop-from-above pop). */
+.js .notif[data-notif].is-in{opacity:1;animation:notif-in 660ms var(--ease-expo) both}
+/* a soft cascade down a stack of notifications */
+.js .home-notifs .notif[data-notif]:nth-child(2).is-in{animation-delay:.1s}
+.js .home-notifs .notif[data-notif]:nth-child(3).is-in{animation-delay:.2s}
 .js .notif[data-notif] .notif__shadow{opacity:0}
-.js .notif[data-notif].is-in .notif__shadow{animation:notif-shadow 520ms var(--ease-spring) 40ms both}
+.js .notif[data-notif].is-in .notif__shadow{animation:notif-shadow 660ms var(--ease-expo) 60ms both}
 @keyframes notif-in{
-	0%{opacity:0;transform:translate3d(0,-120%,0) scale(.94)}
-	40%{opacity:1}
-	100%{opacity:1;transform:translate3d(0,0,0) scale(1)}
+	from{opacity:0;transform:translate3d(0,20px,0)}
+	to{opacity:1;transform:translate3d(0,0,0)}
 }
 @keyframes notif-shadow{
-	0%{opacity:0;transform:translate3d(0,-120%,0) scale(.94)}
-	100%{opacity:1;transform:translate3d(0,0,0) scale(1)}
+	from{opacity:0}
+	to{opacity:1}
 }
 
 /* --------------------------------------------------------------------------
@@ -1508,9 +1513,9 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 
 /* cards spring up, staggered */
 .js .feature__art .uicard,.js .feature__art .imsg{opacity:0}
-.js .feature__art.is-in .uicard,.js .feature__art.is-in .imsg{animation:art-rise 620ms var(--ease-spring) both}
-.js .feature__art.is-in .uicard--pop{animation-delay:.14s}
-@keyframes art-rise{from{opacity:0;transform:translateY(28px) scale(.94)}to{opacity:1;transform:none}}
+.js .feature__art.is-in .uicard,.js .feature__art.is-in .imsg{animation:art-rise 720ms var(--ease-expo) both}
+.js .feature__art.is-in .uicard--pop{animation-delay:.16s}
+@keyframes art-rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .no-motion .feature__art .uicard{opacity:1;animation:none}
 
 /* win bar fills from the left */
@@ -1534,10 +1539,13 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .feature__art.is-in .recap__list li:nth-child(3){animation-delay:.32s}
 @keyframes bullet-in{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
 
-/* integration logos pop in, staggered, then keep floating */
+/* integration logos fade + rise in a soft stagger, then keep floating */
 .feature__art .integ__logo{opacity:0}
-.feature__art.is-in .integ__logo{opacity:1;animation:logo-pop 560ms var(--ease-spring) both,float-y 6s var(--ease-hover) infinite alternate 560ms}
-@keyframes logo-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.feature__art.is-in .integ__logo{opacity:1;animation:logo-pop 640ms var(--ease-expo) both,float-y 6s var(--ease-hover) infinite alternate 640ms}
+.feature__art.is-in .integ__logo:nth-child(2){animation-delay:.08s,.72s}
+.feature__art.is-in .integ__logo:nth-child(3){animation-delay:.16s,.8s}
+.feature__art.is-in .integ__logo:nth-child(4){animation-delay:.24s,.88s}
+@keyframes logo-pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .no-motion .feature__art .integ__logo{opacity:1;animation:none}
 
 /* --------------------------------------------------------------------------
