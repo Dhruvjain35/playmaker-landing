@@ -700,3 +700,68 @@
 		kick();
 	}, { passive: true });
 })();
+
+/* ==========================================================================
+   HERO PHONE CAROUSEL . mobile only
+   On phones the three mockups become a swipeable, scroll-snapped carousel
+   (the CSS does the snapping). This adds the dots, keeps the active one lit,
+   lets a tap jump to a screen, and opens on the centre ("live") screen.
+   Purely additive: if anything here fails, the CSS carousel still swipes.
+   ========================================================================== */
+(() => {
+	'use strict';
+	const stage = document.querySelector('.hero--center .hero__stage');
+	const phones = stage && stage.querySelector('.phones');
+	if (!phones) return;
+	const mq = window.matchMedia('(max-width: 900px)');
+
+	const order = () => [...phones.querySelectorAll('.rphone')]
+		.sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left);
+	const mid = () => phones.getBoundingClientRect().left + phones.clientWidth / 2;
+	const centre = (el) => el.getBoundingClientRect().left + el.offsetWidth / 2;
+
+	let dots = null, raf = 0, on = false;
+
+	const active = () => {
+		const arr = order(); const m = mid();
+		let best = 0, bd = Infinity;
+		arr.forEach((el, i) => { const d = Math.abs(centre(el) - m); if (d < bd) { bd = d; best = i; } });
+		return best;
+	};
+	const sync = () => {
+		if (!dots) return;
+		const a = active();
+		[...dots.children].forEach((d, i) => d.classList.toggle('is-on', i === a));
+	};
+	const onScroll = () => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; sync(); }); };
+	const jump = (el) => phones.scrollBy({ left: centre(el) - mid(), behavior: 'smooth' });
+
+	const enable = () => {
+		if (on) return; on = true;
+		const arr = order();
+		dots = document.createElement('div');
+		dots.className = 'phones-dots';
+		dots.setAttribute('aria-hidden', 'true');
+		arr.forEach((p) => {
+			const b = document.createElement('button');
+			b.type = 'button'; b.className = 'phones-dot'; b.tabIndex = -1;
+			b.addEventListener('click', () => jump(p));
+			dots.appendChild(b);
+		});
+		stage.after(dots);
+		phones.addEventListener('scroll', onScroll, { passive: true });
+		/* open on the centre "live" screen without a scroll animation */
+		const live = arr.find((p) => p.classList.contains('rphone--center'));
+		if (live) phones.scrollLeft += centre(live) - mid();
+		sync();
+	};
+	const disable = () => {
+		if (!on) return; on = false;
+		phones.removeEventListener('scroll', onScroll);
+		if (dots) { dots.remove(); dots = null; }
+	};
+	const apply = () => (mq.matches ? enable() : disable());
+
+	requestAnimationFrame(apply);
+	mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply);
+})();

@@ -550,8 +550,6 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	/* the headline's desktop min (2.75rem) overflows a phone — scale it to width */
 	.hero--center .t-hero{font-size:clamp(1.95rem,8.4vw,2.9rem)}
 	.hero--center .t-sub{font-size:1rem;max-width:34ch}
-	.phones .rphone--center{width:clamp(248px,72vw,300px)}
-	.hero__stage{height:clamp(440px,128vw,560px)}
 	.hero__cta .btn{flex:1 1 auto;justify-content:center}
 }
 
@@ -685,11 +683,48 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .phones .rphone--side{z-index:1;transform:scale(.9) translateY(11%);transform-origin:top center}
 .phones .rphone--left{order:1;margin-right:-4%}
 .phones .rphone--right{order:3;margin-left:-4%}
+/* ---- MOBILE: the three phones become a clean, swipeable carousel (aave-style).
+   All three show fully, you swipe between them with a peek of the next, and the
+   heavy dome dissolve is dropped so each screen reads crisp. --- */
 @media(max-width:900px){
-	.phones .rphone--side{display:none}
-	.phones .rphone--center{margin:0;width:clamp(260px,66vw,330px)}
-	/* tall enough that almost the whole phone shows (it was clipping to ~half) */
-	.hero__stage{height:clamp(440px,74vw,620px)}
+	.hero--center .hero__stage{height:auto;overflow:visible}
+	.phones{
+		position:static;height:auto;
+		justify-content:flex-start;align-items:flex-start;
+		gap:16px;
+		overflow-x:auto;overflow-y:visible;
+		scroll-snap-type:x mandatory;
+		-webkit-overflow-scrolling:touch;
+		overscroll-behavior-x:contain;
+		/* pad the ends so the first/last screen still snaps to centre */
+		padding-inline:calc((100% - min(76vw,300px)) / 2);
+		padding-block:4px 8px;
+		-webkit-mask-image:none;mask-image:none;   /* no heavy fade */
+		scrollbar-width:none;
+	}
+	.phones::-webkit-scrollbar{display:none}
+	.phones .rphone--side{display:block}
+	.phones .rphone{
+		flex:none;
+		width:min(76vw,300px);
+		scroll-snap-align:center;
+		transform:none;margin:0;
+		filter:drop-shadow(0 16px 34px rgba(0,0,0,.42));
+	}
+	/* the lavender pool becomes a soft ambient wash, not a strong dissolve */
+	.hero--center::after{left:-8%;right:-8%;bottom:8%;height:40%;opacity:.5}
+}
+
+/* swipe dots (built by app.js on mobile) */
+.phones-dots{display:none}
+@media(max-width:900px){
+	.phones-dots{display:flex;justify-content:center;gap:8px;margin-top:var(--s-4)}
+	.phones-dot{
+		width:7px;height:7px;border-radius:99px;border:0;padding:0;cursor:pointer;
+		background:rgba(255,255,255,.24);
+		transition:background .3s var(--ease-hover),width .3s var(--ease-expo);
+	}
+	.phones-dot.is-on{background:var(--purple-2);width:22px}
 }
 
 /* --------------------------------------------------------------------------
