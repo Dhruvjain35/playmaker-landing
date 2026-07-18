@@ -145,6 +145,10 @@
 *,*::before,*::after{box-sizing:border-box}
 *{margin:0}
 html{
+	/* Render the whole site as if the browser were zoomed to 120% — the scale
+	   the design was dialled in at. Reflows like real browser zoom (not a
+	   transform), so layout stays crisp. */
+	zoom:1.2;
 	-webkit-text-size-adjust:100%;
 	scroll-behavior:smooth;
 	overflow-x:clip;
