@@ -16,4 +16,72 @@
 }
 .uicard--q .uicard__body{color:#fff}
 
+/* --------------------------------------------------------------------------
+   THE GROUP CHAT CARD
+   The home page can afford a whole phone for this; a feature row cannot, so
+   the thread is lifted out of the device and set as one frosted card in the
+   art frame. It borrows .gc__face and .gc__stack from the foundation so the
+   people in this thread are the same people as the ones on the home page.
+
+   Everything here is px, not cqw: there is no query container in an .art, and
+   container units outside one resolve against the viewport.
+   -------------------------------------------------------------------------- */
+/* A four-message thread with a header is simply taller than a score card, and
+   at the row's default 4:3.15 it filled 94% of the frame — the card stopped
+   reading as an object sitting in a space. The frame gives way, not the card. */
+.art--gc{aspect-ratio:4/3.6}
+.gcard{
+	position:relative;z-index:2;width:min(84%,392px);
+	border-radius:20px;overflow:hidden;
+	font-family:var(--font-ios);
+	background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.06));
+	-webkit-backdrop-filter:blur(26px) saturate(1.5);backdrop-filter:blur(26px) saturate(1.5);
+	border:1px solid rgba(255,255,255,.18);
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 26px 48px -24px rgba(0,0,0,.8);
+}
+.gcard__nav{
+	display:flex;align-items:center;gap:10px;
+	padding:11px 14px;
+	background:rgba(255,255,255,.06);
+	box-shadow:inset 0 -1px 0 rgba(255,255,255,.12);
+}
+.gcard__name{
+	display:grid;line-height:1.25;
+	font-size:.875rem;font-weight:600;letter-spacing:-.012em;color:#fff;
+}
+.gcard__name small{font-size:.6875rem;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:0}
+.gcard__body{display:flex;flex-direction:column;gap:9px;padding:14px}
+.gcard__msg{display:flex;align-items:flex-end;gap:8px;max-width:94%}
+.gcard__msg--out{align-self:flex-end;max-width:80%}
+.gcard__msg .gc__face{width:24px;height:24px;font-size:.6rem;margin-bottom:1px}
+.gcard__col{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+.gcard__who{font-size:.6875rem;font-weight:500;color:rgba(255,255,255,.5);padding-left:10px;line-height:1}
+.gcard__who--pm{display:inline-flex;align-items:center;gap:6px;color:#fff;font-weight:600}
+.gcard__who--pm em{
+	font-style:normal;font-size:.5625rem;font-weight:600;
+	letter-spacing:.09em;text-transform:uppercase;color:#fff;
+	background:var(--grad-brand);border-radius:99px;padding:2px 6px;line-height:1;
+}
+.gcard__bub{
+	display:block;
+	font-size:.875rem;line-height:1.38;letter-spacing:-.008em;color:#fff;
+	background:rgba(255,255,255,.10);
+	border-radius:15px;border-bottom-left-radius:4px;
+	padding:8px 12px;
+}
+.gcard__bub--out{background:linear-gradient(180deg,#2f7bff,#1f6bff);border-radius:15px;border-bottom-right-radius:4px}
+/* the agent keeps the incoming shape — it is a participant, not the far side */
+.gcard__bub--pm{
+	border:1px solid transparent;
+	background:
+		linear-gradient(168deg,oklch(0.34 0.10 306 / .78),oklch(0.26 0.07 292 / .82)) padding-box,
+		var(--grad-rim) border-box;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 24px -14px oklch(0.55 0.20 306 / .6);
+}
+
+@media(max-width:520px){
+	.gcard{width:100%}
+	.gcard__bub{font-size:.8125rem}
+}
+
 .home-cta{padding-block:var(--s-9)}

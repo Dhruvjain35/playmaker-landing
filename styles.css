@@ -86,14 +86,38 @@
 	--on-dark-2:rgba(255,255,255,.66);
 	--on-dark-3:rgba(255,255,255,.44);
 
-	/* PERIWINKLE. Primary fill + a brighter ink for text/links on dark. */
-	--purple-1:oklch(0.70 0.155 285);   /* primary fills ~ #978eff */
-	--purple-2:oklch(0.78 0.135 285);   /* links, eyebrows, accent ink ~ #b0a6ff */
-	--purple-3:oklch(0.70 0.155 285);
-	--purple-soft:oklch(0.70 0.155 285 / .12);
-	--purple-soft-2:oklch(0.70 0.155 285 / .20);
-	--rich-purple:oklch(0.64 0.175 285);
-	--warm-purple:oklch(0.82 0.11 290);
+	/* ----------------------------------------------------------------------
+	   BRAND. Sampled straight off the logo mark, which is not one colour but a
+	   run: magenta at the tail (#8C1CA7), violet through the bowl (#7764CB),
+	   blue at the joint (#2D4AA5), cyan at the top of the stem (#48BDCA).
+	   In OKLCH that is a clean hue sweep 320 -> 205 at near-constant chroma,
+	   so the ramp below is the mark, lifted two stops so it survives on black.
+	   Every gradient on the site is a slice of this one run; nothing invents a
+	   hue that isn't in the logo.
+	   ---------------------------------------------------------------------- */
+	--brand-1:oklch(0.62 0.245 320);   /* magenta   — the tail */
+	--brand-2:oklch(0.58 0.215 296);   /* violet    — the bowl */
+	--brand-3:oklch(0.63 0.170 262);   /* blue      — the joint */
+	--brand-4:oklch(0.80 0.125 208);   /* cyan      — the stem */
+	--brand-4-hi:oklch(0.88 0.105 205);/* cyan, lifted for ink on dark */
+
+	/* The mark, as a fill. 112deg matches the mark's own diagonal. */
+	--grad-brand:linear-gradient(112deg,var(--brand-1) 0%,var(--brand-2) 34%,var(--brand-3) 62%,var(--brand-4) 100%);
+	--grad-brand-rev:linear-gradient(112deg,var(--brand-4) 0%,var(--brand-3) 38%,var(--brand-2) 66%,var(--brand-1) 100%);
+	/* Rim light: the same run at rim strength, for gradient hairlines. */
+	--grad-rim:linear-gradient(140deg,oklch(0.72 0.22 320 / .70),oklch(0.68 0.19 296 / .38) 38%,oklch(0.80 0.13 240 / .30) 64%,oklch(0.88 0.11 205 / .62));
+	--grad-rim-quiet:linear-gradient(140deg,oklch(0.72 0.22 320 / .34),rgba(255,255,255,.10) 46%,oklch(0.88 0.11 205 / .32));
+
+	/* PRIMARY. Kept under the old names so every rule already written against
+	   them resolves; the values are now points on the brand run. */
+	--purple-1:oklch(0.60 0.215 302);   /* primary fills */
+	--purple-2:oklch(0.84 0.115 268);   /* links, accent ink — reads on black */
+	--purple-3:oklch(0.66 0.190 288);
+	--purple-soft:oklch(0.62 0.215 302 / .14);
+	--purple-soft-2:oklch(0.62 0.215 302 / .22);
+	--rich-purple:oklch(0.66 0.230 318);
+	--warm-purple:oklch(0.82 0.130 300);
+	--cyan-ink:var(--brand-4-hi);
 
 	/* ACCENTS */
 	--green:oklch(0.78 0.17 155);       /* the live / positive green */
@@ -194,9 +218,14 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	position:fixed; inset:-28px; z-index:-1; pointer-events:none;
 	transform:translate3d(var(--fx,0px),var(--fy,0px),0);
 	will-change:transform;
+	/* Two sources, not one: the mark's magenta end sits upper-left, its cyan end
+	   upper-right, and they cross over the middle of the fold. That crossing is
+	   the whole reason the page reads as the logo rather than as generic purple
+	   — one bloom can only ever be one hue. */
 	background:
-		radial-gradient(110% 60% at 50% -12%,oklch(0.42 0.13 285 / .30) 0%,oklch(0.30 0.10 285 / .10) 32%,transparent 60%),
-		radial-gradient(70vw 46vw at 84% 4%,oklch(0.50 0.12 300 / .12) 0%,transparent 58%),
+		radial-gradient(86% 52% at 24% -14%,oklch(0.48 0.22 320 / .26) 0%,oklch(0.34 0.15 312 / .10) 38%,transparent 66%),
+		radial-gradient(84% 50% at 78% -10%,oklch(0.56 0.14 212 / .20) 0%,oklch(0.38 0.10 226 / .08) 40%,transparent 68%),
+		radial-gradient(100% 56% at 50% -12%,oklch(0.42 0.17 292 / .26) 0%,transparent 62%),
 		var(--canvas);
 }
 /* Grain kills 8-bit banding on the dark gradient — the loudest amateur tell.
@@ -220,22 +249,41 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	font-weight:500; line-height:1.05; letter-spacing:-.05em;
 	color:var(--fg-1); text-wrap:balance;
 }
-.t-hero em,.t-hero .accent{
+/* THE ACCENT WORD.
+   One word per headline is set in the serif italic, and it is the only place
+   on the page where the mark's full hue run appears in type. Clipping the
+   gradient to the glyphs (rather than tinting them one flat purple) is what
+   ties the headline to the logo in the nav directly above it.
+
+   The fallback matters: background-clip:text has no graceful degradation — a
+   browser without it renders transparent text on a gradient box. The @supports
+   gate below means the flat --purple-2 is what ships unless clipping is real. */
+.t-hero em,.t-hero .accent,
+.t-h1 em,.t-h2 em,.t-h3 em,
+.page-hero__h em,.feature__copy h2 em,.gc__h em{
 	font-family:var(--font-serif);
 	font-style:italic; font-weight:500;
 	color:var(--purple-2);
 	letter-spacing:-.01em;
 	padding-right:.04em;
 }
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+	.t-hero em,.t-hero .accent,
+	.t-h1 em,.t-h2 em,.t-h3 em,
+	.page-hero__h em,.feature__copy h2 em,.gc__h em{
+		background:linear-gradient(102deg,oklch(0.74 0.21 322) 0%,oklch(0.72 0.18 296) 36%,oklch(0.78 0.14 258) 64%,oklch(0.88 0.115 205) 100%);
+		-webkit-background-clip:text;background-clip:text;
+		-webkit-text-fill-color:transparent;color:transparent;
+		/* An italic serif clipped to a gradient loses its edge against black.
+		   A hair of the mark's own glow behind the glyphs puts it back. */
+		filter:drop-shadow(0 0 18px oklch(0.66 0.20 300 / .28));
+	}
+}
 .t-h1{
 	font-family:var(--font-display);
 	font-size:clamp(2rem,1.3rem + 2.6vw,2.9rem);
 	font-weight:500; line-height:1.12; letter-spacing:-.03em;
 	color:var(--fg-1); text-wrap:balance;
-}
-.t-h1 em,.t-h2 em{
-	font-family:var(--font-serif);font-style:italic;font-weight:500;
-	color:var(--purple-2);letter-spacing:-.01em;
 }
 .t-h2{
 	font-family:var(--font-display);
@@ -301,23 +349,65 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .stack__item .cap{margin-top:var(--s-5)}
 
 /* --------------------------------------------------------------------------
-   6. MATERIAL: THE LIGHT CARD
-   Aave has no glass. A card is a white face, one warm hairline, and a soft
-   two-part shadow. .glass keeps its name so markup and JS resolve; here it is
-   simply the light card, and the refraction layer is retired.
+   6. MATERIAL: GLASS
+   A real pane, not a painted one. Four things have to be true at once or it
+   reads as a grey box with a blur filter on it:
+
+     1. it refracts   — backdrop-filter blurs AND saturates what is behind it,
+                        so the field's magenta and cyan bleed through tinted,
+                        which is what actually sells the material;
+     2. it has an edge — the rim is a gradient hairline, painted into the
+                         border box, so the lit corner is the mark's magenta
+                         and the far corner its cyan. A flat white hairline is
+                         the tell that a card was never really glass;
+     3. it has a face  — one top-down white wash, ~6% to 1.5%, which is the
+                         sheet's own thickness catching the light source;
+     4. it casts       — a tight contact shadow plus one long soft one.
+
+   .glass is the material. .panel (7) is the component that wears it.
    -------------------------------------------------------------------------- */
 .glass{
 	position:relative;
-	background:var(--surface-1);
-	border:1px solid var(--line-1);
+	border:1px solid transparent;
 	border-radius:var(--r-panel);
+	background:
+		linear-gradient(168deg,rgba(255,255,255,.065),rgba(255,255,255,.015) 52%,rgba(255,255,255,.03)) padding-box,
+		var(--grad-rim-quiet) border-box;
+	-webkit-backdrop-filter:blur(26px) saturate(1.7);
+	backdrop-filter:blur(26px) saturate(1.7);
 	box-shadow:
-		inset 0 1px 0 var(--rim-hi),
-		0 1px 2px rgba(0,0,0,.4),
-		0 30px 60px -30px rgba(0,0,0,.7);
+		inset 0 1px 0 rgba(255,255,255,.16),
+		inset 0 -1px 0 rgba(255,255,255,.04),
+		0 1px 2px rgba(0,0,0,.5),
+		0 30px 60px -30px rgba(0,0,0,.8);
 	isolation:isolate;
 }
-.glass__refract{display:none}
+
+/* The refraction layer. A single slow specular band, angled to the page's one
+   light source, that only exists on panels asking for it via data-refract. It
+   is a highlight travelling across a sheet, so it moves once and stops — it is
+   not a looping shimmer, which is the loudest AI tell on any glass card. */
+.glass__refract{
+	display:block;position:absolute;inset:0;z-index:0;pointer-events:none;
+	border-radius:inherit;overflow:hidden;
+}
+.glass__refract::before{
+	content:"";position:absolute;inset:-40% -60%;
+	background:linear-gradient(104deg,transparent 34%,rgba(255,255,255,.10) 46%,rgba(255,255,255,.16) 50%,rgba(255,255,255,.10) 54%,transparent 66%);
+	transform:translateX(-42%);
+	opacity:0;
+}
+/* app.js stamps .is-in on anything carrying data-panel, not only on .panel, so
+   the trigger is keyed to that attribute — a .glass card with data-refract on
+   it (the group-chat rules) sweeps too. */
+.js [data-panel].is-in .glass__refract::before{
+	animation:refract 1500ms cubic-bezier(.22,.61,.36,1) 260ms both;
+}
+@keyframes refract{
+	from{transform:translateX(-42%);opacity:0}
+	22%{opacity:1}
+	to{transform:translateX(42%);opacity:0}
+}
 
 /* --------------------------------------------------------------------------
    7. PANEL
@@ -325,22 +415,40 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .panel{
 	position:relative;
 	border-radius:var(--r-panel);
-	border:1px solid var(--line-1);
-	/* solid glass look (no backdrop-filter — that caused sibling repaint flicker) */
+	border:1px solid transparent;
+	/* The glass face, over a barely-there tinted body so type stays legible no
+	   matter what the field happens to be doing behind this particular card. */
 	background:
-		linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015)),
-		linear-gradient(180deg,oklch(0.205 0.02 285),oklch(0.165 0.016 285));
+		linear-gradient(168deg,rgba(255,255,255,.075),rgba(255,255,255,.02) 54%,rgba(255,255,255,.035)) padding-box,
+		linear-gradient(180deg,oklch(0.22 0.035 300 / .62),oklch(0.17 0.028 288 / .74)) padding-box,
+		var(--grad-rim-quiet) border-box;
+	-webkit-backdrop-filter:blur(26px) saturate(1.7);
+	backdrop-filter:blur(26px) saturate(1.7);
 	box-shadow:
-		inset 0 1px 0 rgba(255,255,255,.12),
-		0 1px 2px rgba(0,0,0,.4),
-		0 40px 70px -40px rgba(0,0,0,.72);
+		inset 0 1px 0 rgba(255,255,255,.16),
+		inset 0 -1px 0 rgba(255,255,255,.04),
+		0 1px 2px rgba(0,0,0,.5),
+		0 40px 70px -40px rgba(0,0,0,.8);
 	padding:0;
 	overflow:hidden;
-	transition:border-color 400ms var(--ease-hover);
+	transition:box-shadow 400ms var(--ease-hover),transform 400ms var(--ease-expo);
 }
-.panel.glass{background:
-		linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015)),
-		linear-gradient(180deg,oklch(0.205 0.02 285),oklch(0.165 0.016 285))}
+.panel.glass{
+	background:
+		linear-gradient(168deg,rgba(255,255,255,.075),rgba(255,255,255,.02) 54%,rgba(255,255,255,.035)) padding-box,
+		linear-gradient(180deg,oklch(0.22 0.035 300 / .62),oklch(0.17 0.028 288 / .74)) padding-box,
+		var(--grad-rim-quiet) border-box;
+}
+/* The lit corner. Each panel already knows where the page's light is (app.js
+   writes --lit-angle per card), so the brand bloom is placed by that vector
+   instead of being pinned to a corner and repeating down the row. */
+.panel::before{
+	content:"";position:absolute;inset:-1px;z-index:0;pointer-events:none;
+	border-radius:inherit;
+	background:radial-gradient(64% 52% at 18% 0%,oklch(0.62 0.24 320 / .16),transparent 62%),
+	           radial-gradient(58% 48% at 92% 6%,oklch(0.78 0.13 208 / .13),transparent 64%);
+	opacity:.9;
+}
 .panel__body{
 	position:relative;z-index:1;
 	border-radius:calc(var(--r-panel) - 1px);
@@ -361,15 +469,31 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	transition:opacity 700ms var(--ease-expo),transform 700ms var(--ease-expo);
 }
 .js .panel[data-panel].is-in .panel__bloom{background-position:var(--bx) var(--by);opacity:.8}
-.panel[data-panel]:hover{border-color:var(--line-2)}
+/* Hover lifts the sheet off the page: the contact shadow tightens, the long one
+   opens, and the rim picks up more of the mark. No colour change, no scale. */
+.panel[data-panel]:hover{
+	transform:translateY(-2px);
+	box-shadow:
+		inset 0 1px 0 rgba(255,255,255,.22),
+		inset 0 -1px 0 rgba(255,255,255,.05),
+		0 1px 2px rgba(0,0,0,.5),
+		0 52px 84px -44px rgba(0,0,0,.86),
+		0 0 40px -18px oklch(0.62 0.22 310 / .34);
+}
 
-/* Nested card */
+/* Nested card — a thinner pane on top of the panel's pane. Less blur, because
+   glass stacked on glass at the same strength turns to fog. */
 .card{
 	position:relative;
-	background:var(--surface-2);
-	border:1px solid var(--line-1);
+	background:
+		linear-gradient(170deg,rgba(255,255,255,.055),rgba(255,255,255,.015)) padding-box,
+		var(--grad-rim-quiet) border-box;
+	-webkit-backdrop-filter:blur(14px) saturate(1.4);
+	backdrop-filter:blur(14px) saturate(1.4);
+	border:1px solid transparent;
 	border-radius:var(--r-card);
 	padding:var(--s-4);
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.10);
 }
 .card--frag{width:100%;max-width:390px;margin-inline:auto}
 
@@ -454,30 +578,65 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	font-family:var(--font-display);
 	font-size:1rem;font-weight:500;letter-spacing:-.01em;line-height:1;
 	color:#fff;
-	background:oklch(0.70 0.155 285 / .30);
-	-webkit-backdrop-filter:blur(16px) saturate(1.4);
-	backdrop-filter:blur(16px) saturate(1.4);
-	border:1px solid oklch(0.80 0.13 285 / .45);border-radius:var(--r-pill);
+	position:relative;isolation:isolate;
+	/* The mark, at button scale. The gradient is the fill, a white wash sits on
+	   top of it for the glass thickness, and the whole thing is over-sized on
+	   the X axis so hover can slide the hue run without a repaint. */
+	background:var(--grad-brand);
+	background-size:180% 100%;
+	background-position:14% 50%;
+	border:1px solid transparent;border-radius:var(--r-pill);
 	padding:.9em 1.5em;white-space:nowrap;
-	box-shadow:inset 0 1px 0 rgba(255,255,255,.30),0 10px 26px -14px oklch(0.70 0.155 285 / .6);
-	transition:transform 150ms var(--ease-hover),background-color 150ms var(--ease-hover),box-shadow 150ms var(--ease-hover),border-color 150ms var(--ease-hover);
+	box-shadow:
+		inset 0 1px 0 rgba(255,255,255,.34),
+		inset 0 -1px 0 rgba(0,0,0,.18),
+		0 1px 2px rgba(0,0,0,.35),
+		0 14px 30px -14px oklch(0.60 0.22 306 / .70),
+		0 4px 14px -8px oklch(0.80 0.13 208 / .45);
+	transition:transform 150ms var(--ease-hover),background-position 550ms var(--ease-expo),box-shadow 220ms var(--ease-hover),filter 150ms var(--ease-hover);
 }
-.btn:hover{background:oklch(0.70 0.155 285 / .42);border-color:oklch(0.82 0.13 285 / .6)}
+/* The sheet over the fill. Without this the button is a flat gradient chip. */
+.btn::before{
+	content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+	background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 46%,rgba(0,0,0,.10));
+	pointer-events:none;
+}
+.btn:hover{
+	background-position:86% 50%;
+	filter:saturate(1.08);
+	box-shadow:
+		inset 0 1px 0 rgba(255,255,255,.40),
+		inset 0 -1px 0 rgba(0,0,0,.18),
+		0 1px 2px rgba(0,0,0,.35),
+		0 18px 38px -14px oklch(0.60 0.22 306 / .82),
+		0 6px 20px -8px oklch(0.80 0.13 208 / .58);
+}
 .btn:active{transform:scale(.99)}
 .btn--lg{font-size:1.0625rem;padding:1.02em 1.7em}
 .btn--ghost{
-	color:var(--fg-1);background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);
-	-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
-	box-shadow:inset 0 1px 0 var(--rim-hi);
+	color:var(--fg-1);
+	background:
+		linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.045)) padding-box,
+		var(--grad-rim-quiet) border-box;
+	-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
+	box-shadow:inset 0 1px 0 var(--rim-hi),0 10px 26px -18px rgba(0,0,0,.9);
 }
-.btn--ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.26)}
+.btn--ghost::before{background:none}
+.btn--ghost:hover{
+	background:
+		linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.07)) padding-box,
+		var(--grad-rim) border-box;
+	filter:none;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 12px 30px -18px rgba(0,0,0,.9);
+}
 /* glass elements repaint their backdrop on transform — pin them to stop the
    white-highlight flicker on hover */
 .btn,.nav__join,.panel,.notif__body,.alert{transform:translateZ(0);backface-visibility:hidden}
 .btn--dark{color:var(--fg-1);background:rgba(255,255,255,.06);border-color:var(--line-2);box-shadow:none}
-.btn--dark:hover{background:rgba(255,255,255,.10)}
-.btn--purple{color:oklch(0.16 0.02 285);background:var(--purple-1)}
-.btn--purple:hover{background:oklch(0.745 0.15 285)}
+.btn--dark::before{background:none}
+.btn--dark:hover{background:rgba(255,255,255,.10);filter:none}
+.btn--purple{color:#fff;background:var(--grad-brand);background-size:180% 100%;background-position:14% 50%}
+.btn--purple:hover{background-position:86% 50%}
 .btn[disabled],.btn[aria-disabled=true]{opacity:.55;pointer-events:none}
 
 /* The nav "join" pill. A quiet glass pill on dark. */
@@ -496,7 +655,16 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	font-family:var(--font-display);font-size:.9375rem;font-weight:500;
 	color:var(--purple-2);transition:color 150ms var(--ease-hover);
 }
-.alink:hover{color:var(--rich-purple)}
+.alink:hover{color:var(--cyan-ink)}
+/* An .alink set inside a running paragraph inherits that paragraph's size and
+   weight — it is a link, not a call to action, so it must not out-shout the
+   sentence it lives in. */
+.alink--inline{
+	display:inline;font-size:inherit;font-weight:inherit;
+	box-shadow:inset 0 -1px 0 oklch(0.84 0.115 268 / .38);
+	transition:color 150ms var(--ease-hover),box-shadow 150ms var(--ease-hover);
+}
+.alink--inline:hover{box-shadow:inset 0 -1px 0 currentColor}
 .alink span{transition:transform 200ms var(--ease-hover)}
 .alink:hover span{transform:translateX(3px)}
 
@@ -566,13 +734,24 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
    — no second line. */
 .hero--center::after{
 	content:"";position:absolute;z-index:-1;pointer-events:none;
-	left:-20%;right:-20%;bottom:-3%;height:66%;
-	background:radial-gradient(54% 96% at 50% 100%,
-		oklch(0.58 0.15 288 / .52) 0%,
-		oklch(0.48 0.13 288 / .32) 24%,
-		oklch(0.38 0.10 288 / .16) 44%,
-		oklch(0.31 0.07 288 / .06) 60%,
-		transparent 74%);
+	left:-20%;right:-20%;bottom:0;height:66%;
+	/* The hero clips its own overflow, so a pool that runs past the section edge
+	   is cut into a hard horizontal seam across the page. Fading the last 14%
+	   of it means the pool has already died before the boundary reaches it. */
+	-webkit-mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.55) 82%,transparent 100%);
+	mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.55) 82%,transparent 100%);
+	/* The pool the phones stand in. It is the mark laid flat: magenta pooling
+	   under the left phone, cyan under the right, violet where they meet in the
+	   middle — so the light on the hero is the same light the logo is made of. */
+	background:
+		radial-gradient(40% 82% at 26% 100%,oklch(0.56 0.22 322 / .40) 0%,oklch(0.42 0.16 318 / .18) 40%,transparent 72%),
+		radial-gradient(40% 78% at 76% 100%,oklch(0.62 0.13 210 / .34) 0%,oklch(0.44 0.10 218 / .15) 42%,transparent 74%),
+		radial-gradient(54% 96% at 50% 100%,
+			oklch(0.56 0.19 296 / .46) 0%,
+			oklch(0.46 0.16 294 / .28) 24%,
+			oklch(0.37 0.12 292 / .14) 44%,
+			oklch(0.30 0.08 292 / .05) 60%,
+			transparent 74%);
 }
 .hero__stage{
 	position:relative;margin-top:var(--s-7);
@@ -617,7 +796,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 /* the screen emits a little light, like an OLED that's on */
 .rphone__screen::before{
 	content:"";position:absolute;inset:0;z-index:20;pointer-events:none;
-	background:radial-gradient(100% 34% at 50% -6%,oklch(0.72 0.13 285 / .22),transparent 66%);
+	background:radial-gradient(100% 34% at 50% -6%,oklch(0.74 0.16 300 / .20),transparent 66%),radial-gradient(74% 26% at 84% -4%,oklch(0.82 0.12 208 / .14),transparent 70%);
 }
 .rphone__screen .chat,.rphone__screen .b,.rphone__screen .chat__name,
 .rphone__screen .chat__sub,.rphone__screen .sb__team,.rphone__screen .sb__line{font-family:var(--font-ios)}
@@ -1411,7 +1590,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 	aspect-ratio:4/3.15;
 	border:1px solid var(--line-1);
 	background:
-		radial-gradient(90% 70% at 82% 8%,oklch(0.42 0.13 300 / .55),transparent 60%),
+		radial-gradient(90% 70% at 82% 8%,oklch(0.44 0.17 306 / .52),transparent 60%),radial-gradient(70% 60% at 12% 96%,oklch(0.50 0.12 210 / .34),transparent 62%),
 		linear-gradient(160deg,oklch(0.23 0.03 285),oklch(0.155 0.02 285));
 	box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 40px 80px -46px rgba(0,0,0,.75);
 	display:grid;place-items:center;
@@ -1531,7 +1710,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .followrow + .followrow{border-top:1px solid var(--line-1)}
 .followrow__team{display:flex;align-items:center;gap:12px}
 .followrow__team img{width:34px;height:34px;object-fit:contain;border-radius:9px;background:#fff;padding:3px;flex:none}
-.pill-on{font-family:var(--font-display);font-size:.8125rem;font-weight:600;color:var(--purple-2);background:var(--purple-soft);border:1px solid oklch(0.7 0.155 285 / .32);border-radius:99px;padding:5px 15px;flex:none}
+.pill-on{font-family:var(--font-display);font-size:.8125rem;font-weight:600;color:var(--purple-2);background:var(--purple-soft);border:1px solid oklch(0.66 0.19 300 / .34);border-radius:99px;padding:5px 15px;flex:none}
 
 /* multi-sport scores card (coverage) */
 .multiscore{width:min(92%,420px);display:flex;flex-direction:column}
@@ -1582,6 +1761,347 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .feature__art.is-in .integ__logo:nth-child(4){animation-delay:.24s,.88s}
 @keyframes logo-pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .no-motion .feature__art .integ__logo{opacity:1;animation:none}
+
+/* ==========================================================================
+   22. THE GROUP CHAT
+   A 1:1 thread and a group thread are not the same component with a longer
+   header. Three things change, and all three are the reason this section
+   exists at all:
+
+     - a message has an author, so every incoming bubble carries a face and a
+       name, and the bubbles stop being a two-colour conversation;
+     - the agent is one participant among six, so PLAYMAKR cannot be styled as
+       "the other side" — it is an incoming bubble like everyone else, marked
+       only by the mark itself and a gradient rim;
+     - people react rather than reply, so tapbacks are part of the material.
+
+   The platform panes underneath are deliberately NOT in PLAYMAKR's palette.
+   The claim is that it lives inside apps you already have, and a WhatsApp
+   thread rendered in brand purple would quietly contradict that. Each one is
+   in its host's real colours, with the agent as the only foreign object.
+   ========================================================================== */
+
+/* ---- section shell ---- */
+.gc{position:relative}
+.gc .sec__head{max-width:62ch}
+/* Same foundation bug the hero patches: a bottom-anchored, clipped flex column
+   shrinks its items instead of pushing them off the top, which collapses any
+   bubble whose min-content height is zero (the score card). */
+.gc [data-thread] > *{flex:none}
+
+.gc__lead{
+	display:grid;
+	grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+	align-items:center;
+	gap:clamp(var(--s-6),4vw,var(--s-9));
+	margin-top:var(--s-8);
+}
+.gc__stage{position:relative;display:flex;justify-content:center;min-width:0}
+/* The pool this phone stands in — the hero's, at section scale. */
+.gc__glow{
+	position:absolute;z-index:0;pointer-events:none;
+	/* inset rather than bled past the stage: at phone widths a -14% bleed puts
+	   the glow past the viewport, and only the body's overflow-x:clip is then
+	   standing between the page and a horizontal scrollbar. */
+	left:-14%;right:-14%;top:6%;bottom:-6%;
+	background:
+		radial-gradient(42% 54% at 24% 46%,oklch(0.56 0.22 322 / .30) 0%,transparent 68%),
+		radial-gradient(44% 56% at 78% 60%,oklch(0.62 0.13 208 / .26) 0%,transparent 70%),
+		radial-gradient(56% 64% at 50% 52%,oklch(0.50 0.18 296 / .22) 0%,transparent 72%);
+	filter:blur(6px);
+}
+.gc__stage .rphone{z-index:1;width:clamp(272px,27vw,360px)}
+.gc__more{margin-top:var(--s-6)}
+
+/* ---- the rules column ---- */
+.gc__rules{display:grid;gap:var(--s-3)}
+.gc__rule{
+	display:flex;align-items:flex-start;gap:var(--s-4);
+	border-radius:var(--r-card);
+	padding:var(--s-5);
+	/* These sit directly over .gc__glow, and glass alone lets that pool through
+	   at full strength — the body copy ends up floating on a purple wash. One
+	   dark tinted layer under the face pins the contrast without killing the
+	   refraction. */
+	background:
+		linear-gradient(168deg,rgba(255,255,255,.07),rgba(255,255,255,.02) 54%,rgba(255,255,255,.035)) padding-box,
+		linear-gradient(180deg,oklch(0.21 0.03 300 / .72),oklch(0.16 0.024 288 / .82)) padding-box,
+		var(--grad-rim-quiet) border-box;
+	transition:transform 400ms var(--ease-expo),box-shadow 400ms var(--ease-hover);
+}
+.gc__rule .cap{color:var(--fg-3)}
+.gc__rule:hover{transform:translateY(-2px)}
+.gc__rule-txt{display:grid;gap:6px;min-width:0}
+.gc__rule-ic{
+	flex:none;width:46px;height:46px;border-radius:14px;
+	display:flex;align-items:center;justify-content:center;
+	background:linear-gradient(168deg,rgba(255,255,255,.10),rgba(255,255,255,.03)) padding-box,
+	           var(--grad-rim) border-box;
+	border:1px solid transparent;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+}
+.gc__rule-ic--at{
+	font-family:var(--font-display);font-size:1.35rem;font-weight:600;line-height:1;
+	background:var(--grad-brand);
+	-webkit-background-clip:text;background-clip:text;
+	-webkit-text-fill-color:transparent;color:transparent;
+	/* the clip has to win over the pane fill above, so this variant is a plain
+	   tinted well rather than a bordered one */
+	border:1px solid var(--line-2);
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.14);
+}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+	.gc__rule-ic--at{color:var(--purple-2)}
+}
+/* The three faces, stacked the way a group chat stacks them. */
+.gc__rule-ic--who{gap:0}
+.gc__rule-ic--who i{
+	width:21px;height:21px;border-radius:50%;
+	display:flex;align-items:center;justify-content:center;
+	font-family:var(--font-display);font-style:normal;font-size:.58rem;font-weight:600;
+	line-height:1;color:rgba(255,255,255,.92);
+	background:linear-gradient(180deg,#4a4a55,#2e2e37);
+	box-shadow:0 0 0 2px oklch(0.19 0.025 292);
+}
+.gc__rule-ic--who i:nth-child(2){background:linear-gradient(180deg,#41505c,#28323b)}
+.gc__rule-ic--who i:nth-child(3){background:linear-gradient(180deg,#54465c,#332a39)}
+.gc__rule-ic--who i + i{margin-left:-6px}
+.gc__rule-ic--apps{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;padding:6px}
+.gc__rule-ic--apps img{width:100%;height:auto;border-radius:5px}
+
+/* ---- the group header inside the phone ---- */
+.chat__nav--group{gap:1.4cqw}
+.gc__stack{display:flex;align-items:center}
+.gc__face{
+	flex:none;
+	width:28px;height:28px;border-radius:50%;overflow:hidden;
+	display:flex;align-items:center;justify-content:center;
+	font-family:var(--font-ios);font-style:normal;font-weight:600;
+	font-size:.68rem;letter-spacing:-.01em;
+	color:rgba(255,255,255,.80);
+	background:linear-gradient(180deg,#3a3a42,#26262d);
+	box-shadow:inset 0 0 0 1px rgba(255,255,255,.10);
+}
+.gc__face--pm{
+	background:var(--grad-brand);
+	box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),0 0 14px -4px oklch(0.62 0.22 306 / .7);
+}
+.gc__face--pm img{width:100%;height:100%;object-fit:cover}
+/* The stack's overlap and its knock-out ring are px by default, because cqw
+   outside a query container silently falls back to 1% of the VIEWPORT — a
+   -2.4cqw overlap becomes -38px on a desktop and the four faces collapse into
+   one. Only the in-phone copy, which does have a container, uses cqw. */
+.gc__stack .gc__face + .gc__face{margin-left:-9px}
+.gc__stack .gc__face{box-shadow:0 0 0 2px oklch(0.16 0.02 292),inset 0 0 0 1px rgba(255,255,255,.10)}
+.gc__stack .gc__face--pm{box-shadow:0 0 0 2px oklch(0.16 0.02 292),inset 0 0 0 1px rgba(255,255,255,.22)}
+.rphone__screen .gc__face{width:8.4cqw;height:8.4cqw;font-size:3.1cqw}
+.rphone__screen .gc__stack .gc__face + .gc__face{margin-left:-2.4cqw}
+.rphone__screen .gc__stack .gc__face{box-shadow:0 0 0 .7cqw #14141b,inset 0 0 0 1px rgba(255,255,255,.10)}
+.rphone__screen .gc__stack .gc__face--pm{box-shadow:0 0 0 .7cqw #14141b,inset 0 0 0 1px rgba(255,255,255,.22)}
+
+/* ---- an authored message ---- */
+/* .gmsg carries .b so the thread engine reveals the whole row (face, name and
+   bubble) as one arrival. The bubble itself moves down onto .gmsg__bub, and
+   the .b face is stripped off the row here. */
+.rphone__screen .gmsg{
+	/* flex-direction is restated because .b--card (which the score-card message
+	   also carries, to buy the agent its longer typing beat) stacks its own
+	   children in a column. Without this the face lands above the bubble and
+	   flex-end pushes the whole row to the right, i.e. it reads as an outgoing
+	   message from the user. */
+	display:flex;flex-direction:row;align-items:flex-end;gap:1.8cqw;
+	max-width:94%;padding:0;background:none;border-radius:0;
+	align-self:flex-start;
+}
+.rphone__screen .gmsg .gc__face{width:6.6cqw;height:6.6cqw;font-size:2.5cqw;margin-bottom:.4cqw}
+.gmsg__col{display:flex;flex-direction:column;align-items:flex-start;gap:1cqw;min-width:0}
+.gmsg__who{
+	font-family:var(--font-ios);font-size:2.5cqw;font-weight:500;
+	letter-spacing:.01em;color:rgba(255,255,255,.44);
+	padding-left:2.6cqw;line-height:1;
+}
+.gmsg__who--pm{
+	display:inline-flex;align-items:center;gap:1.4cqw;
+	color:#fff;font-weight:600;
+}
+.gmsg__who--pm em{
+	font-style:normal;font-size:2.1cqw;font-weight:600;
+	letter-spacing:.09em;text-transform:uppercase;
+	color:#fff;
+	background:var(--grad-brand);
+	border-radius:99px;padding:.5cqw 1.4cqw;line-height:1;
+}
+.gmsg__bub{
+	display:block;position:relative;
+	font-family:var(--font-ios);
+	font-size:3.5cqw;line-height:1.35;letter-spacing:-.008em;color:#fff;
+	background:#1c1c1f;
+	border-radius:4.6cqw;border-bottom-left-radius:1.2cqw;
+	padding:2.3cqw 3.3cqw;
+}
+/* The agent's bubble. It is not a different side of the conversation, so it
+   keeps the incoming shape and the incoming alignment — the mark's rim is the
+   only thing separating it from Marcus. */
+.gmsg__bub--pm{
+	border:1px solid transparent;
+	background:
+		linear-gradient(168deg,oklch(0.30 0.085 306 / .92),oklch(0.22 0.055 290 / .94)) padding-box,
+		var(--grad-rim) border-box;
+	box-shadow:
+		inset 0 1px 0 rgba(255,255,255,.14),
+		0 8px 22px -12px oklch(0.55 0.20 306 / .55);
+}
+.gmsg__txt{display:block;margin-top:2.2cqw}
+.gmsg--pm .gmsg__bub--pm .sb{display:block;background:oklch(0.16 0.03 290 / .86);border-color:rgba(255,255,255,.14)}
+.gmsg--pm .sb__row{display:flex}
+.gmsg--pm .sb__state{display:inline-flex}
+
+/* Tapbacks. A group reacts more than it replies, so these are load bearing. */
+.tapback{
+	position:absolute;top:-3.2cqw;right:-2.2cqw;
+	display:inline-flex;align-items:center;
+	font-size:2.9cqw;line-height:1;
+	background:#2a2a30;border-radius:99px;
+	padding:1.1cqw 1.6cqw;
+	box-shadow:0 0 0 .7cqw #0e0e14,0 2px 6px rgba(0,0,0,.5);
+}
+.tapback--love{background:linear-gradient(180deg,oklch(0.34 0.10 306),oklch(0.26 0.07 300));box-shadow:0 0 0 .7cqw #0e0e14,0 0 12px -3px oklch(0.62 0.22 306 / .8)}
+
+/* ---- the three platform panes ---- */
+.gc__grid{
+	display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+	gap:var(--s-5);margin-top:clamp(var(--s-7),5vw,var(--s-9));
+}
+.gc__pane{display:flex}
+.gc__pane-body{
+	flex:1;display:flex;flex-direction:column;justify-content:space-between;
+	gap:var(--s-6);padding:var(--s-5);
+}
+.gc__pane-txt{display:grid;gap:var(--s-2)}
+.gpane{
+	border-radius:var(--r-well);overflow:hidden;
+	font-family:var(--font-ios);
+	box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 14px 30px -20px rgba(0,0,0,.9);
+}
+.gpane__nav{
+	display:flex;align-items:center;gap:9px;
+	padding:10px 12px;
+	box-shadow:inset 0 -1px 0 rgba(255,255,255,.08);
+}
+.gpane__ic{width:22px;height:22px;border-radius:7px;overflow:hidden;flex:none;display:block}
+.gpane__ic img{width:100%;height:100%;object-fit:cover}
+.gpane__name{font-size:.8125rem;font-weight:600;color:#fff;letter-spacing:-.01em;display:grid;line-height:1.25}
+.gpane__name small{font-size:.625rem;font-weight:400;color:rgba(255,255,255,.42);letter-spacing:0}
+.gpane__body{display:flex;flex-direction:column;gap:6px;padding:12px}
+.gp{
+	max-width:88%;font-size:.78rem;line-height:1.38;letter-spacing:-.005em;
+	color:#fff;border-radius:12px;padding:7px 10px;
+	align-self:flex-start;
+}
+.gp b{display:block;font-size:.66rem;font-weight:600;margin-bottom:2px;letter-spacing:.01em}
+.gp--out{align-self:flex-end}
+/* the agent, in someone else's house */
+.gp--pm b{
+	background:var(--grad-brand);
+	-webkit-background-clip:text;background-clip:text;
+	-webkit-text-fill-color:transparent;color:transparent;
+}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+	.gp--pm b{color:var(--purple-2)}
+}
+
+/* WhatsApp */
+.gpane--wa{background:#0b141a}
+.gpane--wa .gpane__nav{background:#1f2c33}
+.gpane--wa .gp--in,.gpane--wa .gp--pm{background:#1f2c33;border-bottom-left-radius:3px}
+.gpane--wa .gp--out{background:#005c4b;border-bottom-right-radius:3px}
+.gpane--wa .gp--in b{color:#53bdeb}
+.gpane--wa .gp--pm{box-shadow:inset 0 0 0 1px oklch(0.62 0.20 306 / .42)}
+
+/* Discord — no bubbles at all, which is the point: it is a different room. */
+.gpane--dc{background:#313338}
+.gpane--dc .gpane__nav{background:#2b2d31;box-shadow:inset 0 -1px 0 rgba(0,0,0,.3)}
+.gpane--dc .gp--dcrow{
+	max-width:100%;background:none;padding:3px 2px;border-radius:0;
+	color:#dbdee1;font-size:.78rem;
+}
+.gpane--dc .gp--dcrow b{display:inline;margin-right:6px;font-size:.78rem}
+.gpane--dc .gp--u1{color:#949cf7}
+.gpane--dc .gp--u2{color:#77dd77}
+.gpane--dc .gp--pmu{display:inline-flex;align-items:center;gap:5px;margin-right:6px}
+.gpane--dc .gp--pmu span{
+	font-size:.5rem;font-weight:600;letter-spacing:.06em;
+	color:#fff;background:#5865f2;border-radius:4px;padding:1px 4px;
+	-webkit-text-fill-color:#fff;
+}
+.gpane--dc .gp--pmrow{background:linear-gradient(90deg,oklch(0.62 0.20 306 / .12),transparent);box-shadow:inset 2px 0 0 oklch(0.66 0.20 306)}
+
+/* Telegram */
+.gpane--tg{background:#17212b}
+.gpane--tg .gpane__nav{background:#1f2c3a}
+.gpane--tg .gp--in{background:#182533;border-bottom-left-radius:3px}
+.gpane--tg .gp--in b{color:#63b0e6}
+.gpane--tg .gp--pm{background:#182533;border-bottom-left-radius:3px;box-shadow:inset 0 0 0 1px oklch(0.62 0.20 306 / .42)}
+.gpane--tg .gp--pmlate{margin-top:-2px}
+
+/* ---- the two floating satellites ---- */
+/* Both satellites live INSIDE .rphone, not in the stage. The phone's width is
+   a clamp, so anything positioned against the stage lands somewhere different
+   at every viewport and ends up covering the thread it is annotating. Against
+   the phone itself, "-30%" is always 30% of a phone. */
+.gc__float{
+	position:absolute;z-index:4;
+	display:flex;align-items:center;gap:11px;
+	border-radius:16px;padding:11px 13px;
+	width:max-content;max-width:224px;
+}
+.gc__float-mark{width:34px;height:34px;border-radius:11px;overflow:hidden;flex:none}
+.gc__float-mark img{width:100%;height:100%;object-fit:cover}
+.gc__float-txt{
+	display:grid;gap:2px;min-width:0;
+	font-family:var(--font-display);font-size:.8125rem;font-weight:400;
+	letter-spacing:-.01em;color:var(--fg-2);
+}
+.gc__float-txt b{font-weight:600;color:var(--fg-1)}
+.gc__float-txt small{font-size:.6875rem;color:var(--fg-4)}
+.gc__float-live{
+	display:inline-flex;align-items:center;gap:6px;flex:none;
+	font-family:var(--font-mono);font-size:.5625rem;font-weight:500;
+	letter-spacing:.12em;text-transform:uppercase;color:#fff;
+	background:var(--grad-brand);border-radius:99px;padding:5px 9px;
+}
+.gc__float-live i{width:5px;height:5px;border-radius:50%;background:#fff;animation:live-dot 1.8s ease-in-out infinite}
+/* Anchored to the phone's OWN edges, not to a percentage of them: a satellite
+   placed at "-34%" is a different number of pixels at every viewport, and the
+   moment it drifts inward it covers the thread it exists to annotate. Hanging
+   them off 100% with a fixed bite back means each one always overlaps exactly
+   the frame's bezel and never the screen. */
+.gc__float--add{top:6%;right:calc(100% - 44px)}
+.gc__float--live{bottom:9%;left:calc(100% - 44px)}
+/* A satellite has exactly one job: to sit beside the phone. Tucking it inward
+   to make it fit is the wrong trade — it lands on the thread and covers the
+   conversation the whole section exists to show. So the rule is show it clear
+   or not at all, and the band where the two-column layout has no room to spare
+   simply goes without. Below 1080 the layout stacks, the phone is centred in
+   the full wrap, and the room comes back. */
+@media(max-width:1400px) and (min-width:1081px){
+	.gc__float{display:none}
+}
+
+@media(max-width:1080px){
+	.gc__lead{grid-template-columns:1fr;gap:var(--s-8)}
+	.gc__stage{order:-1}
+	.gc__grid{grid-template-columns:1fr;gap:var(--s-4)}
+}
+@media(max-width:560px){
+	.gc__stage .rphone{width:min(78vw,300px)}
+	.gc__glow{left:0;right:0}
+	/* At this width a satellite over the phone covers the thread it is meant to
+	   be annotating, so both stand down and the mockup speaks alone. */
+	.gc__float{display:none}
+	.gc__rule{padding:var(--s-4);gap:var(--s-3)}
+	.gc__rule-ic{width:40px;height:40px;border-radius:12px}
+}
 
 /* --------------------------------------------------------------------------
    20. PROGRESSIVE ENHANCEMENT
